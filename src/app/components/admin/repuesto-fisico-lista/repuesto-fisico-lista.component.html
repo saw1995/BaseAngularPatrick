@@ -1,0 +1,326 @@
+<div *ngIf="showModalRepuesto">
+    <div class="modal fade" id="modalRepuesto" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR REPUESTO FISICO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-5 col-xs-6">
+                            <div class="form-group">
+                                <strong><label>Seleccione una marca </label></strong>
+                                <select [(ngModel)]="id_marca" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione una Marca</option>
+                                    <option *ngFor = "let marca of listaMarca;" [value]="marca.id">{{marca.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-1 col-xs-6">
+                            <div class="m-t-20 text-left">
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#modalAgregarMarca" (click)="click_agregarMarca()" style="margin-right: 5px;"><i class="fa fa-plus"></i></button>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 col-xs-6">
+                            <div class="form-group">
+                                <strong><label>Seleccione una clase </label></strong>
+                                <select [(ngModel)]="id_clase" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione una clase</option>
+                                    <option *ngFor = "let clase of listaClase;" [value]="clase.id">{{clase.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-1 col-xs-6">
+                            <div class="m-t-20 text-left">
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#modalAgregarClase" (click)="click_agregarClase()" style="margin-right: 5px;"><i class="fa fa-plus"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label><strong>Tipo </strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="tipo_vehiculo" #ctrl="ngModel" class="form-control" placeholder="Ingrese el tipo">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label><strong>Version </strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="version_vehiculo" #ctrl="ngModel" class="form-control" placeholder="Ingrese la version">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label><strong>Año </strong><span class="text-danger">*</span></label>
+                                <input type="number" [(ngModel)]="anho_vehiculo" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Año">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Nombre del Repuesto </strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="nombre_repuesto" #ctrl="ngModel" class="form-control" placeholder="Ingrese el detalle">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong>Costo $us. </strong><span class="text-danger">*</span></label>
+                                <input type="number" [(ngModel)]="costo_repuesto" #ctrl="ngModel" class="form-control" placeholder="Ingrese el costo">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong>Taller de Almacenamiento </strong><span class="text-danger">*</span></label>
+                                <select [(ngModel)]="id_taller" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione un Taller</option>
+                                    <option *ngFor = "let taller of listaTaller;" [value]="taller.id">{{taller.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarRepuestoFisico()">AGREGAR INVENTARIO</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalRepuesto>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalRepuestoSalida">
+    <div class="modal fade" id="modalRepuestoSalida" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">SALIDA DE REPUESTO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong>Tipo de Salida </strong><span class="text-danger">*</span></label>
+                                <select [(ngModel)]="tipo_salida" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione una Salida</option>
+                                    <option value="0"> Vehiculo en Importación</option>
+                                    <option value="1"> Venta del Repuesto</option>
+                                    <option value="2"> Otros Vehiculos</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong>Detalle de Salida</strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="detalle_salida" #ctrl="ngModel" class="form-control" placeholder="Ingrese el detalle">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="actualizarSalidaRepuestoFisicoById()">AGREGAR SALIDA</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalRepuestoSalida>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalRepuestoDetalle">
+    <div class="modal fade" id="modalRepuestoDetalle" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">DETALLE DE REPUESTO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Vehiculo: </strong> {{ repuesto.marca }} {{ repuesto.clase_vehiculo }} {{ repuesto.tipo }} {{ repuesto.version }} {{ repuesto.anho }}</label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Repuesto: </strong> {{ repuesto.nombre }} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Costo de Adquisicion: </strong> $us. {{ repuesto.costo | number:'1.2-2' }} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Taller: </strong> {{ repuesto.nombre_taller }} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Registro: </strong> {{ repuesto.usuario }}</label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Fecha y Hora: </strong> {{ repuesto.fecha }} - {{ repuesto.hora }}</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Tipo de Salida: </strong> {{ repuesto.salida_literal }}</label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Detalle de Salida: </strong> {{ repuesto.detalle }}</label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Registro de Salida: </strong> {{ repuesto.usuario_salida }}</label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Fecha y Hora Salida: </strong> {{ repuesto.fecha_salida }} - {{ repuesto.hora_salida }}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+					<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalRepuestoDetalle>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalAgregarMarca">
+    <div class="modal fade" id="modalAgregarMarca" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR NUEVA MARCA</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <strong>Nota: </strong> Tome en cuenta que <a class="alert-link">todos los campos con <span class="text-danger">*</span></a> son obligatorios.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Nombre de la Marca </strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="nombre_marca" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Nombre de la marca">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Descripción de la Marca</strong> <span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="descripcion_marca" #ctrl="ngModel" class="form-control" placeholder="Ingrese la descripcion de la marca">
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarMarca()">REGISTRAR MARCA</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModal>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalAgregarClase">
+    <div class="modal fade" id="modalAgregarClase" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR NUEVA CLASE</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <strong>Nota: </strong> Tome en cuenta que <a class="alert-link">todos los campos con <span class="text-danger">*</span></a> son obligatorios.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Nombre de la Clase </strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="nombre_clase" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Nombre de la clase">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Descripción de la Clase</strong> <span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="descripcion_clase" #ctrl="ngModel" class="form-control" placeholder="Ingrese la descripcion de la clase">
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarClaseVehiculo()">REGISTRAR CLASE</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModal>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-8">
+        <h4 class="page-title">Inventario Fisico</h4>
+    </div>
+    <div class="col-sm-4 text-right m-b-20">
+        <a href="" data-toggle="modal" data-target="#modalRepuesto" (click)="click_agregarRepuesto()"  class="btn btn btn-danger float-right"><i class="fa fa-plus"></i> Agregar Repuesto Fisico </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped custom-table">
+                <thead>
+                    <tr>
+                        <th>Nro.</th>
+                        <th>Vehiculo</th>
+                        <th>Estado</th>
+                        <th>Repuesto</th>
+                        <th>Costo Adquisicion</th>
+                        <th>Taller</th>
+                        <th>Registro</th>
+                        <th>Fecha</th>
+                        <th class="text-right">Opc.</th>
+                    </tr> 
+                </thead>
+                <tbody>
+                    <tr *ngFor="let repuesto of listaRepuesto; let i = index;">
+                        <td class="text-center">{{i+1}}</td>
+                        <td class="text-center">
+                            <h2><a><span style="color: rgb(81, 84, 87)">{{ repuesto.clase_vehiculo }} {{ repuesto.marca }}</span> {{ repuesto.tipo }} {{ repuesto.version }} {{ repuesto.anho }}</a></h2>
+                        </td>
+                        <td class="text-center">
+                            <span class="custom-badge " [ngClass]="[repuesto.cantidad=='0' ? 'status-red': '', repuesto.cantidad=='1' ? 'status-green': '']">{{ repuesto.cantidad_literal }}</span>
+                        </td>
+                        <td class="text-center">{{ repuesto.nombre }}</td>
+                        <td class="text-center">
+                            <h2><a><span style="color: rgb(81, 84, 87)">$us.</span> {{ repuesto.costo | number:'1.2-2' }}</a></h2>
+                        </td>
+                        <td class="text-center">{{ repuesto.nombre_taller }}</td>
+                        <td class="text-center">
+                            <h2 style="color: rgb(101, 103, 106); font-size: 80%;"><a>{{ repuesto.usuario | uppercase }}</a></h2>
+                        </td>
+                        <td class="text-center">
+                            <h2><a>{{ repuesto.fecha }}<span style="color: rgb(81, 84, 87)">Hora: {{ repuesto.hora }}</span></a></h2>
+                        </td>
+                        <td class="text-right">
+                            <div class="dropdown dropdown-action">
+                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a href="javascript:void(0)" [ngClass]="[repuesto.cantidad=='0' ? 'ocultar': '']" class="dropdown-item" data-toggle="modal" data-target="#modalRepuestoSalida" (click)="click_agregarSalida(repuesto.id_repuesto_fisico, repuesto.nombre)" ><i class="fa fa-pencil m-r-5"></i> Realizar Salida</a>
+                                    <a href="javascript:void(0)" [ngClass]="[repuesto.cantidad=='1' ? 'ocultar': '']" data-toggle="modal" data-target="#modalRepuestoDetalle" (click)="click_detalleRepuesto(repuesto.id_repuesto_fisico)"class="dropdown-item" ><i class="fa fa-trash m-r-5"></i> Ver Detalles</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

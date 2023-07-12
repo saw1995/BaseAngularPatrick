@@ -1,0 +1,59 @@
+<div *ngIf="showModalAgregarCompra">
+    <div class="modal fade" id="modalAgregarCompra" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: rgb(50, 141, 194);">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR NUEVA COMPRA</h4>
+                </div>
+                <div class="card-box">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Concepto de Compra</label></strong>
+                                <input type="text" [(ngModel)]="concepto" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Concepto">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer" style="background-color: rgb(50, 141, 194);">
+                    <button type="button" class="btn btn-success" (click)="agregarCompra()">AGREGAR COMPRA</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal" #cerrarModal>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="page-title">Parqueo Menu</h4>
+    </div>
+</div>
+<div class="row">
+    <aside class="col-md-3">
+        <div class="profile-widget">
+            <div class="doctor-img">
+                <a class="avatar" href="javascript:void(0);"><img alt="" src="assets/plantilla/img/parqueo.jpg"></a>
+            </div>
+            <p class="doctor-name text-ellipsis" style="color:rgb(201, 24, 24);">{{nombre_sucursal}}</p>
+            <h4 class="doctor-name text-ellipsis" style="color:rgb(63, 60, 60);">{{nombre_parqueo}}</h4>
+            <p style="color:rgb(151, 142, 142);">{{descripcion_parqueo}}</p>
+        </div>
+        
+        <div class="widget category-widget">
+            <h5>Menu</h5>
+            <ul class="categories">
+                <li><a href="javascript:void(0);" (click)="click_listaPanel()"><i class="fa fa-tachometer"></i> Panel de Control</a></li>
+                <li><a href="javascript:void(0);" (click)="click_listaVehiculos()"><i class="fa fa-car"></i> Vehiculos</a></li>
+                <li><a href="javascript:void(0);" (click)="click_listaGastos()"><i class="fa fa-calculator"></i> Gastos generales</a></li>
+                <li><a href="javascript:void(0);" (click)="click_listaTraspaso('entrada')"><i class="fa fa-list"></i> Entradas vehiculo</a></li>
+                <li><a href="javascript:void(0);" (click)="click_listaTraspaso('salida')"><i class="fa fa-list"></i> Salidas Vehiculo </a></li>
+            </ul>
+        </div>
+    </aside>
+    <div class="col-md-9">
+
+        <router-outlet></router-outlet>
+        
+    </div>
+</div>

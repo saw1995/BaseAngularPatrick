@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+        <h4 class="page-title">Actualizar contenido de Blog</h4>
+    </div>
+
+    <div class="col-12 col-sm-6 col-md-6 col-lg-6 text-right">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" id="rbHabilitado" [checked]="blogHabilitado" (click)="actualizarEstadoBlogById(1)">
+            <label class="form-check-label" for="gender_male">
+                HABILITADO
+            </label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" id="rbDeshabilitado" [checked]="!blogHabilitado" (click)="actualizarEstadoBlogById(0)">
+            <label class="form-check-label" for="gender_female">
+                DESHABILITADO
+            </label>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <strong>Nota: </strong> Tome en cuenta que <a class="alert-link">todos los campos con <span class="text-danger">*</span></a> son obligatorios.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card-box">
+            <div class="row">
+
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="form-group">
+                        <strong><label>Titulo del Video: <span class="text-danger">*</span></label></strong>
+                        <input type="text" [(ngModel)]="titulo" #ctrl="ngModel" class="form-control" placeholder="Ingrese titulo del contenido">
+                    </div>
+
+                    <div class="form-group">
+                        <strong><label>Descripción del Video: <span class="text-danger">*</span></label></strong>
+                        <textarea [(ngModel)]="contenido" cols="30" rows="6" class="form-control"></textarea>
+                    </div>
+
+
+                    <div class="form-group">
+                        <strong><label>Link del Video: <span class="text-danger">*</span></label></strong>
+                        <input type="text" [(ngModel)]="link" #ctrl="ngModel" class="form-control" placeholder="Ingrese el link del video">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="m-t-20 text-center">
+    <button class="btn btn-danger" (click)="actualizarBlogById()" style="margin-right: 5px;">ACTUALIZAR BLOG</button>
+    <button class="btn btn-info" (click)="clickNavegarHaciaLista()">CANCELAR</button>
+</div>

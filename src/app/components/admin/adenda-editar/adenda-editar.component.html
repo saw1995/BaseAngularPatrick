@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-sm-12 col-12">
+        <h4 class="page-title">Editar Base de Adenda</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p><strong>-XXX-</strong>  => Nombre del Cliente</p>
+                    <p><strong>-XXC-</strong> => Cédula de Identidad del Cliente</p>
+                    <p><strong>-XXD-</strong> => Dirección del Cliente</p>
+                    <p><strong>-XXF-</strong> => Fecha del Adenda</p>
+                    <p><strong>-XXM-</strong> => Monto del Adenda</p>
+                    <p><strong>-XXL-</strong> => Monto Literal del Adenda</p>
+                </div>
+                <div class="col-sm-6">
+                    <p><strong>-XVM-</strong> => Marca del Vehiculo</p>
+                    <p><strong>-XMM-</strong> => Clase del Vehiculo</p>
+                    <p><strong>-XVT-</strong> => Tipo del Vehiculo</p>
+                    <p><strong>-XVV-</strong> => Versión del Vehiculo</p>
+                    <p><strong>-XVA-</strong> => Año del Vehiculo</p>
+                    <p><strong>-XVC-</strong> => Color del Vehiculo</p>
+                    <p><strong>-XVP-</strong> => Pais del Vehiculo</p>
+                </div>
+            </div>
+            
+            <ckeditor [(ngModel)]="ckeditorContent"></ckeditor>
+
+        </div>
+    </div>
+</div>
+
+<div class="m-t-20 text-center">
+    <button class="btn btn-success" (click)="actualizarAdendaParrafoById()" style="margin-right: 5px;">ACTUALIZAR ADENDA</button>
+    <button class="btn btn-info" (click)="reporteAdendaPrevio()" style="margin-right: 5px;">VISTA PREVIA</button>
+</div>

@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="page-title">Taller Menu</h4>
+    </div>
+</div>
+
+<div class="row">
+    <aside class="col-md-3">
+        <div class="profile-widget">
+            <div class="doctor-img">
+                <img class="avatar center_image" alt="" src="assets/plantilla/img/taller.png">
+            </div>
+            <p class="doctor-name text-ellipsis" style="color:rgb(201, 24, 24);">Taller</p>
+            <h4 class="doctor-name text-ellipsis" style="color:rgb(51, 47, 47);">{{nombre_taller}}</h4>
+            <p style="color:rgb(156, 151, 151);">{{descripcion_taller}}</p>
+        </div>
+        
+        <div class="widget category-widget">
+            <h5>Menu</h5>
+            <ul class="categories">
+                <li><a href="javascript:void(0);"><i class="fa fa-tachometer"></i> Panel de Control</a></li>
+                <li><a href="javascript:void(0);" (click)="click_navegarHaciVehiculo()"><i class="fa fa-car"></i> Vehiculos</a></li>
+                <li><a href="javascript:void(0);" (click)="click_navegarNuevaRecepcion()"><i class="fa fa-list"></i> Recepcion Vehículo</a></li>
+            </ul>
+        </div>
+
+    </aside>
+    <div class="col-md-9">
+
+        <router-outlet></router-outlet>
+        
+    </div>
+</div>

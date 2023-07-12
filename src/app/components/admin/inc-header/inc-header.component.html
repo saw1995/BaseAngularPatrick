@@ -1,0 +1,58 @@
+<div class="header">
+    <div class="header-left">
+        <a href="index-2.html" class="logo">
+            <span>{{cargo}}</span>
+        </a>
+    </div>
+    <a id="toggle_btn" ><i class="fa fa-bars"></i></a>
+    <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
+    <ul class="nav user-menu float-right">
+        <li class="nav-item dropdown d-none d-sm-block">
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-bell-o"></i> <span class="badge badge-pill bg-info float-right">{{listaNotificacion.length}}</span></a>
+            <div class="dropdown-menu notifications">
+                <div class="topnav-dropdown-header">
+                    <span>Notificaciones</span>
+                </div>
+                <div class="drop-scroll">
+                    <ul class="notification-list">
+                        <li class="notification-message" *ngFor="let notificacion of listaNotificacion">
+                            <a href="javascript:void(0);" (click)="click_notificacion(notificacion.id, notificacion.ruta, notificacion.id_uno, notificacion.id_dos, notificacion.id_tres)">
+                                <div class="media">
+                                    <span class="avatar"><img class="center_image " alt="" src="{{ url }}imagenes/usuarios/{{notificacion.foto}}"></span>
+                                    <div class="media-body">
+                                        <p class="noti-details"><span class="noti-title">{{ notificacion.usuario_emisor }}</span> Realizo: {{ notificacion.titulo }} <span class="noti-title"> {{ notificacion.mensaje }}</span></p>
+                                        <p class="noti-time"><span class="notification-time">Hace {{ notificacion.fecha_restante }}</span></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="topnav-dropdown-footer">
+                    <a href="javascript:void(0);" routerLink='/notificacion'>Ver todas las notifiaciones</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item dropdown has-arrow">
+            <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+                <span class="user-img"><img class="rounded-circle" src="{{url}}imagenes/usuarios/{{foto}}" width="60" alt="x">
+                    <span class="status online"></span></span>
+                <span>  {{usuario}}</span>
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item"><span style="font-size: 85%;">{{cargo}}</span></a>
+                <a class="dropdown-item" href="javascript:void(0);" routerLink="/usuario/perfil/{{id_usuario}}">Mi Perfil</a>
+                <a class="dropdown-item" href="javascript:void(0);" routerLink="/logout">Cerrar Sesion</a>
+            </div>
+        </li>
+    </ul>
+    <div class="dropdown mobile-user-menu float-right">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item"><span class="user-img"><img  class="rounded-circle" src="{{url}}imagenes/usuarios/{{foto}}" width="60" alt="x"></span><span style="font-size: 90%;">  {{cargo}}</span> <span style="font-size: 85%;"> - {{usuario}}</span></a>
+            <a class="dropdown-item" href="javascript:void(0);" routerLink="/usuario/perfil/{{id_usuario}}">Mi Perfil</a>
+            <a class="dropdown-item" href="javascript:void(0);" routerLink="/logout">Cerrar Sesion</a>
+            <a class="dropdown-item" href="javascript:void(0);" (click)="click_invitacion(id_usuario)">Invitación</a>
+        </div>
+    </div>
+</div>

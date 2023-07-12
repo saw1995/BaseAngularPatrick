@@ -1,0 +1,527 @@
+<div *ngIf="showModalReparacion">
+    <div class="modal fade" id="modalReparacion" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR COSTOS</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-6" id="txtPintura">
+                            <div class="form-group">
+                                <label><strong>Costo de Pintura $us. </strong><span class="text-danger">*</span></label>
+                                <input type="number" [(ngModel)]="costo_pintura" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Monto">
+                            </div>
+                        </div>
+                        <div class="col-sm-6" id="txtChaperio">
+                            <div class="form-group">
+                                <label><strong>Costo de Chaperio $us. </strong><span class="text-danger">*</span></label>
+                                <input type="number"  [(ngModel)]="costo_chaperio" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Monto">
+                            </div>
+                        </div>
+                        <div class="col-sm-6" id="txtExtra">
+                            <div class="form-group">
+                                <label><strong>Costo Extra $us. </strong><span class="text-danger">*</span></label>
+                                <input type="number"  [(ngModel)]="costo_extra" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Monto">
+                            </div>
+                        </div>
+                        <div class="col-sm-6" id="txtEntrega">
+                            <div class="form-group">
+                                <label><strong>Fecha de Entrega </strong><span class="text-danger">*</span></label>
+                                <input type="date"  [(ngModel)]="fecha_entrega" #ctrl="ngModel" class="form-control date">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="actualizarCostosTallerVehiculoById()">ACTUALIZAR COSTOS</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalReparacion>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalRepuesto">
+    <div class="modal fade" id="modalRepuesto" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR REPUESTO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Seleccione el Repuesto </strong><span class="text-danger">*</span></label>
+                                <select [(ngModel)]="id_repuesto" #ctrl="ngModel" class="form-control" (change)="change_repuesto()">
+                                    <option value="" disabled selected>Seleccione un Repuesto</option>
+                                    <option *ngFor = "let repuesto of listaRepuesto;" [value]="repuesto.id_repuesto">{{repuesto.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong>Nombre del Repuesto</strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="nombre_repuesto" #ctrl="ngModel" class="form-control" placeholder="Ingrese el monto">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong>Costo estimado</strong><span class="text-danger">*</span></label>
+                                <input type="number" [(ngModel)]="costo" #ctrl="ngModel" class="form-control" placeholder="Ingrese el monto">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Detalle extra u observacion</strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="detalle" #ctrl="ngModel" class="form-control" placeholder="Ingrese la observacion">
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="clicl_agregarRepuesto()">AGREGAR REPUESTO</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalRepuesto>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalSolicitarPago">
+    <div class="modal fade" id="modalSolicitarPago" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">SOLICITAR PAGO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Detalle de la Solicitud </strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="detalle_solicitud" #ctrl="ngModel" class="form-control" placeholder="Ingrese el detalle">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong>Total $us. </strong><span class="text-danger">*</span></label>
+                                <input type="number" [(ngModel)]="total" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Monto">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong>Total $us. </strong><span class="text-danger">*</span></label>
+                                <select [(ngModel)]="pago_tipo" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione el Pago</option>
+                                    <option value="0">Pago de Pintura</option>
+                                    <option value="1">Pago de Chaperio</option>
+                                    <option value="2">Otros pagos</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarTallerVehiculoPago()">SOLICITAR PAGO</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalSolicitarPago>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalAvance">
+    <div class="modal fade" id="modalAvance" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR AVANCE</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Detalle del Avance </strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="detalle_avance" #ctrl="ngModel" class="form-control" placeholder="Ingrese el detalle">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 text-center">
+                            <a href="" data-toggle="modal" data-target="#modalImagen" (click)="click_agregarImagen()" class="btn btn btn-primary float-center"><i class="fa fa-picture-o"></i> Agregar Nueva Imagen</a>
+                        </div>
+                        
+                        <label style="margin: 20px;"><strong>Imagen a Subir</strong></label>
+        
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-4" *ngFor="let imagen of listaPrevia;let i = index;">
+                                    <img [src]="imagen" height="150px">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarTallerVehiculoAvance()">AGREGAR AVANCE</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalAvance>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalPago">
+    <div class="modal fade" id="modalPago" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR PAGO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Detalle del Pago </strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="detalle_pago" #ctrl="ngModel" class="form-control" placeholder="Ingrese el detalle">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 text-center">
+                            <a href="" data-toggle="modal" data-target="#modalImagen" (click)="click_agregarImagen()" class="btn btn btn-primary float-center"><i class="fa fa-picture-o"></i> Agregar Nueva Imagen</a>
+                        </div>
+                        
+                        <label style="margin: 20px;"><strong>Imagen a Subir</strong></label>
+        
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-4" *ngFor="let imagen of listaPrevia;let i = index;">
+                                    <img [src]="imagen" height="150px">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="actualizarPagoSolicitud()">AGREGAR PAGO</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalPago>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalPagoDetalle">
+    <div class="modal fade" id="modalPagoDetalle" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">DETALLE DEL PAGO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Taller: </strong> {{ pago.nombre_taller }}</label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Vehiculo: </strong> {{ pago.marca }} {{ pago.clase_vehiculo }} {{ pago.tipo }} {{ pago.version }} {{ pago.anho }}</label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Usuario de Solicitud: </strong> {{ pago.usuario_solicitud }} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Monto de Solicitud: </strong> $us. {{ pago.total | number:'1.2-2' }} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Pago: </strong> {{ pago.pago_tipo_literal }} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Detalle: </strong> {{ pago.detalle_solicitud }} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Fecha y Hora de Solicitud: </strong> {{ pago.fecha_solicitud }} - {{ pago.hora_solicitud }}</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Registro de Verificacion: </strong> {{ pago.usuario }}</label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Fecha y Hora Verificacion: </strong> {{ pago.fecha }} - {{ pago.hora }}</label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Detalle de Verificacion: </strong> {{ pago.detalle }}</label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Fotografia: </strong></label>
+                                <img class="myimg" src="{{url}}imagenes/pagos/{{pago.foto}}" alt="First slide">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+					<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalRepuestoDetalle>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalImagen">
+    <div class="modal fade" id="modalImagen" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: rgb(50, 141, 194);">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR IMAGEN</h4>
+                </div>
+                <div class="card-box" style="background-color: rgb(226, 226, 226);">
+                    <div class="row">
+                        <div class="col-sm-12 text-center" style="margin-bottom: 20px;">
+                            <input type="file" (change)="fileChangeEvent($event)" />
+                        </div>
+                        
+                        <div class="col-sm-6">
+                            <div class="card-box">
+                                <h5 class="text-center">Imagen</h5>
+                                <image-cropper 
+                                [imageChangedEvent]="imageChangedEvent" 
+                                [maintainAspectRatio]="true" 
+                                [aspectRatio]="4 / 4"
+                                [resizeToWidth]="800" 
+                                format="jpeg" 
+                                (imageCropped)="imageCropped($event)" 
+                                (imageLoaded)="imageLoaded()"
+                                (cropperReady)="cropperReady()" 
+                                (loadImageFailed)="loadImageFailed()"></image-cropper>
+                            </div>
+                            
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card-box">
+                                <h5 class="text-center">Vista Previa</h5>
+                                <img [src]="croppedImage" width="250px"/>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" (click)="click_cortarImagen()">CORTAR IMAGEN</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" #cerrarModalImagen>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h5 class="page-title" STYLE="COLOR: RGB(211, 50, 50);">DETALLE DE LA REPARACIÓN</h5>
+                </div>
+                <div class="col-sm-4 text-right m-b-20">
+                    <a href="" data-toggle="modal" data-target="#modalReparacion" (click)="click_agregarCostos()"  class="btn btn btn-danger float-right"><i class="fa fa-plus"></i> Agregar Costos </a>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group" style="margin: 0; padding: 0;">
+                        <label><strong>Taller: </strong> {{ tallerVehiculo.nombre_taller }}</label>
+                    </div>
+                    <div class="form-group" style="margin: 0; padding: 0;">
+                        <label><strong>Vehiculo: </strong> {{ tallerVehiculo.marca }} {{ tallerVehiculo.clase_vehiculo }} {{ tallerVehiculo.tipo }} {{ tallerVehiculo.version }} {{ tallerVehiculo.anho }}</label>
+                    </div>
+                    <div class="form-group" style="margin: 0; padding: 0;">
+                        <label><strong>Usuario de Registro: </strong> {{ tallerVehiculo.usuario }} </label>
+                    </div>
+                    <div class="form-group" style="margin: 0; padding: 0;">
+                        <label><strong>Fecha de Registro: </strong> {{ tallerVehiculo.fecha }} - {{ tallerVehiculo.hora }} </label>
+                    </div>
+                    
+                </div>
+                <div class="col-sm-6" id="divReparacion">
+                    <div class="form-group" style="margin: 0; padding: 0;">
+                        <label><strong>Costo de Pintura: </strong> $us. {{ tallerVehiculo.precio_pintura | number:'1.2-2' }} </label>
+                    </div>
+                    <div class="form-group" style="margin: 0; padding: 0;">
+                        <label><strong>Costo de Chaperio: </strong> $us. {{ tallerVehiculo.precio_chaperio | number:'1.2-2' }} </label>
+                    </div>
+                    <div class="form-group" style="margin: 0; padding: 0;">
+                        <label><strong>Costo Extra: </strong> $us. {{ tallerVehiculo.precio_extra | number:'1.2-2' }} </label>
+                    </div>
+                    <div class="form-group" style="margin: 0; padding: 0;">
+                        <label><strong>Fecha de Inicio: </strong> {{ tallerVehiculo.fecha_inicio }}</label>
+                    </div>
+                    <div class="form-group" style="margin: 0; padding: 0;">
+                        <label><strong>Fecha de Entrega: </strong> {{ tallerVehiculo.fecha_entrega }}</label>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h5 class="page-title">REPUESTOS SOLICITADO </h5>
+                </div>
+                <div class="col-sm-4">
+                    <a href="javascript:void(0);" (click)="click_agregarRepuesto()" data-toggle="modal" data-target="#modalRepuesto" class="btn btn btn-danger float-right"><i class="fa fa-plus"></i> Agregar Repuesto</a> 
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped custom-table">
+                    <thead>
+                        <tr>
+                            <th>Nro.</th>
+                            <th>Repuesto</th>
+                            <th>Costo</th>
+                            <th>Registro</th>
+                            <th>Fecha</th>
+                            <th class="text-right">Opc.</th>
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let repuesto of listaDetalleRepuesto; let i = index;">
+                            <td class="text-center">{{i+1}}</td>
+                            <td class="text-center">{{ repuesto.nombre_repuesto }}</td>
+                            <td class="text-center">$us. {{ repuesto.costo | number:'1.2-2' }}</td>
+                            <td class="text-center">
+                                <h2 style="color: rgb(101, 103, 106); font-size: 80%;"><a>{{ repuesto.usuario | uppercase }}</a></h2>
+                            </td>
+                            <td class="text-center">
+                                <h2><a>{{ repuesto.fecha }}<span style="color: rgb(81, 84, 87)">Hora: {{ repuesto.hora }}</span></a></h2>
+                            </td>
+                            <td class="text-right">
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                </div>
+                <div class="col-sm-6">
+                    <div class="m-b-20">
+                        <div class="table-responsive no-border">
+                            <table class="table mb-0" style="color: rgb(85, 85, 85);">
+                                <tbody>
+                                    <tr>
+                                        <th>Total </th>
+                                        <td class="text-right text-success">$us. {{ totalRepuesto | number:'1.2-2' }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h5 class="page-title" STYLE="COLOR: RGB(211, 50, 50);">LISTA DE PAGOS</h5>
+                </div>
+                <div class="col-sm-4 text-right m-b-20">
+                    <a href="" data-toggle="modal" data-target="#modalSolicitarPago" (click)="click_soliciarPago()"  class="btn btn btn-danger float-right"><i class="fa fa-plus"></i> Solicitar Pago </a>
+                </div>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="table table-striped custom-table">
+                    <thead>
+                        <tr>
+                            <th>Nro.</th>
+                            <th>Fecha</th>
+                            <th>Usuario</th>
+                            <th>Solicitud</th>
+                            <th>Total</th>
+                            <th>Estado</th>
+                            <th class="text-right">Opc.</th>
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let pago of listaPago; let i = index;">
+                            <td class="text-center">{{i+1}}</td>
+                            <td class="text-center">
+                                <h2><a>{{ pago.fecha_solicitud }}<span style="color: rgb(81, 84, 87)">Hora: {{ pago.hora_solicitud }}</span></a></h2>
+                            </td>
+                            <td class="text-center">
+                                <h2 style="color: rgb(101, 103, 106); font-size: 80%;"><a>{{ pago.usuario | uppercase }}</a></h2>
+                            </td>
+                            <td class="text-center">{{ pago.detalle_solicitud }}</td>
+                            <td class="text-center">
+                                <h2><a><span style="color: rgb(81, 84, 87)">de: {{ pago.pago_tipo_literal }}</span> $us. {{ pago.total }}</a></h2>
+                            </td>
+                            <td class="text-center">
+                                <span class="custom-badge " [ngClass]="[pago.verificado=='0' ? 'status-red': '', pago.verificado=='1' ? 'status-green': '']">{{ pago.verificado_literal }}</span>
+                            </td>
+                            <td class="text-right">
+                                <div class="dropdown dropdown-action">
+                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a href="javascript:void(0)" [ngClass]="[pago.verificado=='1' ? 'ocultar': '']" class="dropdown-item" data-toggle="modal" data-target="#modalPago" (click)="click_agregarPago(pago.id_taller_vehiculo_pago)" ><i class="fa fa-pencil m-r-5"></i> Realizar Pago</a>
+                                        <a href="javascript:void(0)" [ngClass]="[pago.verificado=='0' ? 'ocultar': '']" data-toggle="modal" data-target="#modalPagoDetalle" (click)="click_detallePago(pago.id_taller_vehiculo_pago)"class="dropdown-item" ><i class="fa fa-trash m-r-5"></i> Ver Detalles</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h5 class="page-title" STYLE="COLOR: RGB(211, 50, 50);">AVANCE DE REPARACIÓN</h5>
+                </div>
+                <div class="col-sm-4 text-right m-b-20">
+                    <a href="" data-toggle="modal" data-target="#modalAvance" (click)="click_agregarAvance()"  class="btn btn btn-danger float-right"><i class="fa fa-plus"></i> Agregar Avance </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6" style="padding: 10px; margin-top: 10px;" *ngFor="let avance of listaAvance; let i = index;">
+                    <div class="text-center">
+                        <img class="myimg" src="{{url}}imagenes/avances/{{avance.foto}}" alt="First slide">
+                        <h5 style="color: rgb(125, 128, 131)"><span style="color: rgb(72, 74, 75)">Detalle del Avance: </span><br>{{ avance.detalle }}</h5>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h5 style="color: rgb(125, 128, 131)"><span style="color: rgb(72, 74, 75)">Usuario: </span><br>{{ avance.usuario }}</h5>
+                            </div>
+                            <div class="col-sm-6">
+                                <h5 style="color: rgb(125, 128, 131)"><span style="color: rgb(72, 74, 75)">Fecha: </span><br>{{ avance.fecha }} - {{ avance.hora }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="page-title">Lista de Cotizaciones</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <div class="table-responsive">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped custom-table">
+                    <thead>
+                        <tr>
+                            <th>Nro Cotizacion</th>
+                            <th>Fecha</th>
+                            <th>Vehiculo</th>
+                            <th>Usuario</th>
+                            <th class="text-right">Opc.</th>
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let cotizazion of listaCotizacion">
+                            <td>{{ cotizazion.nro_cotizacion }}</td>
+                            <td class="text-center">
+                                <h2><a>{{ cotizazion.fecha }}<span style="color: rgb(81, 84, 87)">Hora: {{ cotizazion.hora }}</span></a></h2>
+                            </td>
+                            <td class="text-center">
+                                <div style="display: flex;">
+                                    <img width="50" height="50" src="{{ url }}imagenes/vehiculos/{{cotizazion.foto_uno}}" class="rounded-circle m-r-5" alt="">
+                                    <h2 style="font-size: 95%;"><a><span style="color: rgb(32, 121, 148);">{{ cotizazion.clase_vehiculo | uppercase }} {{ cotizazion.marca | uppercase }}</span>{{ cotizazion.tipo | uppercase }} {{ cotizazion.version | uppercase }} {{ cotizazion.anho }}</a></h2>
+                                </div>
+                            </td>
+                            <td class="text-center" >
+                                <div style="display: flex;">
+                                    <img width="50" height="50" src="{{ url }}imagenes/usuarios/{{cotizazion.foto_usuario}}" class="rounded-circle m-r-5" alt="">
+                                    <h2 style="font-size: 95%;"><a>{{ cotizazion.usuario | uppercase }}</a></h2>
+                                </div>
+                            </td>
+                            <td class="text-right">
+                                <div class="dropdown dropdown-action">
+                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="javascript:void(0);" (click)="click_cotizacionDetalle(cotizazion.id_cotizacion)"><i class="fa fa-eye m-r-5"></i> Ver Detalles</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

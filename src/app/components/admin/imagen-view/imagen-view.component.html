@@ -1,0 +1,8 @@
+<div *ngIf="open" class="viewer-container">
+    <div class="viewer-content">
+      <a class="close-viewer" (click)="close.emit()">
+          Cerrar Imagen
+      </a>
+      <img class="main-img" [src]="imageURL"/>
+    </div>
+</div>

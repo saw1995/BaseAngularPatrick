@@ -1,0 +1,103 @@
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-inner slimscroll">
+        <div class="form-group text-center " >
+            <img src="assets/plantilla/img/logo_nuevo_goodcars.png" class="center_image" style="padding: 10px;" alt="">
+        </div>
+        <div class="row" style="margin: 0px 5px;">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label>Sucursal</label>
+                    <select class="form-control" [(ngModel)]="id_sucursal" #ctrl="ngModel" (change)="change_sucursal()">
+                        <option value="" disabled selected>Seleccione una Sucursal</option>
+                        <option *ngFor = "let sucursal of listaSucursal;" [value]="sucursal.id">{{sucursal.nombre}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div id="sidebar-menu" class="sidebar-menu">
+            <ul>
+                <li class="menu-title">Auto Venta</li>
+                <li routerLinkActive="active" class="oculto" [ngClass]="{'acceso': clientes == 1}">
+                    <a routerLink="/cliente/autoventa/1"><i class="fa fa-user"></i> <span>Clientes</span></a>
+                </li>
+                <li routerLinkActive="active" class="oculto" [ngClass]="{'acceso': vehiculos == 1}">
+                    <a routerLink="/showroom/0"><i class="fa fa-car"></i> <span>Show Room</span></a>
+                </li>
+                <li class="menu-title">Importación</li>
+                <li routerLinkActive="active" class="oculto" [ngClass]="{'acceso': importacion == 1}">
+                    <a routerLink="/cliente/importacion/2"><i class="fa fa-user"></i> <span>Clientes</span></a>
+                </li>
+                <li routerLinkActive="active" class="oculto" [ngClass]="{'acceso': importacion == 1}">
+                    <a routerLink="/inventario"><i class="fa fa-car"></i> <span>Inventario</span></a>
+                </li>
+                <li class="oculto" [ngClass]="{'acceso': importacion == 1}">
+                    <a routerLink="/vehiculo/2"><i class="fa fa-dashboard"></i> <span>Vehiculos de Interes</span></a>
+                </li>
+                <li class="menu-title">Movimiento Economico</li>
+                <li class="oculto" [ngClass]="{'acceso': panel_control == 1}">
+                    <a routerLink="/gasto"><i class="fa fa-dashboard"></i> <span>Gastos</span></a>
+                </li>
+                <li class="menu-title">Herramientas ADM.</li>
+                <li class="oculto" [ngClass]="{'acceso': historias == 1}">
+                    <a routerLink="/historia"><i class="fa fa-dashboard"></i> <span>Historias</span></a>
+                </li>
+                <li class="oculto" [ngClass]="{'acceso': panel_control == 1}">
+                    <a routerLink="/cotizacion"><i class="fa fa-dashboard"></i> <span>Cotizaciones</span></a>
+                </li>
+                <li routerLinkActive="active" class="oculto" [ngClass]="{'acceso': talleres == 1}">
+                    <a routerLink="/repuesto-inventario"><i class="fa fa-wrench"></i> <span>Inventario Descriptivo</span></a>
+                </li>
+                <li class="oculto" [ngClass]="{'acceso': panel_control == 1}">
+                    <a routerLink="/contratogarantia/{{id_sucursal_enc}}"><i class="fa fa-dashboard"></i> <span>Contrato de Garantia</span></a>
+                </li>
+                <li class="oculto" [ngClass]="{'acceso': panel_control == 1}">
+                    <a routerLink="/recibopago/{{id_sucursal_enc}}"><i class="fa fa-dashboard"></i> <span>Recibo de Pagos</span></a>
+                </li>
+                <li class="oculto" [ngClass]="{'acceso': panel_control == 1}">
+                    <a routerLink="/devolucionpago/{{id_sucursal_enc}}"><i class="fa fa-dashboard"></i> <span>Devolución de Pagos</span></a>
+                </li>
+                <li class="menu-title">Talleres</li>
+                <li routerLinkActive="active" class="oculto" [ngClass]="{'acceso': talleres == 1}">
+                    <a routerLink="/taller"><i class="fa fa-wrench"></i> <span>Talleres</span></a>
+                </li>
+                <li routerLinkActive="active" class="oculto" [ngClass]="{'acceso': talleres == 1}">
+                    <a routerLink="/repuesto-inventario-fisico"><i class="fa fa-wrench"></i> <span>Inventario Fisico</span></a>
+                </li>
+                <li routerLinkActive="active" class="oculto" [ngClass]="{'acceso': talleres == 1}">
+                    <a routerLink="/taller-pago"><i class="fa fa-wrench"></i> <span>Pagos Solicitados</span></a>
+                </li>
+
+                <li class="menu-title">Ajustes</li>
+                <li routerLinkActive="active"  class="oculto" [ngClass]="{'acceso': usuarios == 1}">
+                    <a routerLink="/usuario"><i class="fa fa-users"></i> <span>Usuarios</span></a>
+                </li>
+                <li routerLinkActive="active" class="oculto" [ngClass]="{'acceso': sucursales == 1}">
+                    <a routerLink="/sucursal"><i class="fa fa-home"></i> <span>Sucursales</span></a>
+                </li>
+                <li routerLinkActive="active" class="oculto" [ngClass]="{'acceso': configuracion == 1}">
+                    <a routerLink="//configuracion/cargo-acceso"><i class="fa fa-rss"></i> <span>Cargos y accesos</span></a>
+                </li>
+                <li routerLinkActive="active" class="oculto" [ngClass]="{'acceso': configuracion == 1}">
+                    <a routerLink="/proceso"><i class="fa fa-rss"></i> <span>Procesos de Importación</span></a>
+                </li>
+                <li routerLinkActive="active" class="oculto" [ngClass]="{'acceso': configuracion == 1}">
+                    <a routerLink="/contrato"><i class="fa fa-rss"></i> <span>Contrato</span></a>
+                </li>
+                <li routerLinkActive="active" class="oculto" [ngClass]="{'acceso': configuracion == 1}">
+                    <a routerLink="/adenda"><i class="fa fa-rss"></i> <span>Adenda</span></a>
+                </li>
+                <!--<li routerLinkActive="active" class="oculto" [ngClass]="{'acceso': notificaciones == 1}">
+                    <a routerLink="/notificacion"><i class="fa fa-bell"></i> <span>Notificaciones</span></a>
+                </li>
+                <li routerLinkActive="active" class="oculto" [ngClass]="{'acceso': blog == 1}">
+                    <a routerLink="/blog"><i class="fa fa-rss"></i> <span>Videos Pagina Web</span></a>
+                </li>-->
+                <li class="menu-title">Otros</li>
+                <li routerLinkActive="active">
+                    <a routerLink="/acercade"><i class="fa fa-info"></i> <span>Acerca De</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

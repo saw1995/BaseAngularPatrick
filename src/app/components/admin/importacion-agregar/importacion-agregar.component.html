@@ -1,0 +1,404 @@
+<div *ngIf="showModalAgregarMarca">
+    <div class="modal fade" id="modalAgregarMarca" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR NUEVA MARCA</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <strong>Nota: </strong> Tome en cuenta que <a class="alert-link">todos los campos con <span class="text-danger">*</span></a> son obligatorios.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Nombre de la Marca </strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="nombre_marca" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Nombre de la marca">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Descripción de la Marca</strong></label>
+                                <input type="text" [(ngModel)]="descripcion_marca" #ctrl="ngModel" class="form-control" placeholder="Ingrese la descripcion de la marca">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Logo de la Marca</label></strong>
+                                <div class="custom-dropzone" ngx-dropzone [multiple]="false" [accept]="'image/*'" (change)="onSelectMarca($event)">
+                                    <ngx-dropzone-label>
+                                        <div>
+                                            <h2>AGREGAR LOGO</h2>
+                                        </div>
+                                    </ngx-dropzone-label>
+                                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of filesMarca" [file]="f" [removable]="true" (removed)="onRemoveMarca(f)">
+                                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                    </ngx-dropzone-image-preview>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarMarca()">REGISTRAR MARCA</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModal>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalAgregarClase">
+    <div class="modal fade" id="modalAgregarClase" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR NUEVA CLASE</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <strong>Nota: </strong> Tome en cuenta que <a class="alert-link">todos los campos con <span class="text-danger">*</span></a> son obligatorios.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Nombre de la Clase </strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="nombre_clase" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Nombre de la clase">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Descripción de la Clase</strong></label>
+                                <input type="text" [(ngModel)]="descripcion_clase" #ctrl="ngModel" class="form-control" placeholder="Ingrese la descripcion de la clase">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Logo de la Clase</label></strong>
+                                <div class="custom-dropzone" ngx-dropzone [multiple]="false" [accept]="'image/*'" (change)="onSelectClase($event)">
+                                    <ngx-dropzone-label>
+                                        <div>
+                                            <h2>AGREGAR LOGO</h2>
+                                        </div>
+                                    </ngx-dropzone-label>
+                                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of filesClase" [file]="f" [removable]="true" (removed)="onRemoveClase(f)">
+                                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                    </ngx-dropzone-image-preview>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarClaseVehiculo()">REGISTRAR CLASE</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModal>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalSelccionarCliente">
+    <div class="modal fade" id="ModalSelccionarCliente" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">SELECCIONAR CLIENTE</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">        
+                        <div class="col-sm-12">
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <strong>Nota: </strong> La siguiente lista de clientes son: <a class="alert-link">{{tipoLista}}</a>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>                
+
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped custom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Cliente</th>
+                                            <th>Telefono</th>
+                                            <th>Vendedor</th>
+                                            <th class="text-right">Opc.</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let cliente of listaClientes">
+                                            <td class="text-center" style="min-width: 220px;">
+                                                <div style="display: flex;">
+                                                    <img width="50" height="50" src="{{ url }}imagenes/clientes/{{cliente.foto}}" class="rounded-circle m-r-5" alt="">
+                                                    <h2 style="font-size: 95%;"><a><span style="color: rgb(32, 121, 148);" >CODIGO: {{ cliente.id }}</span>{{ cliente.nombre | uppercase }} {{ cliente.appat | uppercase }}</a></h2>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">{{ cliente.celular }}</td>
+                                            <td class="text-center" >
+                                                <div style="display: flex;">
+                                                    <img width="50" height="50" src="{{ url }}imagenes/usuarios/{{cliente.foto_usuario}}" class="rounded-circle m-r-5" alt="">
+                                                    <h2 style="font-size: 95%;"><a>{{ cliente.usuario | uppercase }}</a></h2>
+                                                </div>
+                                            </td>
+                                            <td class="text-right">
+                                                <a href="javascript:void(0);" (click)="click_seleccionarCliente(cliente.id, cliente.nombre, cliente.appat, cliente.apmat)" class="btn btn btn-success btn-rounded float-right"><i class="fa fa-check"></i> </a> 
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                     
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModal>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-sm-4 col-3">
+        <h4 class="page-title">Agregar Importación</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            
+            <div id="wizard" class="form_wizard wizard_horizontal">
+                <ul class="wizard_steps">
+                  <li>
+                    <a href="#step-1">
+                      <span class="step_no">1</span>
+                      <span class="step_descr">Marca<br /><small>del Vehiculo</small></span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#step-2">
+                      <span class="step_no">2</span>
+                      <span class="step_descr">Vehiculo<br /><small> importación</small></span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#step-3">
+                      <span class="step_no">3</span>
+                      <span class="step_descr">Importación<br/><small>datos generales</small></span>
+                    </a>
+                  </li>
+                </ul>
+
+                <div id="step-1">
+
+                    <h4 class="StepTitle">Seleccione una Marca</h4>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <strong><label>Seleccione una marca </label></strong>
+                                <select [(ngModel)]="id_marca" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione una Marca</option>
+                                    <option *ngFor = "let marca of listaMarca;" [value]="marca.id">{{marca.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="m-t-20 text-center">
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#modalAgregarMarca" (click)="click_agregarMarca()" style="margin-right: 5px;"><i class="fa fa-plus"></i> AGREGAR MARCA</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <strong><label>Seleccione una clase </label></strong>
+                                <select [(ngModel)]="id_clase" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione una clase</option>
+                                    <option *ngFor = "let clase of listaClase;" [value]="clase.id">{{clase.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="m-t-20 text-center">
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#modalAgregarClase" (click)="click_agregarClase()" style="margin-right: 5px;"><i class="fa fa-plus"></i> AGREGAR CLASE</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="step-2">
+                    <h4 class="StepTitle">Ingrese los datos del Vehiculo</h4>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <strong><label>Tipo </label></strong>
+                                <input type="text" [(ngModel)]="tipo_vehiculo" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <strong><label>Version </label></strong>
+                                <input type="text" [(ngModel)]="version_vehiculo" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <strong><label>Año </label></strong>
+                                <input type="number" [(ngModel)]="anho_vehiculo" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <strong><label>Pais </label></strong>
+                                <select [(ngModel)]="pais_vehiculo" #ctrl="ngModel" id="cbPais" class="form-control">
+                                    <option value="" disabled selected>Seleccione un Pais</option>
+                                    <option value="China">China</option>
+                                    <option value="Estados Unidos">Estados unidos</option>
+                                    <option value="Japon">Japon</option>
+                                    <option value="Mexico">Mexico</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <strong><label>Traccion </label></strong>
+                                <input type="text" [(ngModel)]="traccion_vehiculo" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <strong><label>Color </label></strong>
+                                <input type="text" [(ngModel)]="color_vehiculo" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <strong><label>Número de Lote </label></strong>
+                                <input type="text" [(ngModel)]="nro_lote" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <strong><label>Caja </label></strong>
+                                <select [(ngModel)]="caja_vehiculo" #ctrl="ngModel" id="cbCaja" class="form-control">
+                                    <option value="" disabled selected>Seleccione una opcion</option>
+                                    <option value="Manual Mecanica">Manual Mecanica</option>
+                                    <option value="Automatica">Automatica</option>
+                                    <option value="Hibrida">Hibrida</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <strong><label>Cilindrada </label></strong>
+                                <input type="number" [(ngModel)]="cilindrada_vehiculo" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <strong><label>Puertas </label></strong>
+                                <select [(ngModel)]="nro_puerta_vehiculo" #ctrl="ngModel" id="cbNroPuerta" class="form-control">
+                                    <option value="" disabled selected>Seleccione una opcion</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong><label>Kilometraje (Recorrido) </label></strong>
+                                <input type="number" [(ngModel)]="kilometraje_vehiculo" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Observacion Vehiculo</label></strong>
+                                <input type="text" [(ngModel)]="observacion_vehiculo" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Fotografias del Vehiculo</label></strong>
+                                <div class="custom-dropzone" ngx-dropzone [multiple]="true" [accept]="'image/*'" (change)="onSelectVehiculo($event)">
+                                    <ngx-dropzone-label>
+                                        <div>
+                                            <h2>AGREGAR FOTOGRAFIA</h2>
+                                        </div>
+                                    </ngx-dropzone-label>
+                                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of filesVehiculo" [file]="f" [removable]="true" (removed)="onRemoveVehiculo(f)">
+                                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                    </ngx-dropzone-image-preview>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="step-3">
+                    <h4 class="StepTitle">Datos generales</h4>
+                    <br>
+                    <div class="row">
+                        
+                        <div class="col-sm-6">
+                            <div class="m-t-20 text-center">
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#ModalSelccionarCliente" (click)="click_abrirListaCliente()" style="margin-right: 5px;"><i class="fa fa-plus"></i> SELECCIONAR CLIENTE</button>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong><label>Datos cliente</label></strong>
+                                <input type="text" [(ngModel)]="cliente_seleccion" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Observaciones de importacion</label></strong>
+                                <input type="text" [(ngModel)]="observacion_importacion" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" >
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h4 class="StepTitle">¿Esta seguro de los datos de registro?</h4>
+                    <div class="m-t-20 text-center">
+                        <button class="btn btn-danger" style="margin-right: 5px;" (click)="agregarVehiculo()"><i class="fa fa-plus"></i> REGISTRAR IMPORTACION</button>
+                    </div>
+
+                </div>
+             
+              </div>
+        </div>
+    </div>
+</div>

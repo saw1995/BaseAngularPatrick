@@ -1,0 +1,1144 @@
+<div *ngIf="showModalClientes">
+    <div class="modal fade" id="modalCliente" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">SELECCIONAR CLIENTE</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">                        
+
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped custom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha - Hora</th>
+                                            <th>Nombre(s)</th>
+                                            <th>Apellidos</th>
+                                            <th>Telefono</th>
+                                            <th>Departamento</th>
+                                            <th>Vendedor</th>
+                                            <th class="text-right">Opc.</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let cliente of listaClientes">
+                                            <td>{{ cliente.fecha }} - {{ cliente.hora }}</td>
+                                            <td>{{ cliente.nombre }}</td>
+                                            <td>{{ cliente.appat }} {{ cliente.apmat }}</td>
+                                            <td>{{ cliente.celular }}</td>
+                                            <td>{{ cliente.departamento }}</td>
+                                            <td>{{ cliente.usuario }}</td>
+                                            <td>
+                                                <button class="btn btn-primary" (click)="click_seleccionarCliente(cliente.id, cliente.nombre, cliente.appat, cliente.apmat)">Seleccionar</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                   
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModal>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalClientesInteresado">
+    <div class="modal fade" id="modalClienteInteresado" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">SELECCIONAR CLIENTE</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">                        
+
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped custom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nº</th>
+                                            <th>Nombre(s)</th>
+                                            <th>Apellidos</th>
+                                            <th>Telefono</th>
+                                            <th>Departamento</th>
+                                            <th>Vendedor</th>
+                                            <th class="text-right">Opc.</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let cliente of listaClientes;let i = index;">
+                                            <td>{{ i+1 }}</td>
+                                            <td>{{ cliente.nombre }}</td>
+                                            <td>{{ cliente.appat }} {{ cliente.apmat }}</td>
+                                            <td>{{ cliente.celular }}</td>
+                                            <td>{{ cliente.departamento }}</td>
+                                            <td>{{ cliente.usuario }}</td>
+                                            <td>
+                                                <button class="btn btn-primary" (click)="agregarClienteVehiculoInteres(cliente.id)">Seleccionar</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                   
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModal>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalGastos">
+    <div class="modal fade" id="modalGastos" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">GASTOS DEL VEHICULO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">                        
+                        <div class="table-responsive">
+                            <table class="table table-striped custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>Fecha - Hora</th>
+                                        <th>Concepto</th>
+                                        <th>Observacion</th>
+                                        <th>SubTotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let gastos of listaGastos;let i = index">
+                                        <td>{{ i + 1 }}</td>
+                                        <td>{{gastos.fecha}} - {{gastos.hora}}</td>
+                                        <td>{{gastos.concepto}}</td>
+                                        <td>{{gastos.observacion}}</td>
+                                        <td>Bs. {{gastos.subtotal}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row text-right">
+                        <div class="col-sm-12">
+                            <ul class="list-unstyled invoice-payment-details">
+                                <li>
+                                    <h4>Total:  <span> <strong> Bs. {{ totalGasto }}</strong></span></h4>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModal>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalParqueo">
+    <div class="modal fade" id="modalParqueo" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">LISTA DE MOVIMIENTOS</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">                        
+                        <div class="table-responsive">
+                            <table class="table table-striped custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Estado</th>
+                                        <th>Parqueo</th>
+                                        <th>Fecha de Ingreso</th>
+                                        <th>Personal de Ingreso</th>
+                                        <th>Obs. de Ingreso</th>
+                                        <th>Fecha de Salida</th>
+                                        <th>Personal de Salida</th>
+                                        <th>Obs. de Salida</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let movimiento of listaParqueoVehiculo">
+                                        <td><span class="custom-badge" [ngClass]="{'status-red': movimiento.entrada_salida == '0', 'status-green': movimiento.entrada_salida == '1'}" >{{movimiento.estado_movimiento}}</span></td>
+                                        <td>{{movimiento.nombre_parqueo}} (Sucursal {{movimiento.nombre_sucursal}})</td>
+                                        <td>{{movimiento.fecha_entrada}} - {{movimiento.hora_entrada}}</td>
+                                        <td>{{movimiento.usuario_entrada}}</td>
+                                        <td>{{movimiento.observacion_salida}}</td>
+                                        <td>{{movimiento.fecha_salida}} - {{movimiento.hora_salida}}</td>
+                                        <td>{{movimiento.usuario_salida}}</td>
+                                        <td>{{movimiento.observacion_salida}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModal>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="page-title">Detalle de Recepción: <strong>Nro. {{ id_recepcion }}</strong> </h4>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-lg-4 col-xs-6">
+        <div class="small-box" style="background-color: #0a7dc0;">
+            <div class="inner"><p>Total en Gastos </p><h3>Bs. {{totalGasto}}</h3></div>
+            <div class="icon"><i class="fa fa-dollar"></i></div>
+            <a href="javascript:void(0);" data-toggle="modal" data-target="#modalGastos" (click)="click_abrirGastos()" class="small-box-footer">Más Informacion <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <div class="col-lg-4 col-xs-6">
+        <div class="small-box" style="background-color: #bb1a1a;">
+          <div class="inner"><p>{{ titulo_ultimoParqueo}} </p><h3 style="font-size: 20px;">{{ ultimoParqueo}}</h3></div>
+          <div class="icon"><i class="fa fa-car"></i></div>
+          <a href="javascript:void(0);" data-toggle="modal" data-target="#modalParqueo" (click)="click_abrirParqueo()" class="small-box-footer">Más Informacion <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h5 class="page-title" style="color: RGB(211, 50, 50);">Detalles de la Recepción <span class="custom-badge" [ngClass]="{'status-red': venta == '2', 'status-green': venta == '1', 'status-orange': venta == '0'}" >{{ venta_estado }}</span> </h5>
+            
+            <div class="row">
+                <div class="col-sm-6" style="margin: 0; padding-right: 20px; border-right: 2px dashed #ccc;">
+                    <ul class="list-unstyled invoice-payment-details">
+                        <li>
+                            <h5>Usuario: <span class="text-right">{{ usuario }}</span></h5>
+                        </li>
+                        <li>Fecha - Hora: <span> {{ fecha }} - {{ hora }}</span></li>
+                        <li>Sucursal: <span>{{ sucursal }}</span></li>
+                        <li>Observacion: <span>{{ observacion_recepcion }}</span></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6" style="margin: 0; padding-left: 20px;">
+                    <ul class="list-unstyled invoice-payment-details">
+                        <li>
+                            <h5>Propietario: <span class="text-right">{{ propietario }}</span></h5>
+                        </li>
+                        <li>Cedula de Identidad: <span> {{ ci }}</span></li>
+                        <li>Direccion: <span>{{ direccion }}</span></li>
+                        <li>Telefono: <span>{{ telefono }}</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card-box">
+            <h5 class="page-title" STYLE="COLOR: RGB(211, 50, 50);">Datos del Vehiculo</h5>
+            <div class="row">
+                <div class="col-sm-12" style="margin: 0; padding: 10px;">
+                    <div id="id{{id_recepcion}}" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li *ngFor="let imagen of imagen_vehiculo; let i = index" data-target="#idid_recepcion" data-slide-to="i" [ngClass]="{'active': i == 0}"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div *ngFor="let imagen of imagen_vehiculo; let i = index"  class="carousel-item" [ngClass]="{'active': i == 0}">
+                              <div class="mycontainer" style="background-image: url('{{url}}imagenes/vehiculos/{{imagen}}');">
+                                  <div class="myblur">
+                                      <img class="myimg" src="{{url}}imagenes/vehiculos/{{imagen}}" alt="First slide">
+                                  </div>
+                              </div>	
+                            </div>
+                          </div>
+                        <a class="carousel-control-prev" href="#id{{id_recepcion}}" role="button" data-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#id{{id_recepcion}}" role="button" data-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-6" style="margin: 0; padding: 2px;">
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Vehiculo</strong></h5></li>
+                        <li><span >{{ vehiculo }}</span></li>
+                    </ul>
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Pais</strong></h5></li>
+                        <li><span >{{ pais }}</span></li>
+                    </ul>
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Traccion</strong></h5></li>
+                        <li><span >{{ traccion }}</span></li>
+                    </ul>
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Color</strong></h5></li>
+                        <li><span >{{ color }}</span></li>
+                    </ul>
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Motor</strong></h5></li>
+                        <li><span >{{ motor }}</span></li>
+                    </ul>
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Caja</strong></h5></li>
+                        <li><span >{{ caja }}</span></li>
+                    </ul>
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Cilindrada</strong></h5></li>
+                        <li><span >{{ cilindrada }}</span></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6" style="margin: 0; padding: 2px;">
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Nro. Puertas</strong></h5></li>
+                        <li><span >{{ nro_puerta }}</span></li>
+                    </ul>
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Kilometraje (Recorrido)</strong></h5></li>
+                        <li><span >{{ kilometraje }} Km.</span></li>
+                    </ul>
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Nro. de Placa</strong></h5></li>
+                        <li><span >{{ placa }}</span></li>
+                    </ul>
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Nro. Copia</strong></h5></li>
+                        <li><span >{{ nro_copia }}</span></li>
+                    </ul>
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Precio Propietario</strong></h5></li>
+                        <li><span >$us. {{ precio_propietario }}</span></li>
+                    </ul>
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Precio Venta</strong></h5></li>
+                        <li><span >$us. {{ precio_venta }}</span></li>
+                    </ul>
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Observacion</strong></h5></li>
+                        <li><span >{{ observacion_vehiculo }}</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card-box">
+            <h5 class="page-title" STYLE="COLOR: RGB(211, 50, 50);">Accesorios del Vehiculo</h5>
+            <div class="row">
+                <div class="col-sm-12" style="margin: 0; padding: 10px;">
+                    <div id="id{{id_accesorio}}" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li *ngFor="let imagen of imagen_accesorio; let i = index" data-target="#idid_accesorio" data-slide-to="i" [ngClass]="{'active': i == 0}"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                          <div *ngFor="let imagen of imagen_accesorio; let i = index"  class="carousel-item" [ngClass]="{'active': i == 0}">
+                            <div class="mycontainer" style="background-image: url('{{url}}imagenes/vehiculos_accesorios/{{imagen}}');">
+                                <div class="myblur">
+                                    <img class="myimg" src="{{url}}imagenes/vehiculos_accesorios/{{imagen}}" alt="First slide">
+                                </div>
+                            </div>	
+                          </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#id{{id_accesorio}}" role="button" data-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#id{{id_accesorio}}" role="button" data-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-6" style="margin: 0; padding: 2px;">
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Con Accesorios: </strong></h5></li>
+                    </ul>
+                    <ul class="list-unstyled" style="margin-left: 30px;">
+                        <li *ngFor="let accesorio of con_accesorios; let i = index"><i class="fa fa-check text-success" ></i> {{ accesorio }}</li>
+                    </ul>
+                    
+                </div>
+                <div class="col-sm-6" style="margin: 0; padding: 2px;">
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Sin Accesorios</strong></h5></li>
+                    </ul>
+                    <ul class="list-unstyled" style="margin-left: 30px;">
+                        <li *ngFor="let accesorio of sin_accesorios; let i = index"><i class="fa fa-close text-danger"></i> {{ accesorio }}</li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h5 class="page-title" style="color: rgb(218, 34, 34);">Menu de Opciones</h5>
+            <ul class="nav nav-tabs nav-tabs-solid nav-justified" style="background-color: rgb(189, 189, 189);">
+                <li class="nav-item"><a style="color: rgb(255, 255, 255);" class="nav-link" id="tab_documentos" href="#solid-justified-tab1" data-toggle="tab" #tabDocumentos >Documentos</a></li>
+                <li class="nav-item"><a style="color: rgb(255, 255, 255);" class="nav-link" id="tab_clientes" href="#solid-justified-tab2" data-toggle="tab" (click)="click_clientesInteresados()" >Clientes Interesados</a></li>
+                <li class="nav-item"><a style="color: rgb(255, 255, 255);" class="nav-link" id="tab_devolucion" href="#solid-justified-tab4" data-toggle="tab">Devolucion</a></li>
+                <li class="nav-item"><a style="color: rgb(255, 255, 255);" class="nav-link" id="tab_venta" href="#solid-justified-tab5" data-toggle="tab">Venta</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane show active" id="solid-justified-tab1">
+                    <h4 style="color: rgb(218, 34, 34);">Generar documentos</h4> 
+                    <div class="row">
+                        <div class="col-sm-4" id="pdf_gastos">
+                            <div class="dash-widget">
+                                <span class="dash-widget-bg5"><img src="assets/svg/ic_pdf.svg" alt=""></span>
+                                <div class="dash-widget-info text-right">
+                                    <h5>Gastos del Vehiculo</h5>
+                                    <a href="javascript:void(0)" (click)="reporteListaGastosByIdVehiculo()"  class="btn btn-warning float-right btn-sm"><i class="fa fa-print"></i> Imprimir </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4" id="pdf_recepcion">
+                            <div class="dash-widget">
+                                <span class="dash-widget-bg5"><img src="assets/svg/ic_pdf.svg" alt=""></span>
+                                <div class="dash-widget-info text-right">
+                                    <h5>Recepcion de Vehiculo</h5>
+                                    <a href="javascript:void(0)" (click)="reporteRecepcionById()"  class="btn btn-info float-right btn-sm"><i class="fa fa-print"></i> Imprimir </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4" id="pdf_devolucion">
+                            <div class="dash-widget">
+                                <span class="dash-widget-bg5"><img src="assets/svg/ic_pdf.svg" alt=""></span>
+                                <div class="dash-widget-info text-right">
+                                    <h5>Devolucion de Vehiculo</h5>
+                                    <a href="javascript:void(0)" (click)="reporteRecepcionById()"  class="btn btn-danger float-right btn-sm"><i class="fa fa-print"></i> Imprimir </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4" id="pdf_venta">
+                            <div class="dash-widget" >
+                                <span class="dash-widget-bg5"><img src="assets/svg/ic_pdf.svg" alt=""></span>
+                                <div class="dash-widget-info text-right">
+                                    <h5>Venta de Vehiculo</h5>
+                                    <a href="javascript:void(0)" (click)="reporteRecepcionById()"  class="btn btn-success float-right btn-sm"><i class="fa fa-print"></i> Imprimir </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="tab-pane" id="solid-justified-tab2">
+
+                    <div class="row">
+                        <div class="col-sm-7 col-7">
+                            <h4 class="page-title">Clientes interesados</h4>
+                        </div>
+                        <div class="col-sm-5 col-5 text-right m-b-20">
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#modalClienteInteresado" (click)="click_abrirClienteInteresados()" class="btn btn btn-danger float-right"><i class="fa fa-plus"></i> Agregar cliente a la lista</a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped custom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Cliente</th>
+                                            <th>Interes</th>
+                                            <th>Fecha - Hora</th>
+                                            <th>Personal</th>
+                                            <th class="text-right">Opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let cliente of listaClienteInteresado">
+                                            <td><img width="40" height="40" src="{{url}}imagenes/clientes/cliente.foto" class="rounded-circle m-r-5" alt="">
+                                            {{cliente.nombre}} {{cliente.appat}} {{cliente.apmat}}</td>
+                                            <td>{{cliente.nivel_interes}}</td>
+                                            <td>{{cliente.fecha}} {{cliente.hora}}</td>
+                                            <td>{{cliente.usuario}}</td>
+                                            <td class="text-right">
+                                                <a href="javascript:void(0);" class="btn btn btn-success btn-rounded float-right"><i class="fa fa-eye"></i> </a> 
+                                                <a href="javascript:void(0);" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-pencil"></i> </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="solid-justified-tab4">
+                    <h4 STYLE="COLOR: RGB(211, 50, 50);">Realizar Devolucion</h4>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <ul class="list-group notification-list">
+                                <li class="list-group-item">
+                                    Extinguidor
+                                    <div class="material-switch float-right">
+                                        <input id="extinguidor_module" type="checkbox" [(ngModel)]="extinguidor_accesorio" [checked]="extinguidor_accesorio">
+                                        <label for="extinguidor_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Estuche de Herramientas
+                                    <div class="material-switch float-right">
+                                        <input id="estuche_herramienta_module" type="checkbox" [(ngModel)]="estuche_herramienta_accesorio" [checked]="estuche_herramienta_accesorio">
+                                        <label for="estuche_herramienta_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Fundas
+                                    <div class="material-switch float-right">
+                                        <input id="fundas_module" type="checkbox" [(ngModel)]="fundas_accesorio" [checked]="fundas_accesorio">
+                                        <label for="fundas_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Cabezales
+                                    <div class="material-switch float-right">
+                                        <input id="cabezales_module" type="checkbox" [(ngModel)]="cabezales_accesorio" [checked]="cabezales_accesorio">
+                                        <label for="cabezales_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Sobrepisos
+                                    <div class="material-switch float-right">
+                                        <input id="sobrepiso_module" type="checkbox" [(ngModel)]="sobrepiso_accesorio" [checked]="sobrepiso_accesorio">
+                                        <label for="sobrepiso_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Quitasol
+                                    <div class="material-switch float-right">
+                                        <input id="quitasol_module" type="checkbox" [(ngModel)]="quitasol_accesorio" [checked]="quitasol_accesorio">
+                                        <label for="quitasol_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Ceniceros
+                                    <div class="material-switch float-right">
+                                        <input id="ceniceros_module" type="checkbox" [(ngModel)]="ceniceros_accesorio" [checked]="ceniceros_accesorio">
+                                        <label for="ceniceros_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Encendedor
+                                    <div class="material-switch float-right">
+                                        <input id="encendedor_module" type="checkbox" [(ngModel)]="encendedor_accesorio" [checked]="encendedor_accesorio">
+                                        <label for="encendedor_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Manual
+                                    <div class="material-switch float-right">
+                                        <input id="manual_module" type="checkbox" [(ngModel)]="manual_accesorio" [checked]="manual_accesorio">
+                                        <label for="manual_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Radio ( TC / CD / DVD)
+                                    <div class="material-switch float-right">
+                                        <input id="radio_module" type="checkbox" [(ngModel)]="radio_accesorio" [checked]="radio_accesorio">
+                                        <label for="radio_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Mataburro
+                                    <div class="material-switch float-right">
+                                        <input id="mataburro_module" type="checkbox" [(ngModel)]="mataburro_accesorio" [checked]="mataburro_accesorio">
+                                        <label for="mataburro_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Halogenos
+                                    <div class="material-switch float-right">
+                                        <input id="halogenos_module" type="checkbox" [(ngModel)]="halogenos_accesorio" [checked]="halogenos_accesorio">
+                                        <label for="halogenos_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Limpia Parabrisas
+                                    <div class="material-switch float-right">
+                                        <input id="limpia_parabrisas_module" type="checkbox" [(ngModel)]="limpia_parabrisas_accesorio" [checked]="limpia_parabrisas_accesorio">
+                                        <label for="limpia_parabrisas_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Antena
+                                    <div class="material-switch float-right">
+                                        <input id="antena_module" type="checkbox" [(ngModel)]="antena_accesorio" [checked]="antena_accesorio">
+                                        <label for="antena_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Espejos
+                                    <div class="material-switch float-right">
+                                        <input id="espejos_module" type="checkbox" [(ngModel)]="espejos_accesorio" [checked]="espejos_accesorio">
+                                        <label for="espejos_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Tapacubos
+                                    <div class="material-switch float-right">
+                                        <input id="tapacubos_module" type="checkbox" [(ngModel)]="tapacubos_accesorio" [checked]="tapacubos_accesorio">
+                                        <label for="tapacubos_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Emblemas
+                                    <div class="material-switch float-right">
+                                        <input id="emblemas_module" type="checkbox" [(ngModel)]="emblemas_accesorio" [checked]="emblemas_accesorio">
+                                        <label for="emblemas_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <ul class="list-group notification-list">
+                                <li class="list-group-item">
+                                    Soat (Sticker)
+                                    <div class="material-switch float-right">
+                                        <input id="soat_module" type="checkbox" [(ngModel)]="soat_accesorio" [checked]="soat_accesorio">
+                                        <label for="soat_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Inspeccion (Sticker)
+                                    <div class="material-switch float-right">
+                                        <input id="inspeccion_module" type="checkbox" [(ngModel)]="inspeccion_accesorio" [checked]="inspeccion_accesorio">
+                                        <label for="inspeccion_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Alarma
+                                    <div class="material-switch float-right">
+                                        <input id="alarma_module" type="checkbox" [(ngModel)]="alarma_accesorio" [checked]="alarma_accesorio">
+                                        <label for="alarma_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Tapa de Tanque
+                                    <div class="material-switch float-right">
+                                        <input id="tapa_tanque_module" type="checkbox" [(ngModel)]="tapa_tanque_accesorio" [checked]="tapa_tanque_accesorio">
+                                        <label for="tapa_tanque_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Gata
+                                    <div class="material-switch float-right">
+                                        <input id="gata_module" type="checkbox" [(ngModel)]="gata_accesorio" [checked]="gata_accesorio">
+                                        <label for="gata_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Manivela
+                                    <div class="material-switch float-right">
+                                        <input id="manivela_module" type="checkbox" [(ngModel)]="manivela_accesorio" [checked]="manivela_accesorio">
+                                        <label for="manivela_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Llave de Ruedas
+                                    <div class="material-switch float-right">
+                                        <input id="llave_rueda_module" type="checkbox" [(ngModel)]="llave_rueda_accesorio" [checked]="llave_rueda_accesorio">
+                                        <label for="llave_rueda_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Dado de Seguridad
+                                    <div class="material-switch float-right">
+                                        <input id="dado_seguridad_module" type="checkbox" [(ngModel)]="dado_seguridad_accesorio" [checked]="dado_seguridad_accesorio">
+                                        <label for="dado_seguridad_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    triangulo
+                                    <div class="material-switch float-right">
+                                        <input id="triangulo_module" type="checkbox" [(ngModel)]="triangulo_accesorio" [checked]="triangulo_accesorio">
+                                        <label for="triangulo_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Botiquin
+                                    <div class="material-switch float-right">
+                                        <input id="botiquin_module" type="checkbox" [(ngModel)]="botiquin_accesorio" [checked]="botiquin_accesorio">
+                                        <label for="botiquin_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Llanta de Auxilio
+                                    <div class="material-switch float-right">
+                                        <input id="llanta_auxilio_module" type="checkbox" [(ngModel)]="llanta_auxilio_accesorio" [checked]="llanta_auxilio_accesorio">
+                                        <label for="llanta_auxilio_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <br>
+                            <div class="form-group">
+                                <strong><label>Detalle de Pintura </label></strong>
+                                <input type="text" [(ngModel)]="detalle_pintura_accesorio" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <strong><label>Estado de Llantas </label></strong>
+                                <input type="text" [(ngModel)]="estado_llanta_accesorio" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong><label>Nro. Bateria </label></strong>
+                                <input type="text" [(ngModel)]="nro_bateria_accesorio" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong><label>Gasolina </label></strong>
+                                <input type="text" [(ngModel)]="gasolina_accesorio" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong><label>Observacion </label></strong>
+                                <input type="text" [(ngModel)]="observacion_devolucion" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <h4 class="StepTitle text-center">¿Esta seguros de realizar la Devolucion?</h4>
+                            <div class="m-t-20 text-center">
+                                <button class="btn btn-danger" (click)="agregarDevolucion()" style="margin-right: 5px;"><i class="fa fa-arrow-circle-o-left"></i> REGISTRAR DEVOLUCION</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="solid-justified-tab5">
+                    <h4 STYLE="COLOR: RGB(211, 50, 50);">Realizar Venta</h4>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="dash-widget">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/billete10.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de Bs. 10 </strong></label>
+                                            <input type="number" [(ngModel)]="corte10" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>Bs. {{ subTotal10 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/billete20.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de Bs. 20 </strong></label>
+                                            <input type="number" [(ngModel)]="corte20" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>Bs. {{ subTotal20 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/billete50.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de Bs. 50 </strong></label>
+                                            <input type="number" [(ngModel)]="corte50" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>Bs. {{ subTotal50 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/billete100.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de Bs. 100 </strong></label>
+                                            <input type="number" [(ngModel)]="corte100" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>Bs. {{ subTotal100 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/billete200.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de Bs. 200 </strong></label>
+                                            <input type="number" [(ngModel)]="corte200" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>Bs. {{ subTotal200 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>Bs. {{ subTotalBolivianos }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="dash-widget">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/dolar1.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de $us. 1 </strong></label>
+                                            <input type="number" [(ngModel)]="corteDolar1" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>$us. {{ subTotalDolar1 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/dolar2.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de $us. 2 </strong></label>
+                                            <input type="number" [(ngModel)]="corteDolar2" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>$us. {{ subTotalDolar2 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/dolar5.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de $us. 5 </strong></label>
+                                            <input type="number" [(ngModel)]="corteDolar5" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>$us. {{ subTotalDolar5 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/dolar10.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de $us. 10 </strong></label>
+                                            <input type="number" [(ngModel)]="corteDolar10" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>$us. {{ subTotalDolar10 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/dolar20.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de $us. 20 </strong></label>
+                                            <input type="number" [(ngModel)]="corteDolar20" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>$us. {{ subTotalDolar20 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/dolar50.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de $us. 50 </strong></label>
+                                            <input type="number" [(ngModel)]="corteDolar50" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>$us. {{ subTotalDolar50 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/dolar100.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de $us. 100 </strong></label>
+                                            <input type="number" [(ngModel)]="corteDolar100" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>$us. {{ subTotalDolar100 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>$us. {{ subTotalDolares }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="dash-widget">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label><strong>Glosa </strong><span class="text-danger">*</span></label>
+                                            <input type="text" [(ngModel)]="glosa" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label><strong>Monto </strong><span class="text-danger">*</span></label>
+                                            <input type="text" [(ngModel)]="monto" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label><strong>Moneda </strong><span class="text-danger">*</span></label>
+                                            <select [(ngModel)]="moneda" #ctrl="ngModel" id="cbMoneda" class="form-control">
+                                                <option value="" disabled selected>Seleccione un Moneda</option>
+                                                <option value="Bolivianos">Bolivianos</option>
+                                                <option value="Dolares">Dolares</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label><strong>Nombre de Origen </strong><span class="text-danger">*</span></label>
+                                            <input type="text" [(ngModel)]="nombre_origen" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label><strong>Cuenta de Origen </strong><span class="text-danger">*</span></label>
+                                            <input type="text" [(ngModel)]="cuenta_origen" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label><strong>Banco de Origen</strong><span class="text-danger">*</span></label>
+                                            <input type="text" [(ngModel)]="banco_origen" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label><strong>Cuenta de Destino </strong><span class="text-danger">*</span></label>
+                                            <input type="text" [(ngModel)]="cuenta_destino" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label><strong>Banco de Destino</strong><span class="text-danger">*</span></label>
+                                            <input type="text" [(ngModel)]="banco_destino" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="dash-widget">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="m-t-20 text-center">
+                                            <button class="btn btn-danger" (click)="click_abrirClientes()" data-toggle="modal" data-target="#modalCliente" style="margin-right: 5px;"><i class="fa fa-plus"></i> SELECCIONAR CLIENTE</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group text-center">
+                                            <label>Datos del cliente</label>
+                                            <br>
+                                            <label><strong>Cliente: {{ cliente_seleccionado }} </strong></label>
+                                        </div>
+                                    </div>
+
+                        
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="dash-widget">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>Importe Total en Bolivianos</label>
+                                            <br>
+                                            <label><strong>Bs. {{ totalBolivianos }} </strong></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>Importe Total en Dolares</label>
+                                            <br>
+                                            <label><strong>$us. {{ totalDolares }} </strong></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <h4 class="StepTitle text-center">¿Esta seguros de realizar la Venta?</h4>
+                                        <div class="m-t-20 text-center">
+                                            <button class="btn btn-danger" (click)="agregarVenta()" style="margin-right: 5px;"><i class="fa fa-plus"></i> REGISTRAR VENTA</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>

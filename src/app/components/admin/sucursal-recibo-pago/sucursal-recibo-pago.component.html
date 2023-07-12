@@ -1,0 +1,266 @@
+<div *ngIf="showModalVerificar">
+    <div class="modal fade" id="modalVerificar" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">CONSULTA</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group text-center" style="margin: 0; padding: 0;">
+                                <label style="font-size: 160%;"><strong>¿ESTA SEGURO DE VERIFICAR EL RECIBO?</strong> </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="actualizarVerificacion()">VERIFICAR</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalVerificar>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalReciboDetalle">
+    <div class="modal fade" id="modalReciboDetalle" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">DETALLE DEL RECIBO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group text-center" style="margin: 0; padding: 0;">
+                                <label style="font-size: 150%;"><strong>RECIBO DE PAGO</strong> </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Nro. de Recibo de Pago: </strong> {{ nro_recibo}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Concepto: </strong> {{ tipo_recibo | uppercase}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Detalle de Concepto: </strong> {{ detalle_recibo | uppercase}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Observacion: </strong> {{ observacion_recibo | uppercase}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Tipo de Pago: </strong> {{ tipo_pago | uppercase}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Total de Recibo: </strong> $us {{ total_recibo | number:'1.2-2'}}</label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Fecha: </strong> {{ fecha_recibo}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Hora: </strong> {{ hora_recibo}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Usuario: </strong> {{ usuario_recibo }} </label>
+                            </div>
+                            
+                            <br>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Verificacion de Datos: </strong></label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Fecha: </strong> {{ fecha_verificado_recibo}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Hora: </strong> {{ hora_verificado_recibo}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Usuario: </strong> {{ usuario_verificado_recibo }} </label>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Respaldo (Imagen): </strong></label>
+                                <img src="{{ url }}imagenes/recibos/{{respaldo}}" alt="" width="100%" height="auto" (click)="click_verImagen('imagenes/recibos/' + respaldo)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalReciboDetalle>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-imagen-view [imageURL]="imageURL" [open]="viewerOpen" (close)="viewerOpen = false"></app-imagen-view>
+
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="page-title">Lista de Recibos de Pago</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <strong><p class="doctor-name text-ellipsis" style="color:rgb(5, 7, 153); margin-bottom: 3px;">FILTRO DE BUSQUEDA</p></strong>
+            <div class="row">
+                <div class="col-sm-6 text-center">
+                    <strong><label>Buscar por: </label></strong>
+                    <div class="row" style="margin-left: 30px;">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="rbMes" (click)="clickRbMes()" checked>
+                            <label class="form-check-label" for="gender_male">
+                                Busqueda por Mes
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="rbFecha" (click)="clickRbFecha()">
+                            <label class="form-check-label" for="gender_female">
+                                Busqueda por Fecha
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-4 text-center">
+                    <strong><label>{{ rangoUno }}</label></strong>
+                    <select [(ngModel)]='mes' id="cbMes" class="form-control" (change)="changeMes()">
+                        <option value="1">Enero</option>
+                        <option value="2">Febrero</option>
+                        <option value="3">Marzo</option>
+                        <option value="4">Abril</option>
+                        <option value="5">Mayo</option>
+                        <option value="6">Junio</option>
+                        <option value="7">Julio</option>
+                        <option value="8">Agosto</option>
+                        <option value="9">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
+                    </select>
+                    <div class="form-group" id="divFechaInicio" style="display:none">
+                        <input type="date" [(ngModel)]="fecha_inicio" #ctrl="ngModel" class="form-control date" (change)="changeFechaFinal()">
+                    </div>
+                </div>
+                <div class="col-sm-4 text-center">
+                    <strong><label>{{ rangoDos }}</label></strong>
+                    <select [(ngModel)]='gestionActual' id="cbGestion" class="form-control" (change)="changeGestion()">
+                        <option *ngFor = "let data of datosGestion;" [value]="data.gestion">{{ data.gestion }}</option>
+                    </select>
+                    <div class="form-group" id="divFechaFinal" style="display:none">
+                        <input type="date" [(ngModel)]="fecha_final" #ctrl="ngModel" class="form-control date" (change)="changeFechaInicio()">
+                    </div>
+                </div>
+
+                <div class="col-sm-4 text-center">
+                    <strong><label>Usuarios</label></strong>
+                    <select [(ngModel)]='id_usuario' id="cbUsuario" class="form-control" (change)="changeUsuario()">
+                        <option [value]="0" selected> Todos </option>
+                        <option *ngFor = "let data of datosUsuario;" [value]="data.id_usuario">{{ data.nombre_rol }} - {{ data.nombre }} {{ data.appat }} {{ data.apmat }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <div class="table-responsive">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped custom-table">
+                    <thead>
+                        <tr>
+                            <th>Nro Recibo</th>
+                            <th>Fecha</th>
+                            <th>Cliente</th>
+                            <th>Concepto</th>
+                            <th>Estado</th>
+                            <th>Usuario</th>
+                            <th class="text-right">Opc.</th>
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let recibo of listaRecibo">
+                            <td>{{ recibo.nro_recibo_pago }}</td>
+                            <td class="text-center">
+                                <h2><a>{{ recibo.fecha }}<span style="color: rgb(81, 84, 87)">Hora: {{ recibo.hora }}</span></a></h2>
+                            </td>
+                            <td class="text-center">
+                                <div style="display: flex;">
+                                    <img width="50" height="50" src="{{ url }}imagenes/clientes/{{recibo.foto_cliente}}" class="rounded-circle m-r-5" alt="">
+                                    <h2 style="font-size: 95%;"><a><span style="color: rgb(32, 121, 148);">CODIGO: {{ recibo.id_cliente }}</span>{{ recibo.cliente | uppercase }}</a></h2>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <h2><a><span style="color: rgb(81, 84, 87)">Total: $us {{ recibo.total | number:'1.2-2'}}</span>{{ recibo.tipo | uppercase}}</a></h2>
+                            </td>
+                            <td>
+                                <span class="custom-badge" [ngClass]="recibo.verificado=='1' ? 'status-green': 'status-red'">{{recibo.verificado_literal}}</span>
+                            </td>
+                            <td class="text-center" >
+                                <div style="display: flex;">
+                                    <img width="50" height="50" src="{{ url }}imagenes/usuarios/{{recibo.foto_usuario}}" class="rounded-circle m-r-5" alt="">
+                                    <h2 style="font-size: 95%;"><a>{{ recibo.usuario | uppercase }}</a></h2>
+                                </div>
+                            </td>
+                            <td class="text-right">
+                                <div class="dropdown dropdown-action">
+                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" [ngClass]="{'ocultar': recibo.verificado=='1'}"  href="javascript:void(0);" data-toggle="modal" data-target="#modalVerificar" (click)="click_abrirVerificar(recibo.id)"><i class="fa fa-check m-r-5"></i> Verificar</a>
+                                        <a class="dropdown-item" href="javascript:void(0);" (click)="reporteReciboPagoById(recibo.id)"><i class="fa fa-print m-r-5"></i> Imprimir</a>
+                                        <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#modalReciboDetalle" (click)="click_abrirReciboDetalle(recibo.id)"><i class="fa fa-eye m-r-5"></i> Ver Detalles</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-6">
+            </div>
+            <div class="col-sm-6">
+                <div class="card-box">
+                    <div class="m-b-20">
+                        <h6 style="color: rgb(199, 22, 22);">Total de Resultados</h6>
+                        <div class="table-responsive no-border">
+                            <table class="table mb-0" style="color: rgb(85, 85, 85);">
+                                <tbody>
+                                    <tr>
+                                        <th>Total Verificado:</th>
+                                        <td class="text-right">$us. {{ totalVerificado }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total No Verificado: </th>
+                                        <td class="text-right">$us. {{ totalNoVerificado }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total </th>
+                                        <td class="text-right text-success">$us. {{ total }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

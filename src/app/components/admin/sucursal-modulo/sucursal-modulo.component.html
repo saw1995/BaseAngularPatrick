@@ -1,0 +1,125 @@
+<!--aqui el principal-->
+<div *ngIf="showModalAsignarAlmacen">
+    <div class="modal fade" id="ModalAsignarAlmacen" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: rgb(50, 141, 194);">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">ASIGNAR ALMACEN PARA LA VENTA</h4>
+                </div>
+                <div class="card-box">
+                    <div class="row">
+                        
+                        <label>Seleccionar <strong>Almacen</strong>:</label>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label><strong>Seleccione un almacen para la venta.</strong><span class="text-danger">*</span></label>
+                                <select [(ngModel)]="id_almacen_seleccionado" #ctrl="ngModel" class="form-control select">
+                                    <option value="" disabled selected>Seleccione un almacen</option>
+                                    <option *ngFor = "let almacen of listaAlmacenVenta;" [value]="almacen.id">{{ almacen.nombre }}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer" style="background-color: rgb(50, 141, 194);">
+                    <button type="button" class="btn btn-success" (click)="actualizarVentaAlmacenByAlmacen()">GUARDAR CAMBIOS</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal" #cerrarModal>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--aqui el principal-->
+<div *ngIf="showModalVistaAreliShop">
+    <div class="modal fade" id="ModalVistaAreliShop" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: rgb(50, 141, 194);">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AJUSTE ARELÍ SHOP</h4>
+                </div>
+                <div class="card-box">
+                    <div class="row">
+
+                        <div class="content">
+                            <label><strong>{{nombre_sucursal}}</strong></label>
+                            <br>
+                            <label>{{direccion_sucursal}}</label>
+
+                            <br>
+
+                            <small><strong>Ajuste visible para la aplicación Arelí Shop</strong> Este ajuste determina mostrar sus productos atravez de la aplicación Arelí Shop.</small>
+                            <small>Elija HABILITADO para poder mostrar en la aplicación y DESHABILITADO para poder ocultar la aplicación, recuerda que en cualquier momento puedes cambiar los ajustes.</small>
+                            <br>
+                            <div class="row" style="margin-left: 30px;">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="rbHabilitado" [checked]="areli_shop" (click)="click_rbHabilitado()">
+                                    <label class="form-check-label" for="gender_male">
+                                        HABILITADO
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="rbDeshabilitado" [checked]="!areli_shop" (click)="click_rbDeshabilitado()" >
+                                    <label class="form-check-label" for="gender_female">
+                                        DESHABILITADO
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="modal-footer" style="background-color: rgb(50, 141, 194);">
+                    <button type="button" class="btn btn-success" (click)="actualizarAreliShopBySucursalEmpresa()">GUARDAR CAMBIOS</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal" #cerrarModal>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--aqui el principal-->
+
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="page-title">Sucursal Menu</h4>
+    </div>
+</div>
+<div class="row">
+    <aside class="col-md-3">
+        <div class="profile-widget" style="padding-left: 5px; padding-right: 5px; padding-top: 5px;">
+            <div class="mycontainer" style="margin-bottom: 10px; height: 270px; background-image: url('{{url}}imagenes/sucursales/{{foto_sucursal}}');">
+                <div class="myblur">
+                    <img class="myimg" style="height: 270px; width: 100%;" src="{{url}}imagenes/sucursales/{{foto_sucursal}}" alt="">
+                </div>
+            </div>
+            <p class="doctor-name text-ellipsis" style="color:rgb(201, 24, 24);">Sucursal</p>
+            <h4 class="doctor-name text-ellipsis" style="color:rgb(44, 40, 40);">{{nombre_sucursal}}</h4>
+            <p style="color:rgb(70, 65, 65);">Direccion: {{direccion_sucursal}}</p>
+        </div>
+        
+        <div class="widget category-widget">
+            <h5>Menu</h5>
+            <ul class="categories">
+                <li><a href="javascript:void(0);" (click)="click_listaPanel()"><i class="fa fa-tachometer"></i> Panel de Control</a></li>
+                <li><a href="javascript:void(0);" (click)="click_listaParqueo()"><i class="fa fa-automobile"></i> Parqueos de la Sucursal</a></li>
+                <li><a href="javascript:void(0);" (click)="click_listaRecepcion()"><i class="fa fa-arrow-right"></i> Recepcion de Vehiculo</a></li>
+                <li><a href="javascript:void(0);" (click)="click_listaDevolucion()"><i class="fa fa-arrow-left"></i> Devolucion de Vehiculo</a></li>
+                <li><a href="javascript:void(0);" (click)="click_listaVenta()"><i class="fa fa-file-text-o"></i> Lista de Ventas</a></li>
+                <li><a href="javascript:void(0);" (click)="click_verificacionPago()"><i class="fa fa-money"></i> Verificacion de Pagos</a></li>
+                <li><a href="javascript:void(0);" (click)="click_importacion()"><i class="fa fa-sign-in"></i> Importacion</a></li>
+                <li><a href="javascript:void(0);" (click)="click_contrato_garantia()"><i class="fa fa-file-text-o"></i> Contratos de Garantia</a></li>
+                <li><a href="javascript:void(0);" (click)="click_recibo_pago()"><i class="fa fa-money"></i> Recibo de Pagos</a></li>
+                <li><a href="javascript:void(0);" (click)="click_devolucion_pago()"><i class="fa fa-money"></i> Devolucion de Pagos</a></li>
+            </ul>
+        </div>
+        
+    </aside>
+    <div class="col-md-9">
+
+        <router-outlet></router-outlet>
+        
+    </div>
+</div>

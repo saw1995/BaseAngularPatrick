@@ -1,0 +1,117 @@
+<div class="row">
+    <div class="col-sm-4 col-3">
+        <h4 class="page-title">Lista de Recepción</h4>
+    </div>
+    <div class="col-sm-8 col-9 text-right m-b-20">
+        <a href="" data-toggle="modal" data-target="#modalAgregarParqueo" (click)="click_navegarAgregarRecepcion()" class="btn btn btn-danger float-right"><i class="fa fa-plus"></i> Agregar Recepcion </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <strong><p class="doctor-name text-ellipsis" style="color:rgb(5, 7, 153); margin-bottom: 3px;">FILTRO DE BUSQUEDA</p></strong>
+            <div class="row">
+                <div class="col-sm-6 text-center">
+                    <strong><label>Buscar por: </label></strong>
+                    <div class="row" style="margin-left: 30px;">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="rbMes" (click)="clickRbMes()" checked>
+                            <label class="form-check-label" for="gender_male">
+                                Busqueda por Mes
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="rbFecha" (click)="clickRbFecha()">
+                            <label class="form-check-label" for="gender_female">
+                                Busqueda por Fecha
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 text-center">
+                    <strong><label>Generar en Documento: </label></strong>
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <img width="30px" src="assets/svg/ic_pdf.svg" alt="insertar SVG con la etiqueta image" (click)="reporteRecepcionTallerVehiculosByImportacion()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-4 text-center">
+                    <strong><label>{{ rangoUno }}</label></strong>
+                    <select [(ngModel)]='mes' id="cbMes" class="form-control" (change)="changeMes()">
+                        <option value="1">Enero</option>
+                        <option value="2">Febrero</option>
+                        <option value="3">Marzo</option>
+                        <option value="4">Abril</option>
+                        <option value="5">Mayo</option>
+                        <option value="6">Junio</option>
+                        <option value="7">Julio</option>
+                        <option value="8">Agosto</option>
+                        <option value="9">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
+                    </select>
+                    <div class="form-group" id="divFechaInicio" style="display:none">
+                        <input type="date" [(ngModel)]="fecha_inicio" #ctrl="ngModel" class="form-control date" (change)="changeFechaFinal()">
+                    </div>
+                </div>
+                <div class="col-sm-4 text-center">
+                    <strong><label>{{ rangoDos }}</label></strong>
+                    <select [(ngModel)]='gestionActual' id="cbGestion" class="form-control" (change)="changeGestion()">
+                        <option *ngFor = "let data of datosGestion;" [value]="data.gestion">{{ data.gestion }}</option>
+                    </select>
+                    <div class="form-group" id="divFechaFinal" style="display:none">
+                        <input type="date" [(ngModel)]="fecha_final" #ctrl="ngModel" class="form-control date" (change)="changeFechaInicio()">
+                    </div>
+                </div>
+
+                <div class="col-sm-4 text-center">
+                    <strong><label>Usuarios</label></strong>
+                    <select [(ngModel)]='id_usuario' id="cbUsuario" class="form-control" (change)="changeUsuario()">
+                        <option [value]="0" selected> Todos </option>
+                        <option *ngFor = "let data of datosUsuario;" [value]="data.id_usuario">{{ data.nombre_rol }} - {{ data.nombre }} {{ data.appat }} {{ data.apmat }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped custom-table">
+                <thead>
+                    <tr>
+                        <th>Nro.</th>
+                        <th>Fecha - Hora</th>
+                        <th>Vehiculo</th>
+                        <th>Observaciones</th>
+                        <th>usuario</th>
+                        <th class="text-right">Opc.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let importacion of listaRececepcionVehiculos;let i=index;">
+                        <td>{{ i+1 }}</td>
+                        <td>{{ importacion.fecha }} - {{ importacion.hora }}</td>
+                        <td>
+                            <h2><a>{{ importacion.clase_vehiculo }} {{ importacion.marca }} <span>{{ importacion.tipo }} {{ importacion.version }} {{ importacion.anho }}</span></a></h2>
+                            
+                        </td>
+                        <td>{{ importacion.detalle }}</td>
+                        <td>{{ importacion.usuario }}</td>
+                        <td class="text-right">
+                            <a href="javascript:void(0);"  class="btn btn btn-danger btn-rounded float-right"><i class="fa fa-eye"></i> </a> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

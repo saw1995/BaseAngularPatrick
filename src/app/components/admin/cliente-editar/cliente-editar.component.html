@@ -1,0 +1,217 @@
+<div *ngIf="showModalImagen">
+    <div class="modal fade" id="modalImagen" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: rgb(50, 141, 194);">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR IMAGEN</h4>
+                </div>
+                <div class="card-box" style="background-color: rgb(226, 226, 226);">
+                    <div class="row">
+                        <div class="col-sm-12 text-center" style="margin-bottom: 20px;">
+                            <input type="file" (change)="fileChangeEvent($event)" />
+                        </div>
+                        
+                        <div class="col-sm-6">
+                            <div class="card-box">
+                                <h5 class="text-center">Imagen</h5>
+                                <image-cropper 
+                                [imageChangedEvent]="imageChangedEvent" 
+                                [maintainAspectRatio]="true" 
+                                [aspectRatio]="4 / 4"
+                                [resizeToWidth]="800" 
+                                format="jpeg" 
+                                (imageCropped)="imageCropped($event)" 
+                                (imageLoaded)="imageLoaded()"
+                                (cropperReady)="cropperReady()" 
+                                (loadImageFailed)="loadImageFailed()"></image-cropper>
+                            </div>
+                            
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card-box">
+                                <h5 class="text-center">Vista Previa</h5>
+                                <img [src]="croppedImage" width="250px"/>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" (click)="click_cortarImagen()">CORTAR IMAGEN</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" #cerrarModalImagen>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12 col-12">
+        <h4 class="page-title">Editar datos del Cliente COD: {{ id_cliente }}</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <strong>Nota: </strong> Tome en cuenta que <a class="alert-link">todos los campos con <span class="text-danger">*</span></a> son obligatorios.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    
+    <div class="col-sm-6">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <strong><label>Cedula de Identidad</label></strong>
+                        <input type="number" [(ngModel)]="ci" #ctrl="ngModel" class="form-control" placeholder="Ingrese el C.I.">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <strong><label>Expedicion</label></strong>
+                    <select [(ngModel)]="expedicion" #ctrl="ngModel" class="form-control">
+                        <option value="" disabled selected>Seleccione la Expedicion</option>
+                        <option value="BN">Beni</option>
+                        <option value="CB">Cochabamba</option>
+                        <option value="CH">Chuquisaca</option>
+                        <option value="LP">La Paz</option>
+                        <option value="OR">Oruro</option>
+                        <option value="PN">Pando</option>
+                        <option value="PT">Potosi</option>
+                        <option value="SC">Santa Cruz</option>
+                        <option value="TJ">Tarija</option>
+                    </select>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <strong><label>Nombres(s) <span class="text-danger">*</span></label></strong>
+                        <input type="text" [(ngModel)]="nombre" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Nombre completo">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <strong><label>Apellido Paterno <span class="text-danger">*</span></label></strong>
+                        <input type="text" [(ngModel)]="apellido_paterno" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Apellido Paterno">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <strong><label>Apellido Materno </label></strong>
+                        <input type="text" [(ngModel)]="apellido_materno" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Apellido Materno">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-sm-6 text-center" [ngClass]="tipo=='2' ? 'ocultar': ''">
+                    <strong><label>Tipo de Cliente: </label></strong>
+                    <div class="row" style="margin-left: 30px;">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="rbMes" (click)="click_rbDuenho()" checked>
+                            <label class="form-check-label" for="gender_male">
+                                Dueño del Vehiculo
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="rbFecha" (click)="click_rbComprador()">
+                            <label class="form-check-label" for="gender_female">
+                                Comprador de Vehiculo
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <strong><label>Genero <span class="text-danger">*</span></label></strong>
+                        <select [(ngModel)]="genero" #ctrl="ngModel" class="form-control">
+                            <option value="" disabled selected>Seleccione el Genero</option>
+                            <option value="Femenino">Femenino</option>
+                            <option value="Masculino">Masculino</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <strong><label>Profesión <span class="text-danger">*</span></label></strong>
+                        <select [(ngModel)]="id_profesion" #ctrl="ngModel" class="form-control">
+                            <option value="" disabled selected>Seleccione una Profesión</option>
+                            <option *ngFor = "let profesion of listaProfesion;" [value]="profesion.id">{{profesion.nombre}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <strong><label>Celular <span class="text-danger">*</span></label></strong>
+                        <input type="number" [(ngModel)]="telefono" #ctrl="ngModel" class="form-control" placeholder="Ingrese el numero de celular">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <strong><label>Departamento <span class="text-danger">*</span></label></strong>
+                        <select [(ngModel)]="departamento" #ctrl="ngModel" id="cbDepartamento" class="form-control">
+                            <option value="" disabled selected>Seleccione un Departamento</option>
+                            <option value="Beni">Beni</option>
+                            <option value="Cochabamba">Cochabamba</option>
+                            <option value="Chuquisaca">Chuquisaca</option>
+                            <option value="La Paz">La Paz</option>
+                            <option value="Oruro">Oruro</option>
+                            <option value="Pando">Pando</option>
+                            <option value="Potosi">Potosi</option>
+                            <option value="Santa Cruz">Santa Cruz</option>
+                            <option value="Tarija">Tarija</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <strong><label>Direccion </label></strong>
+                        <input type="text" [(ngModel)]="direccion" #ctrl="ngModel" class="form-control" placeholder="Ingrese la Direccion">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <strong><label>Estado de Interes <span class="text-danger">*</span></label></strong>
+                        <select [(ngModel)]="interes" #ctrl="ngModel" id="cbInteres" class="form-control">
+                            <option value="" disabled selected>Seleccione su Estado</option>
+                            <option value="0">0 - Registrado</option>
+                            <option value="1">A - En Busqueda</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <a href="" data-toggle="modal" data-target="#modalImagen" (click)="click_agregarImagen()" class="btn btn btn-primary float-center"><i class="fa fa-picture-o"></i> Agregar Nueva Imagen</a>
+                </div>
+                
+                <label style="margin: 20px;"><strong>Imagen a Subir</strong></label>
+
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-4" *ngFor="let imagen of listaPrevia;let i = index;">
+                            <img [src]="imagen" height="150px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="m-t-20 text-center">
+    <button class="btn btn-danger" (click)="actualizarDatosClienteById()" style="margin-right: 5px;">ACTUALIZAR CLIENTE</button>
+    <button class="btn btn-info" (click)="clickNavegarHaciaAtras()">CANCELAR</button>
+</div>

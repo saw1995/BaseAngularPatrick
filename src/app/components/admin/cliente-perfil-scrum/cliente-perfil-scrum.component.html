@@ -1,0 +1,194 @@
+<div *ngIf="showModalHistoriaAgregar">
+    <div class="modal fade" id="modalHistoriaAgregar" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR NUEVA HISTORIA</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Tipo de Contacto <span class="text-danger">*</span></label></strong>
+                                <select [(ngModel)]="id_scrum_contacto" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione una Opción</option>
+                                    <option *ngFor = "let contacto of listaScrumContacto;" [value]="contacto.id_scrum_contacto">{{contacto.nombre_scrum_contacto}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Tipo de Información <span class="text-danger">*</span></label></strong>
+                                <select [(ngModel)]="id_scrum_informacion" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione una Opción</option>
+                                    <option *ngFor = "let informacion of listaScrumInformacion;" [value]="informacion.id_scrum_informacion">{{informacion.nombre_scrum_informacion}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Tipo de Requerimiento <span class="text-danger">*</span></label></strong>
+                                <select [(ngModel)]="id_scrum_requerimiento" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione una Opción</option>
+                                    <option *ngFor = "let requerimiento of listaScrumRequerimiento;" [value]="requerimiento.id_scrum_requerimiento">{{requerimiento.nombre_scrum_requerimiento}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Vehiculo <span class="text-danger">*</span></label></strong>
+                                <select [(ngModel)]="id_vehiculo" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione una Opción</option>
+                                    <option *ngFor = "let vehiculo of listaVehiculos;" [value]="vehiculo.id_scrum_requerimiento">VIN: {{ vehiculo.vin }} - {{ vehiculo.nombre_clase }} {{ vehiculo.nombre_marca }} {{ vehiculo.tipo }} {{ vehiculo.version }} {{ vehiculo.anho }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Nota <span class="text-danger">*</span></label></strong>
+                                <textarea rows="5" cols="5" [(ngModel)]="nota_tarea" #ctrl="ngModel" class="form-control" placeholder="Ingrese un detalle de Nota . . ."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarScrumTarea()">REGISTRAR HISTORIA</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalHistoriaAgregar>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalRespuestaAgregar">
+    <div class="modal fade" id="modalRespuestaAgregar" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR RESPUESTA</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Tipo de Respuesta <span class="text-danger">*</span></label></strong>
+                                <select [(ngModel)]="id_scrum_respuesta" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione una Opción</option>
+                                    <option *ngFor = "let respuesta of listaScrumRespuesta;" [value]="respuesta.id_scrum_respuesta">{{respuesta.nombre_scrum_respuesta}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Respuesta <span class="text-danger">*</span></label></strong>
+                                <textarea rows="5" cols="5" [(ngModel)]="nota_respuesta" #ctrl="ngModel" class="form-control" placeholder="Ingrese un detalle de Respuesta . . ."></textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Tipo de Involucramiento <span class="text-danger">*</span></label></strong>
+                                <select [(ngModel)]="id_scrum_involucramiento" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione una Opción</option>
+                                    <option *ngFor = "let involucramiento of listaScrumInvolucramiento;" [value]="involucramiento.id_scrum_involucramiento">{{involucramiento.nombre_scrum_involucramiento}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Tipo de Conversión <span class="text-danger">*</span></label></strong>
+                                <select [(ngModel)]="id_scrum_conversion" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione una Opción</option>
+                                    <option *ngFor = "let conversion of listaScrumConversion;" [value]="conversion.id_scrum_conversion">{{conversion.nombre_scrum_conversion}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Calificamiento <span class="text-danger">*</span></label></strong>
+                                <select [(ngModel)]="id_scoring" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione una Opción</option>
+                                    <option [value]="1">Frio</option>
+                                    <option [value]="2">Tibio</option>
+                                    <option [value]="3">Semi Caliente</option>
+                                    <option [value]="4">Caliente</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="actualizarScrumTarea()">REGISTRAR RESPUESTA</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalRespuestaAgregar>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h4 class="page-title">Historia de Cliente</h4>
+            
+            <div class="experience-box">
+                <ul class="experience-list">
+                    <li *ngFor="let tarea of listaScrumTarea">
+                        <div class="experience-user">
+                            <div class="before-circle"></div>
+                        </div>
+                        <div class="experience-content" style="display: flex;">
+                            <div [ngClass]="[tarea.scoring=='0' ? 'myTag': '', tarea.scoring=='1' ? 'myTag1':'', tarea.scoring=='2' ? 'myTag2':'', tarea.scoring=='3' ? 'myTag3':'', tarea.scoring=='4' ? 'myTag4':'']">
+                                <span>{{ tarea.scoring_literal }}</span>
+                                <br>
+                                <span class="time" style="color: rgb(41, 40, 40);">Tarea: {{ tarea.fecha_tarea }} - {{ tarea.hora_tarea }}</span>
+                                <span class="time">Vendedor: {{ tarea.usuario }} </span>
+                                <div *ngIf="tarea.id_scrum_respuesta != '1'">
+                                    <br>
+                                    <span class="time" style="color: rgb(41, 40, 40);">Resp.: {{ tarea.fecha_respuesta }} - {{ tarea.hora_respuesta }}</span>
+                                    <span class="time">Vendedor: {{ tarea.usuario_respuesta }} </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-6">
+                                    <div class="timeline-content border-informacion">
+                                        <div>{{ tarea.nota_tarea }}</div>
+                                        <br>
+                                        <span class="time">Contacto - Requerimiento - Información</span>
+                                        <a href="javascript:void(0);" class="name">{{ tarea.nombre_scrum_contacto }}</a><br>
+                                        <a href="javascript:void(0);" class="name">{{ tarea.nombre_scrum_requerimiento }} </a><br>
+                                        <a href="javascript:void(0);" class="name">{{ tarea.nombre_scrum_informacion }}</a>
+                                        <br>
+                                        <a href="javascript:void(0);" class="name">VIN: {{ tarea.vin }} - {{ tarea.clase_vehiculo }} {{ tarea.marca }} {{ tarea.tipo }} {{ tarea.version }} {{ tarea.anho }}</a>
+                                        <br>
+                                        <br>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="timeline-content border-informacion" *ngIf="tarea.id_scrum_respuesta != '1'">
+                                        <div>{{ tarea.nota_respuesta }}</div>
+                                        <br>
+                                        <span class="time">Respuesta - Involucramiento - Conversión</span>
+                                        <a href="javascript:void(0);" class="name">{{ tarea.nombre_scrum_respuesta }}</a><br>
+                                        <a href="javascript:void(0);" class="name">{{ tarea.nombre_scrum_involucramiento }} </a><br>
+                                        <a href="javascript:void(0);" class="name">{{ tarea.nombre_scrum_conversion }}</a>
+                                    </div>
+                                    <div class="timeline-content" *ngIf="tarea.id_scrum_respuesta == '1'">
+                                        <a href="javascript:void(0);" class="btn btn btn-info float-right" data-toggle="modal" data-target="#modalRespuestaAgregar" (click)="click_abrirModalRespuestaAgregar(tarea.id_scrum_tarea)"><i class="fa fa-plus"></i> Agregar Respuesta</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-12 text-right m-b-20">
+                <a href="javascript:void(0);" class="btn btn btn-success float-right" data-toggle="modal" data-target="#modalHistoriaAgregar" (click)="click_abrirModalHistoriaAgregar()"><i class="fa fa-plus"></i> Agregar Historia</a>
+            </div>
+        </div>
+        
+    </div>
+</div>
+

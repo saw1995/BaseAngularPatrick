@@ -1,0 +1,127 @@
+<div *ngIf="showModalAgregarParqueo">
+    <div class="modal fade" id="modalAgregarParqueo" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR NUEVO PARQUEO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <strong>Nota: </strong> Tome en cuenta que <a class="alert-link">todos los campos con <span class="text-danger">*</span></a> son obligatorios.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Nombre del Parqueo </strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="nombre" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Nombre del parqueo">
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="form-group">
+                                <label><strong>Descripción o Dirección</strong> <span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="descripcion" #ctrl="ngModel" class="form-control" placeholder="Ingrese la Descripcion o Direccion del parqueo">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label><strong>Capacidad</strong> <span class="text-danger">*</span></label>
+                                <input type="number" [(ngModel)]="capacidad" #ctrl="ngModel" class="form-control" placeholder="Ingrese la capacidad">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarParqueo()">REGISTRAR PARQUEO</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModal>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalActualizarParqueo">
+    <div class="modal fade" id="modalActualizarParqueo" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">ACTUALIZAR DATOS DEL PARQUEO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <strong>Nota: </strong> Tome en cuenta que <a class="alert-link">todos los campos con <span class="text-danger">*</span></a> son obligatorios.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Nombre del Parqueo</strong> <span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="actualizar_nombre" class="form-control" placeholder="Ingrese el Nombre del parqueo">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Descripción o Dirección</strong> <span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="actualizar_descripcion" #ctrl="ngModel" class="form-control" placeholder="Ingrese la Descripcion o Direccion del parqueo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="actualizarDatosParqueo()">ACTUALIZAR PARQUEO</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModal>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-7 col-7">
+        <h4 class="page-title">Parqueos {{ nombre_sucursal }}</h4>
+    </div>
+    <div class="col-sm-5 col-5 text-right m-b-20">
+        <a href="" data-toggle="modal" data-target="#modalAgregarParqueo" (click)="click_agregarParqueo()" class="btn btn btn-danger float-right"><i class="fa fa-plus"></i> Agregar Parqueo</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-striped custom-table">
+                <thead>
+                    <tr>
+                        <th>Parqueo</th>
+                        <th>Nombre</th>
+                        <th>Descripcion o Direccion</th>
+                        <th class="text-right">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let parqueo of listaParqueo">
+                        <td><img width="40" height="40" src="assets/plantilla/img/parqueo.jpg" class="rounded-circle m-r-5" alt=""></td>
+                        <td>Parqueo - {{ parqueo.nombre }}</td>
+                        <td>{{parqueo.descripcion}}</td>
+                        <td class="text-right">
+                            <a href="javascript:void(0);" (click)="clickSeleecionarParqueo(parqueo.id, parqueo.nombre, parqueo.descripcion)" class="btn btn btn-success btn-rounded float-right"><i class="fa fa-eye"></i> </a> 
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#modalActualizarParqueo" (click)="clickActualizarParqueo(parqueo.id, parqueo.nombre, parqueo.descripcion)" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-pencil"></i> </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

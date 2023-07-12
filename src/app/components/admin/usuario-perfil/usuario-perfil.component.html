@@ -1,0 +1,262 @@
+<!--modales para mostrar-->
+<div *ngIf="showModalCambiarClave">
+    <div class="modal fade" id="ModalCambiarClave" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-default-size" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">CAMBIAR CONTRASEÑA USUARIO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <strong>Nota: </strong> Se recomienda <a class="alert-link">cambiar la contaseña</a> a menudo.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label><strong>Contraseña actual:</strong><span class="text-danger">*</span></label>
+                                <input type="password" [(ngModel)]="passAnterior" #ctrl="ngModel" class="form-control" placeholder="Ingrese la contraseña actual">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label><strong>Nueva Contraseña:</strong><span class="text-danger">*</span></label>
+                                <input type="password" [(ngModel)]="passNuevo_uno" #ctrl="ngModel" class="form-control" placeholder="Ingrese la nueva contraseña">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label><strong>Repita la contraseña:</strong><span class="text-danger">*</span></label>
+                                <input type="password" [(ngModel)]="passNuevo_dos" #ctrl="ngModel" class="form-control" placeholder="Ingrese la nueva contraseañ">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="actualizarPassById()">ACTUALIZAR CONTRASEÑA</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModal>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--modales para mostrar-->
+<div *ngIf="showModalUbicacionMaps">
+    <div class="modal fade" id="ModalUbicacionMaps" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-default-size" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: rgb(50, 141, 194);">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">UBICACIÓN PUNTO EN GOOGLE MAPS</h4>
+                </div>
+                <div class="card-box">
+
+                    <div class="map" #mapElement></div>
+
+                    <div class="row">
+                    
+                        <strong><label>Ubicacion Geográfica</label></strong>
+                        <br>
+
+                       
+                     
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" #cerrarModal>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--aqui los componentes q se mostraran-->
+<div class="row">
+    <div class="col-sm-4 col-6">
+        <h4 class="page-title">Perfil del Usuario</h4>
+    </div>
+
+    <div class="col-sm-8 col-6 text-right">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" id="rbHabilitado" [checked]="usuario_habilitado" (click)="actualizarEstadoById(1)">
+            <label class="form-check-label" for="gender_male">
+                HABILITADO
+            </label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" id="rbDeshabilitado" [checked]="!usuario_habilitado" (click)="actualizarEstadoById(0)">
+            <label class="form-check-label" for="gender_female">
+                DESHABILITADO
+            </label>
+        </div>
+        <a href="javascript:void(0);" class="btn btn-danger" style="margin-right: 5px;" (click)="clickNavegarHaciaActualizarUsuario()"><i class="fa fa-pencil"></i> Actualizar datos</a> 
+        <a href="javascript:void(0);" class="btn btn-danger" data-toggle="modal" data-target="#ModalCambiarClave" (click)='clickActualizarClave()'><i class="fa fa-key"></i> Cambiar contraseña de acceso</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h5 class="page-title" STYLE="COLOR: RGB(211, 50, 50);">Personal: <strong style="color: rgb(61, 57, 57);">{{ nombre_usuario }}</strong> </h5>
+            <div class="row">
+                <div class="col-sm-2" style="margin: 0; padding-right: 10px; border-right: 2px dashed #ccc;">
+                    <img class="avatar center_image" alt="" src="{{ url }}imagenes/usuarios/{{imagen_usuario}}">
+                </div>
+                <div class="col-sm-5" style="margin: 0; padding-right: 20px; border-right: 2px dashed #ccc;">
+                    <ul class="list-unstyled invoice-payment-details">
+                        <li>
+                            <h5>Nombre comleto: <span class="text-center" style="color: rgb(61, 57, 57);">{{ nombre_usuario }} {{ apellido_paterno_usuario }} {{ apellido_materno_usuario }}</span></h5>
+                            <h5>Cargo: <span class="text-center" style="color: rgb(61, 57, 57);">{{nombre_rol}}</span></h5>
+                            <h5>Cedula de Identidad: <span class="text-center" style="color: rgb(61, 57, 57);">{{ci_usuario}} - {{expedicion_usuario}}</span></h5>
+                            <h5>Genero: <span class="text-center" style="color: rgb(61, 57, 57);">{{genero_usuario}}</span></h5>
+                            <h5>Estado Civil: <span class="text-center" style="color: rgb(61, 57, 57);">{{estado_civil_usuario}}</span></h5>
+                            <h5>Estudio: <span class="text-center" style="color: rgb(61, 57, 57);">{{estudio_usuario}}</span></h5>
+                            <h5>Telefono Celular: <span class="text-center" style="color: rgb(61, 57, 57);">{{telefono_usuario}}</span></h5>
+                            <h5>Correo Electronico: <span class="text-center" style="color: rgb(61, 57, 57);">{{correo_usuario}}</span></h5>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-5" style="margin: 0; padding-left: 20px;">
+                    <ul class="list-unstyled invoice-payment-details">
+                        <li>
+                            <h5>Fecha de Nacimiento: <span class="text-center" style="color: rgb(61, 57, 57);">{{fecha_nacimiento_usuario}}</span></h5>
+                            <h5>Edad: <span class="text-center" style="color: rgb(61, 57, 57);">{{edad_usuario}} años</span></h5>
+                            <h5>Ciudad: <span class="text-center" style="color: rgb(61, 57, 57);">{{ departamento }}</span></h5>
+                            <h5>Zona: <span class="text-center" style="color: rgb(61, 57, 57);">{{zona_usuario}}</span></h5>
+                            <h5>Avenida: <span class="text-center" style="color: rgb(61, 57, 57);">{{avenida_usuario}}</span></h5>
+                            <h5>Calle: <span class="text-center" style="color: rgb(61, 57, 57);">{{calle_usuario}}</span></h5>
+                            <h5>Nro. de Domicilio: <span class="text-center" style="color: rgb(61, 57, 57);">{{numero_casa_usuario}}</span></h5>
+                            <h5>Referencia: <span class="text-center" style="color: rgb(61, 57, 57);">{{referencia_usuario}}</span></h5>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-12" style="margin: 0; padding-left: 20px;">
+                    <ul class="list-unstyled invoice-payment-details">
+                        <li>
+                            <div>
+                                <strong><label>Ubicacion Geográfica</label></strong>
+                                <div class="map" #mapElement></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h5 class="page-title" STYLE="COLOR: RGB(211, 50, 50);">Menu de Opciones</h5>
+            <ul class="nav nav-tabs nav-tabs-solid nav-justified" style="background-color: rgb(189, 189, 189);">
+                <li class="nav-item"><a style="color: rgb(255, 255, 255);" class="nav-link" href="#solid-justified-tab1" data-toggle="tab">Horarios</a></li>
+                <li class="nav-item"><a style="color: rgb(255, 255, 255);" class="nav-link" href="#solid-justified-tab2" data-toggle="tab" (click)="listaVentaByIdUsuario()">Ventas</a></li>
+                <li class="nav-item"><a style="color: rgb(255, 255, 255);" class="nav-link" href="#solid-justified-tab3" data-toggle="tab" (click)="listaLoginUsuarioByUsuario()">Seguridad</a></li>
+            </ul>
+            <div class="tab-content">
+
+                <div class="tab-pane" id="solid-justified-tab1">
+                    Tab content 1
+                </div>
+
+                <div class="tab-pane" id="solid-justified-tab2">
+                    <div class="row">
+                        <div class="col-sm-4 col-3">
+                            <h4 class="page-title">Ventas realizadas</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped custom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nº</th>
+                                            <th>Nº Venta</th>
+                                            <th>Tipo</th>
+                                            <th>Fecha - Hora</th>
+                                            <th>Cliente</th>
+                                            <th>Detalle vehículo</th>
+                                            <th>Monto</th>
+                                            <th>Detalle Verificación</th>
+                                            <th class="text-right">Opc.</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let venta of listaVenta;let i = index;">
+                                            <td>{{ i+1 }}</td>
+                                            <td>{{ venta.nro_venta }}</td>
+                                            <td>{{ venta.importacion_local}}</td>
+                                            <td>{{ venta.fecha }} - {{ venta.hora }}</td>
+                                            <td>{{ venta.cliente }}</td>
+                                            <td>
+                                                <h2><a>{{ venta.clase_vehiculo }} {{venta.marca_vehiculo}} <span>{{venta.detalle_vehiculo}}</span></a></h2>
+                                            </td>
+                                            <td>{{venta.monto}} {{venta.moneda}}</td>
+                                            <td>{{venta.verificado}} {{venta.usuario_verificador}}</td>
+                                            
+                                            <td class="text-right">
+                                                <a href="javascript:void(0);"  class="btn btn btn-danger btn-rounded float-right"><i class="fa fa-eye"></i> </a> 
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="solid-justified-tab3">
+                    <div class="row">
+                        <div class="col-sm-4 col-3">
+                            <h4 class="page-title">Inicio de Sesion </h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped custom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nro.</th>
+                                            <th>Plataforma</th>
+                                            <th>Fecha Ingreso</th>
+                                            <th>Dispositivo</th>
+                                            <th>Observacion Salida</th>
+                                            <th>Fecha Salida</th>
+                                            <th>Dispositivo</th>
+                                            <th>Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let login of listaLogin;let i = index;">
+                                            <td>{{ i+1 }}</td>
+                                            <td>{{ login.plataforma }}</td>
+                                            <td>{{ login.fecha_ingreso }} - {{ login.hora_ingreso }}</td>
+                                            <td>{{ login.dispositivo_ingreso }} </td>
+                                            <td>{{ login.observacion_salida }}</td>
+                                            <td>{{ login.fecha_salida }} - {{ login.hora_salida }}</td>
+                                            <td>{{ login.dispositivo_salida }}</td>
+                                            <td><span class="custom-badge" [ngClass]="{'status-red': login.estado == '1', 'status-green': login.estado == '0'}" >{{ login.abierto_cerrado }}</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>

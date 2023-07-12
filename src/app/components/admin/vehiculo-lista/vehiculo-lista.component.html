@@ -1,0 +1,470 @@
+<div *ngIf="showModalActualizarDatos">
+    <div class="modal fade" id="modaActualizarVehiculo" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">ACTUALIZAR DATOS DEL VEHICULO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="row">
+                            <div class="col-12 col-sm-8 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <strong><label>Marca de vehículo.</label></strong>
+                                    <select [(ngModel)]="objVehiculo.id_marca" #ctrl="ngModel" class="form-control">
+                                        <option value="" disabled selected>Seleccione una Marca</option>
+                                        <option *ngFor = "let marca of listaMarca;" [value]="marca.id">{{marca.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-4 col-md-2 col-lg-2">
+                                <div class="m-t-30 text-left">
+                                    <button class="btn btn-danger" data-toggle="modal" data-target="#modalAgregarMarca" (click)="click_agregarMarca()" style="margin-right: 5px;"><i class="fa fa-plus"></i> MARCA</button>
+                                </div>  
+                            </div>
+
+                            <div class="col-12 col-sm-8 col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <strong><label>Clase de Vehículo </label></strong>
+                                    <select [(ngModel)]="objVehiculo.id_clase_vehiculo" #ctrl="ngModel" class="form-control">
+                                        <option value="" disabled selected>Seleccione una clase</option>
+                                        <option *ngFor = "let clase of listaClase;" [value]="clase.id">{{clase.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-4 col-md-2 col-lg-2">
+                                <div class=" m-t-30 text-left">
+                                    <button class="btn btn-danger" data-toggle="modal" data-target="#modalAgregarClase" (click)="click_agregarClase()" style="margin-right: 5px;"><i class="fa fa-plus"></i> CLASE</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+                                <div class="form-group">
+                                    <strong><label>Tipo </label></strong>
+                                    <input type="text" [(ngModel)]="objVehiculo.tipo" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+                                <div class="form-group">
+                                    <strong><label>Version </label></strong>
+                                    <input type="text" [(ngModel)]="objVehiculo.version" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+                                <div class="form-group">
+                                    <strong><label>Año </label></strong>
+                                    <input type="number" [(ngModel)]="objVehiculo.anho" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+                                <div class="form-group">
+                                    <strong><label>Pais </label></strong>
+                                    <select [(ngModel)]="objVehiculo.pais" #ctrl="ngModel" id="cbPais" class="form-control">
+                                        <option value="" disabled selected>Seleccione un Pais</option>
+                                        <option value="China">China</option>
+                                        <option value="Estados Unidos">Estados unidos</option>
+                                        <option value="India">India</option>
+                                        <option value="Japon">Japon</option>
+                                        <option value="Mexico">Mexico</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+                                <div class="form-group">
+                                    <strong><label>Traccion </label></strong>
+                                    <input type="text" [(ngModel)]="objVehiculo.traccion" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+                                <div class="form-group">
+                                    <strong><label>Color </label></strong>
+                                    <input type="text" [(ngModel)]="objVehiculo.color" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+                                <div class="form-group  " [ngClass]="{'ocultar' : objVehiculo.importacion_local==0}">
+                                    <strong><label>Nro Lote </label></strong>
+                                    <input type="text" [(ngModel)]="objVehiculo.nro_lote" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                </div>
+
+                                <div class="form-group  " [ngClass]="{'ocultar' : objVehiculo.importacion_local==1}">
+                                    <strong><label>Turbo </label></strong>
+                                    <ul class="list-group notification-list">
+                                        <li class="list-group-item">
+                                            <div class="material-switch float-right">
+                                                NO   <input id="extinguidor_module" type="checkbox" [(ngModel)]="objVehiculo.turbo" [checked]="objVehiculo.turbo">
+                                                <label for="extinguidor_module" class="badge-primary"></label>   SI
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+                                <div class="form-group">
+                                    <strong><label>Caja </label></strong>
+                                    <select [(ngModel)]="objVehiculo.caja" #ctrl="ngModel" id="cbCaja" class="form-control">
+                                        <option value="" disabled selected>Seleccione una opcion</option>
+                                        <option value="Manual Mecanica">Manual Mecanica</option>
+                                        <option value="Automatica">Automatica</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+                                <div class="form-group">
+                                    <strong><label>Cilindrada </label></strong>
+                                    <input type="number" [(ngModel)]="objVehiculo.cilindrada" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+                                <div class="form-group">
+                                    <strong><label>Puertas </label></strong>
+                                    <select [(ngModel)]="objVehiculo.nro_puerta" #ctrl="ngModel" id="cbNroPuerta" class="form-control">
+                                        <option value="" disabled selected>Seleccione una opcion</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+                                <div class="form-group">
+                                    <strong><label>Kilometraje </label></strong>
+                                    <input type="number" [(ngModel)]="objVehiculo.kilometraje" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+                                <div class="form-group">
+                                    <strong><label>Placa </label></strong>
+                                    <input type="text" [(ngModel)]="objVehiculo.placa" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+                                <div class="form-group">
+                                    <strong><label>Nro. Copia </label></strong>
+                                    <select [(ngModel)]="objVehiculo.nro_copia" #ctrl="ngModel" id="cbNroCopia" class="form-control">
+                                        <option value="" disabled selected>Seleccione una opcion</option>
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-9 col-lg-9">
+                                <div class="form-group">
+                                    <strong><label>Observacion </label></strong>
+                                    <input type="text" [(ngModel)]="objVehiculo.observacion" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <strong><label>Imagenes: </label></strong>
+                                <div class="row doctor-grid">
+                                    <div class="col-6 col-sm-6 col-md-4 col-lg-4" style="margin: 0; padding: 0;" *ngFor="let img of imagenesVehiculo">
+                                        <div class="blog grid-blog"  style="margin: 0; padding: 7px;">
+                                            <div class="blog-image">
+                                                <a href="javascript:void(0);" ><img class="img-fluid" src="{{url}}imagenes/vehiculos/{{img}}" alt=""></a>
+                                            </div>
+                                            
+                                            <div class="dropdown profile-action">
+                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="javascript:void(0);" (click)="eliminarImagenById(img)"><i class="fa fa-trash-o m-r-5"></i> Eliminar imagen</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="custom-dropzone" ngx-dropzone [multiple]="false" [accept]="'image/*'" (change)="onSelectVehiculo($event)">
+                                    <ngx-dropzone-label>
+                                        <div>
+                                            <h2>AGREGAR iMAGEN</h2>
+                                        </div>
+                                    </ngx-dropzone-label>
+                                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of filesVehiculo" [file]="f" [removable]="true" (removed)="onRemoveVehiculo(f)">
+                                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                    </ngx-dropzone-image-preview>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="actualizarVehiculoById()">ACTUALIZAR DATOS</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModal>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalActualizarCliente">
+    <div class="modal fade" id="modaActualizarCliente" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">ENLAZAR CON CLIENTE</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-12 col-sm-12">
+                            <strong><label> {{ tipoLista }} </label></strong>
+
+                            <div class="table-responsive">
+                                <table class="table table-striped custom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Cliente</th>
+                                            <th>Vendedor</th>
+                                            <th class="text-right">Opc.</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let cliente of listaClientes">
+                                            <td class="text-center">
+                                                <h2><a>{{ cliente.fecha }}<span style="color: rgb(81, 84, 87)">Hora: {{ cliente.hora }}</span></a></h2>
+                                            </td>
+                                            <td class="text-center" style="min-width: 220px;">
+                                                <div style="display: flex;">
+                                                    <img width="50" height="50" src="{{ url }}imagenes/clientes/{{cliente.foto}}" class="rounded-circle m-r-5" alt="">
+                                                    <h2 style="font-size: 95%;"><a><span style="color: rgb(32, 121, 148);">CODIGO: {{ cliente.id }}</span>{{ cliente.nombre | uppercase }} {{ cliente.appat | uppercase }}</a></h2>
+                                                </div>
+                                            </td>
+                                            <td class="text-center" >
+                                                <div style="display: flex;">
+                                                    <img width="50" height="50" src="{{ url }}imagenes/usuarios/{{cliente.foto_usuario}}" class="rounded-circle m-r-5" alt="">
+                                                    <h2 style="font-size: 95%;"><a>{{ cliente.usuario | uppercase }}</a></h2>
+                                                </div>
+                                            </td>
+                                            <td class="text-right">
+                                                <a href="javascript:void(0);" (click)="click_seleccionarCliente(cliente.id)" class="btn btn btn-success btn-rounded float-right"><i class="fa fa-check"></i> </a> 
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+					<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalActualizarCliente>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalListaClientes">
+    <div class="modal fade" id="modaListaClientes" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">CLIENTES ASOCIADOS</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-12 col-sm-12">
+                            <div class="row">
+                                <div class="col-10 col-sm-10 col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <strong><label>Buscar Cliente </label></strong>
+                                        <input type="text" [(ngModel)]="txtBuscarCliente" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                    </div>
+                                </div>
+    
+                                <div class="col-2 col-sm-2 col-md-2 col-lg-1">
+                                    <div class="m-t-30 text-left">
+                                        <button class="btn btn-info" data-toggle="modal" data-target="#modalAgregarMarca" (click)="listaClientesBySucursalLike()" style="margin-right: 5px;"><i class="fa fa-search"></i></button>
+                                    </div>  
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-7 col-lg-4">
+                                    <div class="form-group">
+                                        <strong><label>Clientes Encontrados: {{ listaBusquedaClientes.length }}</label></strong>
+                                        <select [(ngModel)]="id_cliente" #ctrl="ngModel" class="form-control">
+                                            <option value="" disabled selected>Seleccione un Cliente</option>
+                                            <option *ngFor = "let cliente of listaBusquedaClientes;" [value]="cliente.id">{{ cliente.ci }} {{ cliente.ci_exp | uppercase }} - {{ cliente.nombre | uppercase }} {{ cliente.appat | uppercase }} {{ cliente.apmat | uppercase }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+    
+                                <div class="col-12 col-sm-12 col-md-5 col-lg-3" style="margin-top: 30px;">
+                                    <div class="text-right"> 
+                                        <button class="btn btn-success" (click)="agregarClienteBusqueda()" style="margin-right: 5px;"><i class="fa fa-plus"></i> Asociar Cliente</button>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-12">
+                            <strong><label> Clientes asocidados: {{ listaClientes.length }} </label></strong>
+
+                            <div class="table-responsive">
+                                <table class="table table-striped custom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Cliente</th>
+                                            <th>Vendedor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let cliente of listaClientes">
+                                            <td class="text-center">
+                                                <h2><a>{{ cliente.fecha }}<span style="color: rgb(81, 84, 87)">Hora: {{ cliente.hora }}</span></a></h2>
+                                            </td>
+                                            <td class="text-center" style="min-width: 220px;">
+                                                <div style="display: flex;">
+                                                    <img width="50" height="50" src="{{ url }}imagenes/clientes/{{cliente.foto}}" class="rounded-circle m-r-5" alt="">
+                                                    <h2 style="font-size: 95%;"><a href="/cliente/perfil/{{cliente.id_cliente}}" target="_blank"><span style="color: rgb(32, 121, 148);">CODIGO: {{ cliente.id_cliente }}</span>{{ cliente.cliente | uppercase }}</a></h2>
+                                                </div>
+                                            </td>
+                                            <td class="text-center" >
+                                                <div style="display: flex;">
+                                                    <img width="50" height="50" src="{{ url }}imagenes/usuarios/{{cliente.foto_usuario}}" class="rounded-circle m-r-5" alt="">
+                                                    <h2 style="font-size: 95%;"><a>{{ cliente.usuario | uppercase }}</a></h2>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+					<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalListaClientes>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalVista">
+    <div class="modal fade" id="modaVista" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">VISUALIZACIONES</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-12 col-sm-12">
+                            <strong><label> Total de Visualizaciones: {{ listaVista.length }} </label></strong>
+
+                            <div class="table-responsive">
+                                <table class="table table-striped custom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Cliente</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let cliente of listaVista">
+                                            <td class="text-center">
+                                                <h2><a>{{ cliente.fecha }}<span style="color: rgb(81, 84, 87)">Hora: {{ cliente.hora }}</span></a></h2>
+                                            </td>
+                                            <td class="text-center" style="min-width: 220px;">
+                                                <div style="display: flex;">
+                                                    <img width="50" height="50" src="{{ url }}imagenes/clientes/{{cliente.foto_cliente}}" class="rounded-circle m-r-5" alt="">
+                                                    <h2 style="font-size: 95%;"><a href="/cliente/perfil/{{cliente.id_cliente}}" target="_blank"><span style="color: rgb(32, 121, 148);">CODIGO: {{ cliente.id_cliente }}</span>{{ cliente.cliente | uppercase }}</a></h2>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+					<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalVista>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Aqui empezamos a crear los componentes principales. . .-->
+
+<div class="row">
+    <div class="col-sm-8 col-8">
+        <h4 class="page-title">{{ lblTitulo }}</h4>
+    </div>
+    <div class="col-sm-4 col-4 text-right m-b-20">
+        <a href="javascript:void(0);" (click)="click_navegarHaciaAgregarVehiculo()" class="btn btn btn-danger float-right"><i class="fa fa-plus"></i> Agregar Vehículo </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped custom-table">
+                <thead>
+                    <tr>
+                        <th>Nro</th>
+                        <th>Clase vehiculo</th>
+                        <th>Marca</th>
+                        <th>Detalle Vehiculo</th>
+                        <th>Provinencia</th>
+                        <th>Tipo Registro</th>
+                        <th class="text-right">Opc.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let vehiculo of listaVehiculos;let i = index;">
+                        <td>{{ i +1 }}</td>
+                        <td>{{ vehiculo.clase_vehiculo }}</td>
+                        
+                        <td>
+                            <img width="28" height="28" src="{{url}}imagenes/marcas/{{vehiculo.foto_marca}}" class="rounded-circle m-r-5" alt=""> {{vehiculo.marca}}
+                        </td>
+
+                        <td>
+                            <img width="28" height="28" src="{{url}}imagenes/vehiculos/{{vehiculo.foto_uno}}" class="rounded-circle m-r-5" alt="">
+                            {{ vehiculo.tipo }} {{ vehiculo.version}} {{vehiculo.anho}} {{vehiculo.color}}
+                        </td>
+
+                        <td>{{ vehiculo.pais }}</td>
+
+                        <td>{{ vehiculo.importacion_local_muestra }}</td>
+                       
+                        <td class="text-right">
+                            <div class="dropdown dropdown-action">
+                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <!--<a class="dropdown-item" [ngClass]="[vehiculo.id_cliente != '1' ? 'ocultar': '', vehiculo.importacion_local != '1' ? 'ocultar': '']" href="javascript:void(0);" (click)="click_actualizarCliente(vehiculo.id)" data-toggle="modal" data-target="#modaActualizarCliente"><i class="fa fa-user m-r-5"></i> Registrar Cliente</a>-->
+                                    <!--<a class="dropdown-item" href="javascript:void(0);" (click)="click_DetalleVehiculo(vehiculo.importacion_local, vehiculo.id)" ><i class="fa fa-eye m-r-5"></i> Ver en Modulo</a> -->
+                                    <a class="dropdown-item" href="javascript:void(0);" (click)="click_abrirModalListaClientes(vehiculo.id)" data-toggle="modal" data-target="#modaListaClientes"><i class="fa fa-users m-r-5"></i> Lista de Clientes</a>
+                                    <a class="dropdown-item" href="javascript:void(0);" (click)="click_abrirModalVista(vehiculo.id)" data-toggle="modal" data-target="#modaVista"><i class="fa fa-eye m-r-5"></i> Visualizaciones</a>
+                                    <a class="dropdown-item" href="javascript:void(0);" (click)="click_abrirModealActualizar(vehiculo.id)" data-toggle="modal" data-target="#modaActualizarVehiculo"><i class="fa fa-pencil m-r-5"></i> Actualizar Datos</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

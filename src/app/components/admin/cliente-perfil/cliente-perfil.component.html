@@ -1,0 +1,1501 @@
+<div *ngIf="showModalBusqueda">
+    <div class="modal fade" id="modalBusqueda" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR DATOS DEL VEHICULO ENCONTRADO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong> Seleccione una Marca</strong></label>
+                                <select [(ngModel)]="id_marca_busqueda" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione una Marca</option>
+                                    <option *ngFor = "let marca of listaMarca;" [value]="marca.id">{{marca.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong> Seleccione una Clase de Vehiculo</strong></label>
+                                <select [(ngModel)]="id_clase_vehiculo_busqueda" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione una clase</option>
+                                    <option *ngFor = "let clase of listaClase;" [value]="clase.id">{{clase.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label><strong>Nro. de Lote </strong><span class="text-danger">*</span></label>
+                                <input type="number" [(ngModel)]="lote" #ctrl="ngModel" class="form-control" placeholder="Ingrese el lote">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label><strong>Fecha de Subasta </strong><span class="text-danger">*</span></label>
+                                <input type="date" [(ngModel)]="fecha_subasta" #ctrl="ngModel" class="form-control" placeholder="Ingrese la fecha">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label><strong>Hora de Subasta </strong><span class="text-danger">*</span></label>
+                                <input type="time" [(ngModel)]="hora_subasta" #ctrl="ngModel" class="form-control" placeholder="Ingrese la hora">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <strong><label>Plataforma <span class="text-danger">*</span></label></strong>
+                            <select [(ngModel)]="plataforma" #ctrl="ngModel" class="form-control">
+                                <option value="" disabled selected>Seleccione la Plataforma</option>
+                                <option value="Copart">Copart</option>
+                                <option value="Iaai">Iaai</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label><strong>Enlace (Link) </strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="enlace" #ctrl="ngModel" class="form-control" placeholder="Ingrese el enlace de la pagina">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarClienteBusqueda()">REGISTRAR VEHICULO</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalBusqueda>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalInteresAnho">
+    <div class="modal fade" id="modalInteresAnho" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR MODELO DE AÑO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Año </strong><span class="text-danger">*</span></label>
+                                <input type="number" [(ngModel)]="anho" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Año">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarInteresAnho()">REGISTRAR AÑO</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalAnho>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalInteresClase">
+    <div class="modal fade" id="modalInteresClase" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR CLASE DE VEHICULO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong> Seleccione una Clase de Vehiculo</strong></label>
+                                <select [(ngModel)]="id_clase_vehiculo" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione una clase</option>
+                                    <option *ngFor = "let clase of listaClase;" [value]="clase.id">{{clase.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong> Nueva Clase de Vehiculo</strong></label>
+                                <input type="text" [(ngModel)]="clase" #ctrl="ngModel" class="form-control" placeholder="Ingrese la clase de vehiculo">
+                            </div>
+                            <button type="button" class="btn btn-success" (click)="agregarClaseVehiculo()">REGISTRAR CLASE DE VEHICULO</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarInteresClase()">REGISTRAR CLASE DE VEHICULO</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalClase>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalInteresCilindrada">
+    <div class="modal fade" id="modalInteresCilindrada" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR CILINDRADA</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Cilindrada </strong><span class="text-danger">*</span></label>
+                                <input type="number" [(ngModel)]="cilindrada" #ctrl="ngModel" class="form-control" placeholder="Ingrese la cilindrada">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarInteresCilindrada()">REGISTRAR CILINDRADA</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalCilindrada>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalInteresColor">
+    <div class="modal fade" id="modalInteresColor" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR COLOR</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong> Seleccione un Color</strong></label>
+                                <select [(ngModel)]="id_color" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione un Color</option>
+                                    <option *ngFor = "let color of listaColor;" [value]="color.id">{{color.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong> Nuevo Color</strong></label>
+                                <input type="text" [(ngModel)]="color" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Color">
+                            </div>
+                            <button type="button" class="btn btn-success" (click)="agregarColor()">REGISTRAR COLOR</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarInteresColor()">REGISTRAR COLOR</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalColor>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalInteresMarca">
+    <div class="modal fade" id="modalInteresMarca" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR MARCA</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong> Seleccione un Marca</strong></label>
+                                <select [(ngModel)]="id_marca" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione un Marca</option>
+                                    <option *ngFor = "let marca of listaMarca;" [value]="marca.id">{{marca.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong> Nuevo Marca</strong></label>
+                                <input type="text" [(ngModel)]="marca" #ctrl="ngModel" class="form-control" placeholder="Ingrese la Marca">
+                            </div>
+                            <button type="button" class="btn btn-success" (click)="agregarMarca()">REGISTRAR MARCA</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarInteresMarca()">REGISTRAR MARCA</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalMarca>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalInteresObservacion">
+    <div class="modal fade" id="modalInteresObservacion" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR DETALLE ADICIONAL</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Detalle Adicional </strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="observacion" #ctrl="ngModel" class="form-control" placeholder="Ingrese el detalle Adicional">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarInteresObservacion()">REGISTRAR DETALLE</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalObservacion>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalInteresTraccion">
+    <div class="modal fade" id="modalInteresTraccion" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR TRACCION</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong> Seleccione un Traccion</strong></label>
+                                <select [(ngModel)]="id_traccion" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione un Traccion</option>
+                                    <option *ngFor = "let traccion of listaTraccion;" [value]="traccion.id">{{traccion.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong> Nuevo Traccion</strong></label>
+                                <input type="text" [(ngModel)]="traccion" #ctrl="ngModel" class="form-control" placeholder="Ingrese la Traccion">
+                            </div>
+                            <button type="button" class="btn btn-success" (click)="agregarTraccion()">REGISTRAR TRACCION</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarInteresTraccion()">REGISTRAR TRACCION</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalTraccion>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalContratoNuevo">
+    <div class="modal fade" id="modalContratoNuevo" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR MONTO DE GARANTIA</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>MONTO ($us.)</strong><span class="text-danger">*</span></label>
+                                <input type="number" [(ngModel)]="monto_garantia" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Monto">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarContrato()">REGISTRAR GARANTIA</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalContratoNuevo>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalContratoDetalle">
+    <div class="modal fade" id="modalContratoDetalle" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">DETALLE DEL CONTRATO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group text-center" style="margin: 0; padding: 0;">
+                                <label style="font-size: 150%;"><strong>CONTRATO PRIVADO DE CONSIGNACIÓN</strong> </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Nro. de Contrato: </strong> {{ nroContrato}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Fecha: </strong> {{ fecha_contrato}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Hora: </strong> {{ hora_contrato}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Usuario: </strong> {{ usuario_contrato }} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Monto de Garantia: </strong> $us {{ monto_contrato | number:'1.2-2'}}</label>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="col-sm-6">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalContratoDetalle>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalAdendaNuevo">
+    <div class="modal fade" id="modalAdendaNuevo" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR MONTO DE ADENDA</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong><label>Cargo del Usuario <span class="text-danger">*</span></label></strong>
+                                <select [(ngModel)]="id_vehiculo" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione un Vehiculo</option>
+                                    <option *ngFor = "let vehiculo of listaVehiculos;" [value]="vehiculo.id_vehiculo">{{vehiculo.nombre_clase}} {{vehiculo.nombre_marca}} {{vehiculo.tipo}} {{vehiculo.version}} {{vehiculo.anho}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong>MONTO ($us.)</strong><span class="text-danger">*</span></label>
+                                <input type="number" [(ngModel)]="monto_adenda" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Monto">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarAdenda()">REGISTRAR ADENDA</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalAdendaNuevo>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalAdendaDetalle">
+    <div class="modal fade" id="modalAdendaDetalle" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">DETALLE DE LA ADENDA</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group text-center" style="margin: 0; padding: 0;">
+                                <label style="font-size: 150%;"><strong>ADENDA</strong> </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Nro. de Adenda: </strong> {{ nroAdenda }} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Fecha: </strong> {{ fecha_adenda }} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Hora: </strong> {{ hora_adenda }} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Usuario: </strong> {{ usuario_adenda }} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Monto de la Adenda: </strong> $us {{ monto_adenda | number:'1.2-2'}}</label>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="col-sm-6">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalAdendaDetalle>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalReciboNuevo">
+    <div class="modal fade" id="modalReciboNuevo" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">DEPOSITO DE GARANTIA</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Concepto: </strong> DEPOSITO DE GARANTIA</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong>MONTO ($us.)</strong><span class="text-danger">*</span></label>
+                                <input type="number" [(ngModel)]="total_recibo" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Monto">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong><label>Tipo de Pago <span class="text-danger">*</span></label></strong>
+                                <select [(ngModel)]="tipo_pago" #ctrl="ngModel" id="cbDepartamento" class="form-control">
+                                    <option value="" disabled selected>Seleccione un Tipo de Pago</option>
+                                    <option value="Pago en Efectivo">Pago en Efectivo</option>
+                                    <option value="Transferencia">Transferencia</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Detalle de Concepto</strong></label>
+                                <input type="text" [(ngModel)]="detalle_recibo" #ctrl="ngModel" class="form-control" placeholder="Ingrese el detalle">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Observacion (Interno)</strong></label>
+                                <input type="text" [(ngModel)]="observacion_recibo" #ctrl="ngModel" class="form-control" placeholder="Ingrese una obsrervacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <a href="" data-toggle="modal" data-target="#modalImagen" (click)="click_agregarImagen()" class="btn btn btn-primary float-center"><i class="fa fa-picture-o"></i> Agregar Respaldo</a>
+                        </div>
+                        
+                        <label style="margin: 20px;"><strong>Imagen a Subir</strong></label>
+        
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-4" *ngFor="let imagen of listaPrevia;let i = index;">
+                                    <img [src]="imagen" height="150px">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarReciboPago()">REGISTRAR DEPOSITO</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalReciboNuevo>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalReciboDetalle">
+    <div class="modal fade" id="modalReciboDetalle" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">DETALLE DEL RECIBO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group text-center" style="margin: 0; padding: 0;">
+                                <label style="font-size: 150%;"><strong>RECIBO DE PAGO</strong> </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Nro. de Recibo de Pago: </strong> {{ nro_recibo}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Concepto: </strong> {{ tipo_recibo | uppercase}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Detalle de Concepto: </strong> {{ detalle_recibo | uppercase}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Observacion: </strong> {{ observacion_recibo | uppercase}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Tipo de Pago: </strong> {{ tipo_pago | uppercase}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Total de Recibo: </strong> $us {{ total_recibo | number:'1.2-2'}}</label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Fecha: </strong> {{ fecha_recibo}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Hora: </strong> {{ hora_recibo}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Usuario: </strong> {{ usuario_recibo }} </label>
+                            </div>
+                            
+                            <br>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Verificacion de Datos: </strong></label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Fecha: </strong> {{ fecha_verificado_recibo}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Hora: </strong> {{ hora_verificado_recibo}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Usuario: </strong> {{ usuario_verificado_recibo }} </label>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Respaldo (Imagen): </strong></label>
+                                <img src="{{ url }}imagenes/recibos/{{respaldo}}" alt="" width="100%" height="auto" (click)="click_verImagen('imagenes/recibos/' + respaldo)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalReciboDetalle>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalDevolucionNuevo">
+    <div class="modal fade" id="modalDevolucionNuevo" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">DEVOLUCION DE GARANTIA</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Concepto: </strong> DEPOSITO DE GARANTIA</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong>MONTO ($us.)</strong><span class="text-danger">*</span></label>
+                                <input type="number" [(ngModel)]="total_devolucion" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Monto">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong><label>Tipo de Pago <span class="text-danger">*</span></label></strong>
+                                <select [(ngModel)]="tipo_pago_devolucion" #ctrl="ngModel" id="cbDepartamento" class="form-control">
+                                    <option value="" disabled selected>Seleccione un Tipo de Pago</option>
+                                    <option value="Pago en Efectivo">Pago en Efectivo</option>
+                                    <option value="Transferencia">Transferencia</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Detalle de Concepto</strong></label>
+                                <input type="text" [(ngModel)]="detalle_devolucion" #ctrl="ngModel" class="form-control" placeholder="Ingrese el detalle">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Observacion (Interno)</strong></label>
+                                <input type="text" [(ngModel)]="observacion_devolucion" #ctrl="ngModel" class="form-control" placeholder="Ingrese una obsrervacion">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarDevolucionPago()">REGISTRAR DEVOLUCION</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalDevolucionNuevo>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalDevolucionDetalle">
+    <div class="modal fade" id="modalDevolucionDetalle" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">DETALLE DE DEVOLUCION</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group text-center" style="margin: 0; padding: 0;">
+                                <label style="font-size: 150%;"><strong>DEVOLUCION DE PAGO</strong> </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Nro. de Devolucion de Pago: </strong> {{ nro_devolucion}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Concepto: </strong> {{ tipo_devolucion | uppercase}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Detalle de Concepto: </strong> {{ detalle_devolucion | uppercase}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Observacion: </strong> {{ observacion_devolucion | uppercase}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Tipo de Pago: </strong> {{ tipo_pago_devolucion | uppercase}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Total de Recibo: </strong> $us {{ total_devolucion | number:'1.2-2'}}</label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Fecha: </strong> {{ fecha_devolucion}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Hora: </strong> {{ hora_devolucion}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Usuario: </strong> {{ usuario_devolucion }} </label>
+                            </div>
+                            
+                            <br>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Verificacion de Datos: </strong></label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Fecha: </strong> {{ fecha_verificado_devolucion }} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Hora: </strong> {{ hora_verificado_devolucion }} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Usuario: </strong> {{ usuario_verificado_devolucion }} </label>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="col-sm-6">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalDevolucionDetalle>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalClienteDocumento">
+    <div class="modal fade" id="modalClienteDocumento" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR DOCUMENTOS</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Titulo del Documento</strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="txtTituloDocumento" #ctrl="ngModel" class="form-control" placeholder="Ingrese una referencia">
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-12 text-center">
+                            <a href="" data-toggle="modal" data-target="#modalImagen" (click)="click_agregarImagen()" class="btn btn btn-primary float-center"><i class="fa fa-picture-o"></i> Agregar Respaldo</a>
+                        </div>
+                        
+                        <label style="margin: 20px;"><strong>Imagen a Subir</strong></label>
+        
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-4" *ngFor="let imagen of listaPrevia;let i = index;">
+                                    <img [src]="imagen" height="150px">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarClienteDocumento()">SUBIR DOCUMENTO</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalClienteDocumento>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalImagen">
+    <div class="modal fade" id="modalImagen" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: rgb(50, 141, 194);">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR IMAGEN</h4>
+                </div>
+                <div class="card-box" style="background-color: rgb(226, 226, 226);">
+                    <div class="row">
+                        <div class="col-sm-12 text-center" style="margin-bottom: 20px;">
+                            <input type="file" (change)="fileChangeEvent($event)" />
+                        </div>
+                        
+                        <div class="col-sm-6">
+                            <div class="card-box">
+                                <h5 class="text-center">Imagen</h5>
+                                <image-cropper 
+                                [imageChangedEvent]="imageChangedEvent" 
+                                [maintainAspectRatio]="true" 
+                                [aspectRatio]="4 / 4"
+                                [resizeToWidth]="800" 
+                                format="jpeg" 
+                                (imageCropped)="imageCropped($event)" 
+                                (imageLoaded)="imageLoaded()"
+                                (cropperReady)="cropperReady()" 
+                                (loadImageFailed)="loadImageFailed()"></image-cropper>
+                            </div>
+                            
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card-box">
+                                <h5 class="text-center">Vista Previa</h5>
+                                <img [src]="croppedImage" width="250px"/>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" (click)="click_cortarImagen()">CORTAR IMAGEN</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" #cerrarModalImagen>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-imagen-view [imageURL]="imageURL" [open]="viewerOpen" (close)="viewerOpen = false"></app-imagen-view>
+
+<div class="row">
+    <div class="col-sm-4 col-6">
+        <h4 class="page-title">Perfil del Cliente</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-sm-8 col-8">
+                    <h5 class="page-title" STYLE="COLOR: RGB(211, 50, 50);">Estado del Interes: {{ interes_literal }}</h5>
+                </div>
+                <div class="col-sm-4 col-4 text-right m-b-20">
+                    <a href="javascript:void(0);" class="btn btn btn-info float-right" (click)="click_irClienteEditar()"><i class="fa fa-pencil"></i> Editar Datos</a>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-3" style="margin: 0; padding-right: 10px; border-right: 2px dashed #ccc;">
+                    <img class="avatar center_image" alt="" src="{{ url }}imagenes/clientes/{{foto}}">
+                </div>
+                <div class="col-sm-5 text-center" style="margin: 0; padding-right: 20px; border-right: 2px dashed #ccc;">
+                    <span style="font-size: 90%;">Codigo:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ id_cliente | uppercase }}</h5>
+                    </div>
+
+                    <span style="font-size: 90%;">Cliente:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ nombre | uppercase }} {{ apellido_paterno | uppercase }} {{ apellido_materno | uppercase }}</h5>
+                    </div>
+
+                    <span style="font-size: 90%;">Cedula de Identidad:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ ci }} {{ expedicion | uppercase }}</h5>
+                    </div>
+
+                    <span style="font-size: 90%;">Genero:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ genero | uppercase }}</h5>
+                    </div>
+
+                    <span style="font-size: 90%;">Telefono:</span> 
+                    <div class="invoice-info">
+                        <a href="javascript:void(0);" (click)="click_whatsapp(telefono)">
+                            <h5 style="font-size: 95%;"><a style="color: rgb(0, 0, 0);">{{ telefono }}</a></h5>
+                        </a>
+                    </div>
+
+                    <span style="font-size: 90%;">Profesion:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ profesion | uppercase }}</h5>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 text-center">
+                    <span style="font-size: 90%;">Departamento:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ departamento | uppercase }}</h5>
+                    </div>
+
+                    <span style="font-size: 90%;">Direccion:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ direccion | uppercase }}</h5>
+                    </div>
+
+                    <span style="font-size: 90%;">Personal de Registro:</span> 
+                    <div class="invoice-info">
+                        <h5>{{  usuario | uppercase }}</h5>
+                    </div>
+
+                    <span style="font-size: 90%;">Fecha de Registro:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ fecha }}</h5>
+                    </div>
+
+                    <span style="font-size: 90%;">Hora de Registro:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ hora }}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4 class="page-title">Contrato y Garantia</h4>
+                </div>
+            </div>
+            <div class="row" id="divClienteCiNoValido" style="display: none;">
+                <div class="col-sm-12">
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        <strong>Nota: </strong> No puede generar <a class="alert-link">ningun documento</a>, el cliente no tiene una cedula de identidad valida y/o una direccion valida.
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="divClienteCiValido" style="display: none;">
+                <div class="col-sm-6" id="pdf_contrato">
+                    <div class="dash-widget" >
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+                                <span style="font-size: 90%;">Contrato:</span> 
+                                <div class="invoice-info">
+                                    <h5>Nro.: {{nroContrato}}</h5>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-4" id="btnContratoGenerar" style="display: none;">
+                                        <a href="javascript:void(0)" class="btn btn-danger float-right btn-sm" data-toggle="modal" data-target="#modalContratoNuevo" (click)="click_generarContrato()"><i class="fa fa-check"></i> Generar </a>
+                                    </div>
+                                    <div class="col-sm-4" id="btnContratoImprimir" style="display: none;">
+                                        <a href="javascript:void(0)" class="btn btn-success float-right btn-sm" (click)="reporteContratoById()"><i class="fa fa-print"></i> Imprimir </a>
+                                    </div>
+                                    <div class="col-sm-4" id="btnContratoDetalle" style="display: none;">
+                                        <a href="javascript:void(0)" class="btn btn-info float-right btn-sm"  data-toggle="modal" data-target="#modalContratoDetalle" (click)="click_abrirContratoDetalle()"><i class="fa fa-eye"></i> Detalles </a>
+                                    </div>
+                                    <div class="col-sm-4" id="btnContratoEditar" style="display: none;">
+                                        <a href="javascript:void(0)" class="btn btn-info float-right btn-sm" (click)="click_abrirEditarContrato()"><i class="fa fa-pencil"></i> Editar </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6" id="pdf_adenda">
+                    <div class="dash-widget" >
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+                                <span style="font-size: 90%;">Adenda:</span> 
+                                <div class="invoice-info">
+                                    <h5>Nro.: {{nroAdenda}}</h5>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-4" id="btnAdendaGenerar" style="display: none;">
+                                        <a href="javascript:void(0)" class="btn btn-danger float-right btn-sm" data-toggle="modal" data-target="#modalAdendaNuevo" (click)="click_generarAdenda()"><i class="fa fa-check"></i> Generar </a>
+                                    </div>
+                                    <div class="col-sm-4" id="btnAdendaImprimir" style="display: none;">
+                                        <a href="javascript:void(0)" class="btn btn-success float-right btn-sm" (click)="reporteAdendaById()"><i class="fa fa-print"></i> Imprimir </a>
+                                    </div>
+                                    <div class="col-sm-4" id="btnAdendaDetalle" style="display: none;">
+                                        <a href="javascript:void(0)" class="btn btn-info float-right btn-sm"  data-toggle="modal" data-target="#modalAdendaDetalle" (click)="click_abrirAdendaDetalle()"><i class="fa fa-eye"></i> Detalles </a>
+                                    </div>
+                                    <div class="col-sm-4" id="btnAdendaEditar" style="display: none;">
+                                        <a href="javascript:void(0)" class="btn btn-info float-right btn-sm" (click)="click_abrirEditarAdenda()"><i class="fa fa-pencil"></i> Editar </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-sm-6" id="pdf_recibo">
+                    <div class="dash-widget">
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+                                <span style="font-size: 90%;">Deposito de Garantia:</span> 
+                                <div class="invoice-info">
+                                    <h5>Nro. de Recibo: {{nro_recibo}}</h5>
+                                </div>
+                                <span class="custom-badge" [ngClass]="recibo_verificado=='VERIFICADO' ? 'status-green': 'status-red'">{{recibo_verificado}}</span>
+                            </div>
+                            <div class="col-sm-12" style="margin-top: 20px;">
+                                <div class="row">
+                                    <div class="col-sm-6" id="btnReciboGenerar" style="display: none;">
+                                        <a href="javascript:void(0)" class="btn btn-danger float-right btn-sm" data-toggle="modal" data-target="#modalReciboNuevo" (click)="click_generarRecibo()"><i class="fa fa-check"></i> Generar </a>
+                                    </div>
+                                    <div class="col-sm-6" id="btnReciboImprimir" style="display: none;">
+                                        <a href="javascript:void(0)" class="btn btn-success float-right btn-sm" (click)="reporteReciboPagoById()"><i class="fa fa-print"></i> Imprimir </a>
+                                    </div>
+                                    <div class="col-sm-6" id="btnReciboDetalle" style="display: none;">
+                                        <a href="javascript:void(0)" class="btn btn-info float-right btn-sm" data-toggle="modal" data-target="#modalReciboDetalle" (click)="click_abrirReciboDetalle()"><i class="fa fa-eye"></i> Detalles </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6" id="pdf_devolucion">
+                    <div class="dash-widget">
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+                                <span style="font-size: 90%;">Devolucion de Garantia:</span> 
+                                <div class="invoice-info">
+                                    <h5>Nro. de Devolucion: {{nro_devolucion}}</h5>
+                                </div>
+                                <span class="custom-badge" [ngClass]="devolucion_verificado=='VERIFICADO' ? 'status-green': 'status-red'">{{devolucion_verificado}}</span>
+                            </div>
+                            <div class="col-sm-12" style="margin-top: 20px;">
+                                <div class="row">
+                                    <div class="col-sm-6" id="btnDevolucionGenerar" style="display: none;">
+                                        <a href="javascript:void(0)" class="btn btn-danger float-right btn-sm" data-toggle="modal" data-target="#modalDevolucionNuevo" (click)="click_generarDevolucion()"><i class="fa fa-check"></i> Generar </a>
+                                    </div>
+                                    <div class="col-sm-6" id="btnDevolucionImprimir" style="display: none;">
+                                        <a href="javascript:void(0)" class="btn btn-success float-right btn-sm" (click)="reporteDevolucionPagoById()"><i class="fa fa-print"></i> Imprimir </a>
+                                    </div>
+                                    <div class="col-sm-6" id="btnDevolucionDetalle" style="display: none;">
+                                        <a href="javascript:void(0)" class="btn btn-info float-right btn-sm" data-toggle="modal" data-target="#modalDevolucionDetalle" (click)="click_abrirDevolucionDetalle()"><i class="fa fa-eye"></i> Detalles </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div> 
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-sm-8 col-8">
+                    <h4 class="page-title">Otros Documentos</h4>
+                </div>
+                <div class="col-sm-4 col-4 text-right m-b-20">
+                    <a href="javascript:void(0);" class="btn btn btn-success float-right" data-toggle="modal" data-target="#modalClienteDocumento" (click)="click_agregarClienteDocumento()"><i class="fa fa-plus"></i> Agregar Documento</a>
+                </div>
+            </div>
+
+            <div class="row doctor-grid">
+                <div class="col-md-4 col-sm-6 col-lg-4" *ngFor="let documento of listaDocumentos">
+                    <div class="profile-widget">
+                        <div class="doctor-img">
+                            <a class="avatar" href="javascript:void(0);"><img alt="" src="{{url}}imagenes/documentos/{{documento.documento}}" (click)="click_verImagen('imagenes/documentos/' + documento.documento)"></a>
+                        </div>
+
+                        <h4 class="doctor-name">
+                            <a href="javascript:void(0);" (click)="ver_imagenDocumento(documento.documento)">
+                            {{documento.titulo}}</a></h4>
+                        <div class="user-country">
+                            <i class="fa fa-calendar"></i>  {{documento.fecha}} - {{documento.hora}}
+                        </div>
+                        <div class="doc-prof">{{documento.usuario}}</div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h5 class="page-title" STYLE="COLOR: RGB(211, 50, 50);">Menu de Opciones</h5>
+            <ul class="nav nav-tabs nav-tabs-solid nav-justified" style="background-color: rgb(189, 189, 189);">
+                <li class="nav-item"><a style="color: rgb(255, 255, 255);" class="nav-link" href="#solid-justified-tab-scrum" data-toggle="tab">Scrum</a></li>
+                <li class="nav-item"><a style="color: rgb(255, 255, 255);" class="nav-link" href="#solid-justified-tab1" data-toggle="tab" (click)="click_listaInteres()">Interes en Vehiculo</a></li>
+                <li class="nav-item"><a style="color: rgb(255, 255, 255);" class="nav-link" href="#solid-justified-tab2" data-toggle="tab" (click)="listaBusquedaVehiculoByCliente()">Vehiculo en busqueda</a></li>
+                <li class="nav-item" id="btnVehiculoImportado" style="display: none;"><a style="color: rgb(255, 255, 255);" class="nav-link" href="#solid-justified-tab3" data-toggle="tab" (click)="listaImportacionByCliente()">Vehiculo Elegido</a></li>
+            </ul>
+        </div>
+    </div> 
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="tab-content">
+            <div class="tab-pane" id="solid-justified-tab-scrum">                    
+                <app-cliente-perfil-scrum [id_cliente]=id_cliente></app-cliente-perfil-scrum>
+            </div>
+            <div class="tab-pane" id="solid-justified-tab1">                    
+                <div class="row">
+                    <div class="col-sm-12">
+                    
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h4 class="page-title">Datos de Interes en el Vehiculo</h4>
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="card-box">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <h4 class="page-title">Interes por modelo de Año</h4>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#modalInteresAnho" (click)="click_agregarInteresAnho()" class="btn btn btn-success btn-rounded float-right"><i class="fa fa-plus"></i> </a> 
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped custom-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Nº</th>
+                                                            <th>Año</th>
+                                                            <th>Registro</th>
+                                                            <th>Opc.</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let interes of listaAnhoInteres;let i = index;">
+                                                            <td class="text-center">{{i+1}}</td>
+                                                            <td class="text-center">{{interes.anho}}</td>
+                                                            <td class="text-center">
+                                                                <h2 style="color: rgb(101, 103, 106); font-size: 80%;"><a>{{ interes.usuario | uppercase }}<span style="color: rgb(130, 134, 139)">Fecha: {{ interes.fecha }}</span></a></h2>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <a href="javascript:void(0);" class="btn btn btn-danger btn-rounded float-right" (click)="actualizarEstadoAnho(interes.id)"><i class="fa fa-trash"></i> </a> 
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="card-box">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <h4 class="page-title">Interes por la Clase de Vehiculo</h4>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#modalInteresClase" (click)="click_agregarInteresClase()" class="btn btn btn-success btn-rounded float-right"><i class="fa fa-plus"></i> </a> 
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped custom-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Nº</th>
+                                                            <th>Clase de Vehiculo</th>
+                                                            <th>Registro</th>
+                                                            <th>Opc.</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let interes of listaClaseInteres;let i = index;">
+                                                            <td class="text-center">{{i+1}}</td>
+                                                            <td class="text-center">{{interes.clase_vehiculo}}</td>
+                                                            <td class="text-center">
+                                                                <h2 style="color: rgb(101, 103, 106); font-size: 80%;"><a>{{ interes.usuario | uppercase }}<span style="color: rgb(130, 134, 139)">Fecha: {{ interes.fecha }}</span></a></h2>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <a href="javascript:void(0);" class="btn btn btn-danger btn-rounded float-right" (click)="actualizarEstadoClase(interes.id)"><i class="fa fa-trash"></i> </a> 
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="card-box">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <h4 class="page-title">Interes por la cilindrada</h4>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#modalInteresCilindrada" (click)="click_agregarInteresCilindrada()" class="btn btn btn-success btn-rounded float-right"><i class="fa fa-plus"></i> </a> 
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped custom-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Nº</th>
+                                                            <th>Cilindrada</th>
+                                                            <th>Registro</th>
+                                                            <th>Opc.</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let interes of listaCilindradaInteres;let i = index;">
+                                                            <td class="text-center">{{i+1}}</td>
+                                                            <td class="text-center">{{interes.cilindrada}} cc.</td>
+                                                            <td class="text-center">
+                                                                <h2 style="color: rgb(101, 103, 106); font-size: 80%;"><a>{{ interes.usuario | uppercase }}<span style="color: rgb(130, 134, 139)">Fecha: {{ interes.fecha }}</span></a></h2>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <a href="javascript:void(0);" class="btn btn btn-danger btn-rounded float-right" (click)="actualizarEstadoCilindrada(interes.id)"><i class="fa fa-trash"></i> </a> 
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="card-box">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <h4 class="page-title">Interes por Color</h4>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#modalInteresColor" (click)="click_agregarInteresColor()" class="btn btn btn-success btn-rounded float-right"><i class="fa fa-plus"></i> </a> 
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped custom-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Nº</th>
+                                                            <th>Color</th>
+                                                            <th>Registro</th>
+                                                            <th>Opc.</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let interes of listaColorInteres;let i = index;">
+                                                            <td class="text-center">{{i+1}}</td>
+                                                            <td class="text-center">{{interes.color}}</td>
+                                                            <td class="text-center">
+                                                                <h2 style="color: rgb(101, 103, 106); font-size: 80%;"><a>{{ interes.usuario | uppercase }}<span style="color: rgb(130, 134, 139)">Fecha: {{ interes.fecha }}</span></a></h2>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <a href="javascript:void(0);" class="btn btn btn-danger btn-rounded float-right" (click)="actualizarEstadoColor(interes.id)"><i class="fa fa-trash"></i> </a> 
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="card-box">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <h4 class="page-title">Interes por Marca</h4>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#modalInteresMarca" (click)="click_agregarInteresMarca()" class="btn btn btn-success btn-rounded float-right"><i class="fa fa-plus"></i> </a> 
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped custom-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Nº</th>
+                                                            <th>Marca</th>
+                                                            <th>Registro</th>
+                                                            <th>Opc.</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let interes of listaMarcaInteres;let i = index;">
+                                                            <td class="text-center">{{i+1}}</td>
+                                                            <td class="text-center">{{interes.marca}}</td>
+                                                            <td class="text-center">
+                                                                <h2 style="color: rgb(101, 103, 106); font-size: 80%;"><a>{{ interes.usuario | uppercase }}<span style="color: rgb(130, 134, 139)">Fecha: {{ interes.fecha }}</span></a></h2>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <a href="javascript:void(0);" class="btn btn btn-danger btn-rounded float-right" (click)="actualizarEstadoMarca(interes.id)"><i class="fa fa-trash"></i> </a> 
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="card-box">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <h4 class="page-title">Interes por Traccion</h4>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#modalInteresTraccion" (click)="click_agregarInteresTraccion()" class="btn btn btn-success btn-rounded float-right"><i class="fa fa-plus"></i> </a> 
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped custom-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Nº</th>
+                                                            <th>Traccion</th>
+                                                            <th>Registro</th>
+                                                            <th>Opc.</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let interes of listaTraccionInteres;let i = index;">
+                                                            <td class="text-center">{{i+1}}</td>
+                                                            <td class="text-center">{{interes.traccion}}</td>
+                                                            <td class="text-center">
+                                                                <h2 style="color: rgb(101, 103, 106); font-size: 80%;"><a>{{ interes.usuario | uppercase }}<span style="color: rgb(130, 134, 139)">Fecha: {{ interes.fecha }}</span></a></h2>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <a href="javascript:void(0);" class="btn btn btn-danger btn-rounded float-right" (click)="actualizarEstadoTraccion(interes.id)"><i class="fa fa-trash"></i> </a> 
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="card-box">
+                                    <div class="row">
+                                        <div class="col-sm-9">
+                                            <h4 class="page-title">Interes con detalle adicional</h4>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#modalInteresObservacion" (click)="click_agregarInteresObservacion()" class="btn btn btn-success btn-rounded float-right"><i class="fa fa-plus"></i> </a> 
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped custom-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Nº</th>
+                                                            <th>Detalle Adicional</th>
+                                                            <th>Registro</th>
+                                                            <th>Opc.</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let interes of listaObservacionInteres;let i = index;">
+                                                            <td class="text-center">{{i+1}}</td>
+                                                            <td class="text-center">{{interes.observacion}}</td>
+                                                            <td class="text-center">
+                                                                <h2 style="color: rgb(101, 103, 106); font-size: 80%;"><a>{{ interes.usuario | uppercase }}<span style="color: rgb(130, 134, 139)">Fecha: {{ interes.fecha }}</span></a></h2>
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <a href="javascript:void(0);" class="btn btn btn-danger btn-rounded float-right" (click)="actualizarEstadoObservacion(interes.id)"><i class="fa fa-trash"></i> </a> 
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <div class="tab-pane" id="solid-justified-tab2">
+                <div class="col-sm-12">
+                    <div class="card-box">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h4 class="page-title">Vehiculos encontrados</h4>
+                            </div>
+                            <div class="col-sm-6">
+                                <a href="javascript:void(0);" (click)="click_agregarBusqueda()" data-toggle="modal" data-target="#modalBusqueda" class="btn btn btn-success btn-rounded float-right"><i class="fa fa-plus"></i> AGREGAR VEHICULO</a> 
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="table-responsive">
+                                    <table class="table table-striped custom-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Nº</th>
+                                                <th>Fecha Registro</th>
+                                                <th>Personal</th>
+                                                <th>Vehiculo</th>
+                                                <th>Lote</th>
+                                                <th>Fecha Subasta</th>
+                                                <th>Opc.</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let vehiculo of listaVehiculos;let i = index;">
+                                                <td class="text-center">{{i+1}}</td>
+                                                <td class="text-center">
+                                                    <h2><a>{{ vehiculo.fecha }}<span style="color: rgb(81, 84, 87)">Hora: {{ vehiculo.hora }}</span></a></h2>
+                                                </td>
+                                                <td class="text-center" >
+                                                    <div style="display: flex;">
+                                                        <img width="50" height="50" src="{{ url }}imagenes/usuarios/{{vehiculo.foto_usuario}}" class="rounded-circle m-r-5" alt="">
+                                                        <h2 style="color: rgb(101, 103, 106); font-size: 80%;"><a>{{ vehiculo.usuario | uppercase }}</a></h2>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <h2><a><span style="color: rgb(81, 84, 87)">{{ vehiculo.nombre_clase }}</span>{{ vehiculo.nombre_marca }} {{ vehiculo.tipo }} {{ vehiculo.version }}</a></h2>
+                                                </td>
+                                                <td class="text-center">#{{ vehiculo.nro_lote }}</td>
+                                                <td class="text-center">
+                                                    <h2><a>{{ vehiculo.fecha_subasta }}<span style="color: rgb(81, 84, 87)">Hora: {{ vehiculo.hora_subasta }}</span></a></h2>
+                                                </td>
+                                                <td class="text-right">
+                                                    <div class="dropdown dropdown-action">
+                                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a class="dropdown-item" href="{{ vehiculo.link }}" target="_blank"><i class="fa fa-globe m-r-5"></i> Enlace {{ vehiculo.plataforma }}</a>
+                                                            <a class="dropdown-item" [ngClass]="vehiculo.cotizacion!='1' ? 'ocultar': ''" href="javascript:void(0);" (click)="agregarCotizacion(vehiculo.id_vehiculo)"><i class="fa fa-globe m-r-5"></i> Cotizar</a>
+                                                            <a class="dropdown-item" [ngClass]="vehiculo.cotizacion=='1' ? 'ocultar': ''" href="javascript:void(0);" (click)="click_cotizacionDetalle(vehiculo.cotizacion)"><i class="fa fa-globe m-r-5"></i> Ver Contización</a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="solid-justified-tab3">
+                <div class="col-sm-12">
+                    <div class="card-box">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h4 class="page-title">Vehiculos Elegido</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="table-responsive">
+                                    <table class="table table-striped custom-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Nro.</th>
+                                                <th>Fecha</th>
+                                                <th>Vehiculo</th>
+                                                <th>Cliente</th>
+                                                <th>Personal</th>
+                                                <th class="text-right">Opc.</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let importacion of listaImportacion">
+                                                <td class="text-center">#{{ importacion.nro }}</td>
+                                                <td class="text-center">
+                                                    <h2><a>{{ importacion.fecha }}<span style="color: rgb(81, 84, 87)">Hora: {{ importacion.hora }}</span></a></h2>
+                                                </td>
+                                                <td class="text-center">
+                                                    <div style="display: flex;">
+                                                        <img width="50" height="50" src="{{ url }}imagenes/vehiculos/{{importacion.foto_uno}}" class="rounded-circle m-r-5" alt="">
+                                                        <h2 style="font-size: 95%;"><a>{{ importacion.clase_vehiculo }} {{ importacion.marca }} <span style="color: rgb(32, 121, 148);">{{ importacion.tipo }} {{ importacion.version }} {{ importacion.anho }}</span><span style="color: rgb(65, 70, 71);">{{ importacion.observacion }}</span></a></h2>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">{{ importacion.cliente }}</td>
+                                                <td class="text-center">
+                                                    <h2 style="color: rgb(101, 103, 106); font-size: 85%;"> {{ importacion.usuario }} </h2></td>
+                                                <td class="text-right">
+                                                    <a href="javascript:void(0);" class="btn btn btn-success btn-rounded float-right" (click)="click_nevagarImportacionDetalle(importacion.id_vehiculo)"><i class="fa fa-eye"></i> </a> 
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+

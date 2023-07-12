@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="col-sm-8 col-4">
+        <h4 class="page-title">Sucursales</h4>
+    </div>
+    <div class="col-sm-4 col-8 text-right m-b-30">
+        <a href="javascript:void(0);" class="btn btn-danger float-right" (click)="clickNavegarHaciaAgregarSucursal()"><i class="fa fa-plus"></i> Agregar Sucursal</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6 col-md-4 col-lg-4" *ngFor="let sucursal of listaSucursal">
+        <div class="blog grid-blog">
+            <div class="mycontainer" style="height: 365px; background-image: url('{{url}}imagenes/sucursales/{{sucursal.foto}}');">
+                <div class="myblur">
+                    <a href="javascript:void(0)" (click)="clickNavegarHaciaVerSucursal(sucursal.id)"><img class="myimg" style="height: 365px; width: 100%;" src="{{url}}imagenes/sucursales/{{sucursal.foto}}" alt=""></a>
+                </div>
+            </div>
+            <div class="blog-content text-center" style="margin-top: 20px;">
+                <h3 class="blog-title text-center"><a style="color: rgb(51, 48, 48);" href="javascript:void(0)" (click)="clickNavegarHaciaVerSucursal(sucursal.id)">  Sucursal - {{sucursal.nombre}}</a></h3>
+                <p>Departamento: {{sucursal.departamento}}</p>
+                <div class="blog-info clearfix">
+                    <div class="post-left">
+                        <ul>
+                            <li><a><i class="fa fa-map-marker"></i> <span>Zona: {{sucursal.zona}} Av. {{sucursal.avenida}} calle {{sucursal.calle}} Nº {{sucursal.numero}}</span></a></li>
+                            <li><a><span>Ref. {{sucursal.referencia}}</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="blog-info clearfix">
+                    <div class="post-left">
+                        <ul>
+                            <li><a><i class="fa fa-phone"></i> <span>Telefonos: {{sucursal.telefono_uno}} - {{sucursal.telefono_dos}}</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="blog-info clearfix">
+                    <div class="post-left">
+                        <ul>
+                            <li><a href="javascript:void(0)" (click)="clickNavegarHaciaVerSucursal(sucursal.id)" class="read-more"><i class="fa fa-eye"></i> Ver Sucursal</a></li>
+                            <li><a href="javascript:void(0)"  (click)="clickNavegarHaciaActualizarSucursal(sucursal.id)"class="read-more"><i class="fa fa-pencil"></i> Editar Sucursal</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

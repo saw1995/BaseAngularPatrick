@@ -1,0 +1,86 @@
+<div class="row">
+    <div class="col-sm-8 col-8">
+        <h4 class="page-title">Cartera de Clientes de {{ tipo_literal }}</h4>
+    </div>
+    <div class="col-sm-4 col-4 text-right m-b-20">
+        <a href="javascript:void(0);" (click)="click_agregarCliente()" class="btn btn btn-danger float-right"><i class="fa fa-plus"></i> Agregar Cliente</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <strong>Nota: </strong> La siguiente lista de clientes son: <a class="alert-link">{{tipoLista}}</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-6 col-md-3">
+                    <button class="btn btn-danger" style="margin-right: 5px;">DECARGAR REGISTRADO</button>
+                </div>
+                <div class="col-6 col-md-3">
+                    <button class="btn btn-danger" style="margin-right: 5px;">DECARGAR EN BUSQUEDA</button>
+                </div>
+                <div class="col-6 col-md-3">
+                    <button class="btn btn-danger" style="margin-right: 5px;">DECARGAR CON CONTRATO</button>
+                </div>
+                <div class="col-6 col-md-3">
+                    <button class="btn btn-danger" style="margin-right: 5px;">DECARGAR ADQUIRIDO</button>
+                </div>
+
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped custom-table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" style="max-width: 100px;">Fecha de Registro</th>
+                                    <th class="text-center" style="min-width: 50px;" [ngClass]="tipo=='1' ? 'ocultar': ''">Interes</th>
+                                    <th class="text-center" style="min-width: 230px;">Cliente</th>
+                                    <th class="text-center" style="min-width: 50px;" [ngClass]="tipo=='2' ? 'ocultar': ''">Categoria</th>
+                                    <th class="text-center" style="min-width: 50px;">Telefono</th>
+                                    <th class="text-center" style="min-width: 50px;">Vendedor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let cliente of listaClientes">
+                                    <td class="text-center">
+                                        <h2><a>{{ cliente.fecha }}<span style="color: rgb(81, 84, 87)">Hora: {{ cliente.hora }}</span></a></h2>
+                                    </td>
+                                    <td class="text-center" [ngClass]="tipo=='1' ? 'ocultar': ''">
+                                        <span class="custom-badge " [ngClass]="[cliente.interes=='0' ? 'status-blue': '', cliente.interes=='1' ? 'status-red': '', cliente.interes=='2' ? 'status-yellow': '', cliente.interes=='3' ? 'status-green': '']">{{cliente.interes_letra}} - {{cliente.interes_literal}}</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="text-center" style="display: flex;">
+                                            <a href="javascript:void(0);" (click)="click_perfilCliente(cliente.id, cliente.tipo)">
+                                                <img width="50" height="50" src="{{ url }}imagenes/clientes/{{cliente.foto}}" class="rounded-circle m-r-5" alt="">
+                                                <h2 style="font-size: 95%;"><a style="color: rgb(0, 0, 0);"><span style="color: rgb(39, 158, 173);">CODIGO: {{ cliente.id }}</span>{{ cliente.nombre | uppercase }} {{ cliente.appat | uppercase }} {{ cliente.apmat | uppercase }}</a></h2>
+                                            </a> 
+                                        </div>
+                                    </td>
+                                    <td class="text-center" [ngClass]="tipo=='2' ? 'ocultar': ''">{{ cliente.tipo_literal }}</td>
+                                    <td class="text-center">
+                                        <a href="javascript:void(0);" (click)="click_whatsapp(cliente.celular)">
+                                            <h2 style="font-size: 95%;"><a style="color: rgb(0, 0, 0);">{{ cliente.celular }}</a></h2>
+                                        </a>
+                                    </td>
+                                    <td class="text-center" >
+                                        <div style="display: flex;">
+                                            <img width="50" height="50" src="{{ url }}imagenes/usuarios/{{cliente.foto_usuario}}" class="rounded-circle m-r-5" alt="">
+                                            <h2 style="font-size: 95%;"><a style="color: rgb(113, 108, 108);">{{ cliente.usuario | uppercase }}</a></h2>
+                                        </div>
+                                    </td>
+                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

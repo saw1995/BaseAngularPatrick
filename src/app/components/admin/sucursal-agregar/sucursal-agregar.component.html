@@ -1,0 +1,145 @@
+<div class="row">
+    <div class="col-sm-12 col-12">
+        <h4 class="page-title">Agregar Nueva Sucursal</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <strong>Nota: </strong> Tome en cuenta que <a class="alert-link">todos los campos con <span class="text-danger">*</span></a> son obligatorios.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    
+    <div class="col-sm-6">
+        <div class="card-box">
+            <div class="row">
+             
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <strong><label>Nombre de la sucursal:<span class="text-danger">*</span></label></strong>
+                        <input type="text" [(ngModel)]="nombre_sucursal" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Nombre completo">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <strong><label>Sitio web sucursal: <span class="text-danger">*</span></label></strong>
+                        <input type="text" [(ngModel)]="sitioweb_sucursal" #ctrl="ngModel" class="form-control" placeholder="Ingrese el sitio web">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <strong><label>Teléfono uno:<span class="text-danger">*</span></label></strong>
+                        <input type="number" [(ngModel)]="telefono_uno_sucursal" #ctrl="ngModel" class="form-control" placeholder="Ingrese el telefono">
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <strong><label>Teléfono dos:<span class="text-danger">*</span></label></strong>
+                        <input type="number" [(ngModel)]="telefono_dos_sucursal" #ctrl="ngModel" class="form-control" placeholder="Ingrese el telefono">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="card-box">
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <strong><label>Fotografia del Usuario</label></strong>
+                        <div class="custom-dropzone" ngx-dropzone [multiple]="false" [accept]="'image/*'" (change)="onSelect($event)">
+                            <ngx-dropzone-label>
+                                <div>
+                                    <h2>AGREGAR FOTOGRAFIA</h2>
+                                </div>
+                            </ngx-dropzone-label>
+                            <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-image-preview>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Departamento: <span class="text-danger">*</span></label></strong>
+                                <select [(ngModel)]="departamento" #ctrl="ngModel" id="cbDepartamento" class="form-control">
+                                    <option value="" disabled selected>Seleccione un Departamento</option>
+                                    <option value="Beni">Beni</option>
+                                    <option value="Cochabamba">Cochabamba</option>
+                                    <option value="Chuquisaca">Chuquisaca</option>
+                                    <option value="La Paz">La Paz</option>
+                                    <option value="Oruro">Oruro</option>
+                                    <option value="Pando">Pando</option>
+                                    <option value="Potosi">Potosi</option>
+                                    <option value="Santa Cruz">Santa Cruz</option>
+                                    <option value="Tarija">Tarija</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong><label>Zona: <span class="text-danger">*</span></label></strong>
+                                <input type="text" [(ngModel)]="zona_sucursal" #ctrl="ngModel" class="form-control" placeholder="Ingrese la zona">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong><label>Avenida: <span class="text-danger">*</span></label></strong>
+                                <input type="text" [(ngModel)]="avenida_sucursal" #ctrl="ngModel" class="form-control" placeholder="Ingrese la Avenida">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong><label>Calle: <span class="text-danger">*</span></label></strong>
+                                <input type="text" [(ngModel)]="calle_sucursal" #ctrl="ngModel" class="form-control" placeholder="Ingrese la calle">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong><label>Numero de domicilio: <span class="text-danger">*</span></label></strong>
+                                <input type="number" [(ngModel)]="numero_casa_sucursal" #ctrl="ngModel" class="form-control" placeholder="Nro.">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Referencia del Domicilio <span class="text-danger">*</span></label></strong>
+                                <input type="text" [(ngModel)]="referencia_sucursal" #ctrl="ngModel" class="form-control" placeholder="Ingrese la referencia">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <strong><label>Ubicacion Geografica</label></strong>
+                        <div class="map" #mapElement></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="m-t-20 text-center">
+    <button class="btn btn-danger" (click)="agregarSucursal()" style="margin-right: 5px;">REGISTRAR SUCURSAL</button>
+    <button class="btn btn-info" (click)="clickNavegarHaciaSucursales()">CANCELAR</button>
+</div>

@@ -1,0 +1,297 @@
+<div *ngIf="showModalProceso">
+    <div class="modal fade" id="modalProceso" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR PROCESO DE LOGUISTICA</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong>Nombre del Proceso </strong><span class="text-danger">*</span></label>
+                                <select [(ngModel)]="id_proceso" #ctrl="ngModel" class="form-control" (change)="change_montoProceso()">
+                                    <option value="" disabled selected>Seleccione un Proceso</option>
+                                    <option *ngFor = "let proceso of listaProceso;" [value]="proceso.id">{{proceso.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong>Monto estimado</strong><span class="text-danger">*</span></label>
+                                <input type="number" [(ngModel)]="monto" #ctrl="ngModel" class="form-control" placeholder="Ingrese el monto">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Detalle extra u observacion</strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="observacion" #ctrl="ngModel" class="form-control" placeholder="Ingrese la observacion">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarCotizacionDetalle()">REGISTRAR PROCESO</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalProceso>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalRepuesto">
+    <div class="modal fade" id="modalRepuesto" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR REPUESTO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Seleccione el Repuesto </strong><span class="text-danger">*</span></label>
+                                <select [(ngModel)]="id_repuesto" #ctrl="ngModel" class="form-control" (change)="change_repuesto()">
+                                    <option value="" disabled selected>Seleccione un Repuesto</option>
+                                    <option *ngFor = "let repuesto of listaRepuesto;" [value]="repuesto.id_repuesto">{{repuesto.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong>Nombre del Repuesto</strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="nombre_repuesto" #ctrl="ngModel" class="form-control" placeholder="Ingrese el monto">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong>Costo estimado</strong><span class="text-danger">*</span></label>
+                                <input type="number" [(ngModel)]="costo" #ctrl="ngModel" class="form-control" placeholder="Ingrese el monto">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Detalle extra u observacion</strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="detalle" #ctrl="ngModel" class="form-control" placeholder="Ingrese la observacion">
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="clicl_agregarRepuesto()">AGREGAR REPUESTO</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalRepuesto>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-8">
+        <h4 class="page-title">Detalle de Cotización</h4>
+    </div>
+    <div class="col-sm-4 col-4 text-right m-b-20">
+        <a href="javascript:void(0);" (click)="reporteCotizacionDetalleByEstado()" class="btn btn btn-info float-right"><i class="fa fa-print"></i> Imprimir Cotización</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h4 class="page-title">Logistica de Importación </h4>
+                </div>
+                <div class="col-sm-6">
+                    <a href="javascript:void(0);" id="btnActualizarProceso" style="display: none;" (click)="agregarCotizacionDetalle()" class="btn btn btn-info btn-rounded float-right"><i class="fa fa-plus"></i> ACTUALIZAR</a> 
+                    <a href="javascript:void(0);" id="btnAgregarProceso" style="display: none;"  (click)="click_agregarProceso()" class="btn btn btn-success btn-rounded float-right"><i class="fa fa-plus"></i> AGREGAR PROCESOS</a> 
+                </div>
+            </div>
+            <div class="table-responsive" id="tablaDetalle" style="display: none;">
+                <table class="table table-striped custom-table">
+                    <thead>
+                        <tr>
+                            <th>Nro.</th>
+                            <th>Proceso</th>
+                            <th>Monto Estimado</th>
+                            <th>Registro</th>
+                            <th>Fecha</th>
+                            <th class="text-right">Opc.</th>
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let detalle of listaDetalle; let i = index;">
+                            <td class="text-center">{{i+1}}</td>
+                            <td class="text-center">{{ detalle.nombre_proceso }}</td>
+                            <td class="text-center">$us. {{ detalle.monto | number:'1.2-2' }}</td>
+                            <td class="text-center">
+                                <h2 style="color: rgb(101, 103, 106); font-size: 80%;"><a>{{ detalle.usuario | uppercase }}</a></h2>
+                            </td>
+                            <td class="text-center">
+                                <h2><a>{{ detalle.fecha }}<span style="color: rgb(81, 84, 87)">Hora: {{ detalle.hora }}</span></a></h2>
+                            </td>
+                            <td class="text-right">
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive" id="tablaModelo" style="display: none;">
+                <table class="table table-striped custom-table">
+                    <thead>
+                        <tr>
+                            <th>Nro.</th>
+                            <th>Proceso</th>
+                            <th>Monto Estimado $us. </th>
+                            <th>Registro</th>
+                            <th>Fecha</th>
+                            <th class="text-right">Opc.</th>
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let detalle of listaModelo; let i = index;">
+                            <td class="text-center">{{i+1}}</td>
+                            <td class="text-center">{{ detalle.nombre_proceso }}</td>
+                            <td class="text-center">
+                                <div class="form-group">
+                                    <input type="number" [(ngModel)]="detalle.monto" #ctrl="ngModel" class="form-control" placeholder="Ingrese el monto">
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <h2 style="color: rgb(101, 103, 106); font-size: 80%;"><a>{{ detalle.usuario | uppercase }}</a></h2>
+                            </td>
+                            <td class="text-center">
+                                <h2><a>{{ detalle.fecha }}<span style="color: rgb(81, 84, 87)">Hora: {{ detalle.hora }}</span></a></h2>
+                            </td>
+                            <td class="text-right">
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                </div>
+                <div class="col-sm-6">
+                    <div class="m-b-20">
+                        <div class="table-responsive no-border">
+                            <table class="table mb-0" style="color: rgb(85, 85, 85);">
+                                <tbody>
+                                    <tr>
+                                        <th>Total </th>
+                                        <td class="text-right text-success">$us. {{ totalDetalle | number:'1.2-2' }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h4 class="page-title">Repuestos para el Vehiculo </h4>
+                </div>
+                <div class="col-sm-6">
+                    <a href="javascript:void(0);" (click)="click_agregarRepuesto()" data-toggle="modal" data-target="#modalRepuesto" class="btn btn btn-success btn-rounded float-right"><i class="fa fa-plus"></i> AGREGAR REPUESTO</a> 
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped custom-table">
+                    <thead>
+                        <tr>
+                            <th>Nro.</th>
+                            <th>Repuesto</th>
+                            <th>Costo</th>
+                            <th>Registro</th>
+                            <th>Fecha</th>
+                            <th class="text-right">Opc.</th>
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let repuesto of listaDetalleRepuesto; let i = index;">
+                            <td class="text-center">{{i+1}}</td>
+                            <td class="text-center">{{ repuesto.nombre_repuesto }}</td>
+                            <td class="text-center">$us. {{ repuesto.costo | number:'1.2-2' }}</td>
+                            <td class="text-center">
+                                <h2 style="color: rgb(101, 103, 106); font-size: 80%;"><a>{{ repuesto.usuario | uppercase }}</a></h2>
+                            </td>
+                            <td class="text-center">
+                                <h2><a>{{ repuesto.fecha }}<span style="color: rgb(81, 84, 87)">Hora: {{ repuesto.hora }}</span></a></h2>
+                            </td>
+                            <td class="text-right">
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                </div>
+                <div class="col-sm-6">
+                    <div class="m-b-20">
+                        <div class="table-responsive no-border">
+                            <table class="table mb-0" style="color: rgb(85, 85, 85);">
+                                <tbody>
+                                    <tr>
+                                        <th>Total </th>
+                                        <td class="text-right text-success">$us. {{ totalRepuesto | number:'1.2-2' }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-sm-6">
+                </div>
+                <div class="col-sm-6">
+                    <div class="m-b-20">
+                        <h6 style="color: rgb(199, 22, 22);">Total de Resultados</h6>
+                        <div class="table-responsive no-border">
+                            <table class="table mb-0" style="color: rgb(85, 85, 85);">
+                                <tbody>
+                                    <tr>
+                                        <th>Total Detalle</th>
+                                        <td class="text-right text-info">$us. {{ totalDetalle | number:'1.2-2' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total Repuesto</th>
+                                        <td class="text-right text-info">$us. {{ totalRepuesto | number:'1.2-2' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total </th>
+                                        <td class="text-right text-success">$us. {{ total | number:'1.2-2' }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

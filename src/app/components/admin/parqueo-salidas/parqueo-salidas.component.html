@@ -1,0 +1,130 @@
+<div class="row">
+    <div class="col-sm-4 col-3">
+        <h4 class="page-title">Lista de salidas de vehiculos</h4>
+    </div>
+ 
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <strong><p class="doctor-name text-ellipsis" style="color:rgb(5, 7, 153); margin-bottom: 3px;">FILTRO DE BUSQUEDA</p></strong>
+            <div class="row">
+                <div class="col-sm-6 text-center">
+                    <strong><label>Buscar por: </label></strong>
+                    <div class="row" style="margin-left: 30px;">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="rbMes" (click)="clickRbMes()" checked>
+                            <label class="form-check-label" for="gender_male">
+                                Busqueda por Mes
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="rbFecha" (click)="clickRbFecha()">
+                            <label class="form-check-label" for="gender_female">
+                                Busqueda por Fecha
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 text-center">
+                    <strong><label>Generar en Documento: </label></strong>
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <img width="30px" src="assets/svg/ic_pdf.svg" alt="insertar SVG con la etiqueta image" (click)="reporteSalidaVehiculoByParqueo()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-4 text-center">
+                    <strong><label>{{ rangoUno }}</label></strong>
+                    <select [(ngModel)]='mes' id="cbMes" class="form-control" (change)="changeMes()">
+                        <option value="1">Enero</option>
+                        <option value="2">Febrero</option>
+                        <option value="3">Marzo</option>
+                        <option value="4">Abril</option>
+                        <option value="5">Mayo</option>
+                        <option value="6">Junio</option>
+                        <option value="7">Julio</option>
+                        <option value="8">Agosto</option>
+                        <option value="9">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
+                    </select>
+                    <div class="form-group" id="divFechaInicio" style="display:none">
+                        <input type="date" [(ngModel)]="fecha_inicio" #ctrl="ngModel" class="form-control date" (change)="changeFechaFinal()">
+                    </div>
+                </div>
+                <div class="col-sm-4 text-center">
+                    <strong><label>{{ rangoDos }}</label></strong>
+                    <select [(ngModel)]='gestionActual' id="cbGestion" class="form-control" (change)="changeGestion()">
+                        <option *ngFor = "let data of datosGestion;" [value]="data.gestion">{{ data.gestion }}</option>
+                    </select>
+                    <div class="form-group" id="divFechaFinal" style="display:none">
+                        <input type="date" [(ngModel)]="fecha_final" #ctrl="ngModel" class="form-control date" (change)="changeFechaInicio()">
+                    </div>
+                </div>
+
+                <div class="col-sm-4 text-center">
+                    <strong><label>Usuarios</label></strong>
+                    <select [(ngModel)]='id_usuario' id="cbUsuario" class="form-control" (change)="changeUsuario()">
+                        <option [value]="0" selected> Todos </option>
+                        <option *ngFor = "let data of datosUsuario;" [value]="data.id_usuario">{{ data.nombre_rol }} - {{ data.nombre }} {{ data.appat }} {{ data.apmat }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped custom-table">
+                <thead>
+                    <tr>
+                        <th>Nº</th>
+                        <th>Fecha - Hora</th>
+                        <th>Vehiculo detalle</th>
+                        <th>observacion</th>
+                        <th>Usuario</th>
+                        <th>Parqueo</th>
+                        <th class="text-right">Opc.</th>
+                    </tr> 
+                </thead>
+                <tbody>
+                    <tr *ngFor="let entrada of listaSalidaParqueo;let i = index;">
+                        <td>{{ i+1 }}</td>
+                        <td>{{ entrada.fecha }} - {{entrada.hora}}</td>
+                        <td>
+                            <h2>
+                                <a>{{ entrada.clase_vehiculo }} {{ entrada.marca_vehiculo }} 
+                                    <span>{{ entrada.tipo_vehiculo }} {{entrada.version}} {{entrada.anho}} {{entrada.color}}</span>
+                                </a>
+                            </h2>
+                        </td>
+                        <td>{{ entrada.observacion_salida }}</td>
+                        <td>
+                            <h2>
+                                <a>{{entrada.usuario}} <span>{{entrada.cargo_usuario}}</span></a>
+                            </h2>
+                        </td>
+                        <td>
+                            <h2>
+                                <a>{{entrada.sucursal}} <span>{{entrada.parqueo}}</span></a>
+                            </h2>
+                        </td>
+                        <td class="text-right">
+                            <a href="javascript:void(0);" class="btn btn btn-danger btn-rounded float-right"><i class="fa fa-eye"></i> </a> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

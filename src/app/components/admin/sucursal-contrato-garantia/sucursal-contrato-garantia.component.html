@@ -1,0 +1,104 @@
+<div *ngIf="showModalContratoDetalle">
+    <div class="modal fade" id="modalContratoDetalle" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">DETALLE DEL CONTRATO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group text-center" style="margin: 0; padding: 0;">
+                                <label style="font-size: 150%;"><strong>CONTRATO PRIVADO DE CONSIGNACIÓN</strong> </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Nro. de Contrato: </strong> {{ nro_contrato}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Fecha: </strong> {{ fecha_contrato}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Hora: </strong> {{ hora_contrato}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Usuario: </strong> {{ usuario_contrato }} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Monto de Garantia: </strong> $us {{ monto_contrato | number:'1.2-2'}}</label>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="col-sm-6">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalContratoDetalle>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="page-title">Lista de Contratos</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <div class="table-responsive">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped custom-table">
+                    <thead>
+                        <tr>
+                            <th>Nro Contrato</th>
+                            <th>Fecha</th>
+                            <th>Cliente</th>
+                            <th>Monto</th>
+                            <th>Usuario</th>
+                            <th class="text-right">Opc.</th>
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let contrato of listaContrato">
+                            <td>{{ contrato.nro_contrato }}</td>
+                            <td class="text-center">
+                                <h2><a>{{ contrato.fecha }}<span style="color: rgb(81, 84, 87)">Hora: {{ contrato.hora }}</span></a></h2>
+                            </td>
+                            <td class="text-center">
+                                <div style="display: flex;">
+                                    <img width="50" height="50" src="{{ url }}imagenes/clientes/{{contrato.foto_cliente}}" class="rounded-circle m-r-5" alt="">
+                                    <h2 style="font-size: 95%;"><a><span style="color: rgb(32, 121, 148);">CODIGO: {{ contrato.id_cliente }}</span>{{ contrato.cliente | uppercase }}</a></h2>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <h2><a><span style="color: rgb(81, 84, 87)">$us</span>{{ contrato.monto | number:'1.2-2'}}</a></h2>
+                            </td>
+                            <td class="text-center" >
+                                <div style="display: flex;">
+                                    <img width="50" height="50" src="{{ url }}imagenes/usuarios/{{contrato.foto_usuario}}" class="rounded-circle m-r-5" alt="">
+                                    <h2 style="font-size: 95%;"><a>{{ contrato.usuario | uppercase }}</a></h2>
+                                </div>
+                            </td>
+                            <td class="text-right">
+                                <div class="dropdown dropdown-action">
+                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="javascript:void(0);" (click)="reporteContratoById(contrato.id)"><i class="fa fa-print m-r-5"></i> Imprimir</a>
+                                        <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#modalContratoDetalle" (click)="click_abrirContratoDetalle(contrato.id)"><i class="fa fa-eye m-r-5"></i> Ver Detalles</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

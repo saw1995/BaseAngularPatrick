@@ -1,0 +1,146 @@
+<div *ngIf="showModalAgregarTaller">
+    <div class="modal fade" id="modalAgregarTaller" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR NUEVO TALLER</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <strong>Nota: </strong> Tome en cuenta que <a class="alert-link">todos los campos con <span class="text-danger">*</span></a> son obligatorios.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Nombre del Taller: </strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="nombre" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Nombre del taller">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Nombre del propietario o contacto: </strong> <span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="propietario" #ctrl="ngModel" class="form-control" placeholder="Ingrese el propietario o contacto">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Dirección: </strong> <span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="direccion" #ctrl="ngModel" class="form-control" placeholder="Ingrese la Direccion o ubicación">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarTaller()">REGISTRAR TALLER</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModal>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalActualizarTaller">
+    <div class="modal fade" id="modalActualizarTaller" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">ACTUALIZAR DATOS DEL PARQUEO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <strong>Nota: </strong> Tome en cuenta que <a class="alert-link">todos los campos con <span class="text-danger">*</span></a> son obligatorios.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Nombre del Taller: </strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="nombre" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Nombre del taller">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Nombre del propietario o contacto: </strong> <span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="propietario" #ctrl="ngModel" class="form-control" placeholder="Ingrese el propietario o contacto">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Dirección: </strong> <span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="direccion" #ctrl="ngModel" class="form-control" placeholder="Ingrese la Direccion o ubicación">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="actualizarDatosTallerById()">ACTUALIZAR TALLER</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModal>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-7 col-7">
+        <h4 class="page-title">Lista de talleres.</h4>
+    </div>
+    <div class="col-sm-5 col-5 text-right m-b-20">
+        <a href="" data-toggle="modal" data-target="#modalAgregarTaller" (click)="click_agregarTaller()" class="btn btn btn-danger float-right"><i class="fa fa-plus"></i> Agregar nuevo Taller</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-striped custom-table">
+                <thead>
+                    <tr>
+                        <th>Taller</th>
+                        <th>Nombre</th>
+                        <th>Propietario</th>
+                        <th>Dirección</th>
+                        <th class="text-right">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let taller of listaTaller">
+                        <td><img width="auto" height="40" src="assets/plantilla/img/taller.png" class="rounded-circle" alt=""></td>
+                        <td class="text-center">
+                            <h2><a href="javascript:void(0);" (click)="click_irVehiculo(taller.id)">Taller - {{ taller.nombre }}</a></h2>
+                        </td>
+                        <td class="text-center">
+                            <h2><a>{{taller.propietario}}</a></h2>
+                        </td>
+                        <td>{{taller.direccion}}</td>
+                        <td class="text-right">
+                            <div class="dropdown dropdown-action">
+                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a href="javascript:void(0)" (click)="click_irVehiculo(taller.id)" class="dropdown-item" ><i class="fa fa-car m-r-5"></i> Vehiculos</a>
+                                    <a href="javascript:void(0)" class="dropdown-item" data-toggle="modal" data-target="#modalActualizarTaller" (click)="click_actualizarTaller(taller.id, taller.nombre, taller.propietario, taller.direccion)" ><i class="fa fa-pencil m-r-5"></i> Editar Datos</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

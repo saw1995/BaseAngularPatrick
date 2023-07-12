@@ -1,0 +1,127 @@
+<div class="row">
+    <div class="col-sm-8 col-8">
+        <h4 class="page-title">Perfil del Cliente</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h5 class="page-title" STYLE="COLOR: RGB(211, 50, 50);">Cliente: {{ nombre }}</h5>
+            <div class="row">
+                <div class="col-sm-3" style="margin: 0; padding-right: 10px; border-right: 2px dashed #ccc;">
+                    <img class="avatar center_image" alt="" src="{{ url }}imagenes/clientes/{{foto}}">
+                </div>
+                <div class="col-sm-5 text-center" style="margin: 0; padding-right: 20px; border-right: 2px dashed #ccc;">
+                    <span style="font-size: 90%;">Codigo:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ id_cliente | uppercase }}</h5>
+                    </div>
+
+                    <span style="font-size: 90%;">Cliente:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ nombre | uppercase }} {{ apellido_paterno | uppercase }} {{ apellido_materno | uppercase }}</h5>
+                    </div>
+
+                    <span style="font-size: 90%;">Genero:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ genero | uppercase }}</h5>
+                    </div>
+
+                    <span style="font-size: 90%;">Telefono:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ telefono }}</h5>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 text-center">
+                    <span style="font-size: 90%;">Departamento:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ departamento | uppercase }}</h5>
+                    </div>
+
+                    <span style="font-size: 90%;">Direccion:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ direccion | uppercase }}</h5>
+                    </div>
+
+                    <span style="font-size: 90%;">Personal de Registro:</span> 
+                    <div class="invoice-info">
+                        <h5>{{  usuario | uppercase }}</h5>
+                    </div>
+
+                    <span style="font-size: 90%;">Fecha de Registro:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ fecha }}</h5>
+                    </div>
+
+                    <span style="font-size: 90%;">Hora de Registro:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ hora }}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+<div class="row">
+    <div class="col-sm-8 col-8">
+        <h4 class="page-title">Lista de Vehiculos para Auto Venta</h4>
+    </div>
+    <div class="col-sm-4 col-4 text-right m-b-20">
+        <a href="javascript:void(0);" (click)="click_agregarVehiculo()" class="btn btn btn-danger float-right"><i class="fa fa-plus"></i> Agregar Vehículo </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="table-responsive">
+            <table class="table table-striped custom-table">
+                <thead>
+                    <tr>
+                        <th>Nro</th>
+                        <th>Clase vehiculo</th>
+                        <th>Marca</th>
+                        <th>Detalle Vehiculo</th>
+                        <th>Recepcionado por:</th>
+                        <th>Fecha de Ingreso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let vehiculo of listaVehiculos;let i = index;">
+                        <td>{{ i +1 }}</td>
+                        <td>{{ vehiculo.clase_vehiculo }}</td>
+                        
+                        <td class="text-center">
+                            <img width="30" height="30" src="{{url}}imagenes/marcas/{{vehiculo.foto_marca}}" class="rounded-circle m-r-5" alt=""> {{vehiculo.marca}}
+                        </td>
+
+                        <td class="text-center">
+                            <a href="javascript:void(0);" (click)="click_vehiculoPerfil(vehiculo.id_vehiculo)">
+                                <img width="50" height="50" src="{{url}}imagenes/vehiculos/{{vehiculo.foto_uno}}" class="rounded-circle m-r-5" alt="">
+                                {{ vehiculo.tipo }} {{ vehiculo.version}} {{vehiculo.anho}} {{vehiculo.color}}
+                            </a>
+                        </td>
+
+                        <td class="text-center">
+                            <div style="display: bock;">
+                                <img width="40" height="40" src="{{ url }}imagenes/usuarios/{{vehiculo.foto_usuario}}" class="rounded-circle m-r-5" alt="">
+                                <h2 style="color: rgb(101, 103, 106); font-size: 80%;"><a>{{ vehiculo.usuario | uppercase }}</a></h2>
+                            </div>
+                        </td>
+
+                        <td class="text-center">
+                            <h2><a>
+                                <span style="color: rgb(81, 84, 87)">Fecha: {{ vehiculo.fecha }}</span>
+                                <span class="custom-badge " [ngClass]="[vehiculo.dias >= 0 && vehiculo.dias <= 15 ? 'status-green': '', vehiculo.dias >= 16 && vehiculo.dias <= 25 ? 'status-yellow': '', vehiculo.dias >= 26 ? 'status-red': '', vehiculo.importacion_local == '0' ? '': 'ocultar']">{{vehiculo.dias_literal}}</span>
+                                <span class="custom-badge " [ngClass]="[vehiculo.importacion_local == '4' ? 'status-red': 'ocultar']">{{vehiculo.dias_literal}}</span>
+                            </a></h2>
+                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-sm-12 col-12">
+        <h4 class="page-title">Editar Base de Contrato</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p><strong>-XXX-</strong>  => Nombre del Cliente</p>
+                    <p><strong>-XXC-</strong> => Cédula de Identidad del Cliente</p>
+                    <p><strong>-XXD-</strong> => Dirección del Cliente</p>
+                </div>
+                <div class="col-sm-6">
+                    <p><strong>-XXF-</strong> => Fecha del Contrato</p>
+                    <p><strong>-XXM-</strong> => Monto del Contrato</p>
+                    <p><strong>-XXL-</strong> => Monto Literal del Contrato</p>
+                </div>
+            </div>
+            
+            <ckeditor [(ngModel)]="ckeditorContent"></ckeditor>
+
+        </div>
+    </div>
+</div>
+
+<div class="m-t-20 text-center">
+    <button class="btn btn-success" (click)="actualizarContratoParrafoById()" style="margin-right: 5px;">ACTUALIZAR CONTRATO</button>
+    <button class="btn btn-info" (click)="reporteContratoPrevio()" style="margin-right: 5px;">VISTA PREVIA</button>
+</div>

@@ -1,0 +1,23 @@
+.fondo-login {
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.corners {
+    border-radius: 25px;
+    border: 2px solid #f83333;
+    background: #ffffff;
+    padding: 0px;
+}
+
+.corners-one {
+    border: 2px solid #fff;
+    border-radius: 25px;
+    background: #fff;
+    padding: 20px;
+}

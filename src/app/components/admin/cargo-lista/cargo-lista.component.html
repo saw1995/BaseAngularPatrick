@@ -1,0 +1,286 @@
+<!--modales para mostrar-->
+<div *ngIf="showModalAgregarCargo">
+    <div class="modal fade" id="modalAgregarCargo" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-default-size" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: rgb(201, 25, 25);">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">REGISTRAR NUEVO CARGO</h4>
+                </div>
+                <div class="card-box">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>Nombre cargo:</label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" [(ngModel)]="nombre_cargo" #ctrl="ngModel" class="form-control" placeholder="Ingrese nombre cargo">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" (click)="agregarRol()">AGREGAR CARGO</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" #cerrarModal>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--modales para mostrar-->
+<div *ngIf="showModalListaSucursalNoAgregado">
+    <div class="modal fade" id="ModalListaSucursalNoAgregado" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-default-size" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: rgb(201, 25, 25);">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">SELECCIONAR SUCURSAL</h4>
+                </div>
+                <div class="card-box">
+                    <div class="row">
+                       
+                        <div class="table-responsive">
+                            <table class="table table-striped custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nº</th>
+                                        <th>Sucursal</th>
+                                        <th>Ciudad</th>
+                                        <th>Direccion</th>
+                                        <th>Opción</th>
+                                    </tr>
+                                </thead>
+    
+                                <tbody>
+                                    <tr *ngFor="let sucursal of listaSucursalNoAgregado;let indice = index ">
+                                        <td>{{indice + 1}}</td>
+                                        <td>{{sucursal.nombre}}</td>
+                                        <td>{{sucursal.departamento}}, {{sucursal.provincia}} - {{sucursal.municipio}}</td>
+                                        <td>{{sucursal.Zona}} Av. {{sucursal.Avenida}} calle: {{sucursal.calle}} Nº {{sucursal.numero}} Ref: {{sucursal.referencia}}</td>
+                                        <td>
+                                            <div class="body">
+                                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ModalListaSucursalNoAgregado" (click)="agregarSucursalRol(sucursal.id)">Seleccionar</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" #cerrarModal>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--modales para mostrar-->
+<div *ngIf="showModalListaAlmacenesNoAgregados">
+    <div class="modal fade" id="ModalListaAlmacenesNoAgregados" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-default-size" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: rgb(201, 25, 25);">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">SELECCIONAR ALMACEN</h4>
+                </div>
+                <div class="card-box">
+                    <div class="row">
+                       
+                        <div class="table-responsive">
+                            <table class="table table-striped custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nº</th>
+                                        <th>Almacen</th>
+                                        <th>Descripción</th>
+                                        <th>Sucursal</th>
+                                        <th>Opción</th>
+                                    </tr>
+                                </thead>
+    
+                                <tbody>
+                                    <tr *ngFor="let almacen of listaAlmacenNoAgregado;let indice = index ">
+                                        <td>{{indice + 1}}</td>
+                                        <td>{{almacen.nombre_almacen}}</td>
+                                        <td>{{almacen.descripcion}}</td>
+                                        <td>{{almacen.nombre_sucursal}}</td>
+                                        <td>
+                                            <div class="body">
+                                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ModalListaAlmacenesNoAgregados" (click)="agregarParqueoRol(almacen.id)">Seleccionar</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" #cerrarModal>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--modales para mostrar-->
+<div *ngIf="showModalListaModulosNoAgregados">
+    <div class="modal fade" id="ModalListaModulosNoAgregados" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-default-size" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: rgb(201, 25, 25);">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">SELECCIONAR MODULO</h4>
+                </div>
+                <div class="card-box">
+                    <div class="row">
+                       
+                        <div class="table-responsive">
+                            <table class="table table-striped custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nº</th>
+                                        <th>Modulo</th>
+                                        <th>Detalle</th>
+                                        <th>Opción</th>
+                                    </tr>
+                                </thead>
+    
+                                <tbody>
+                                    <tr *ngFor="let modulo of listaModuloNoAgregado;let indice = index ">
+                                        <td>{{indice + 1}}</td>
+                                        <td>{{modulo.nombre}}</td>
+                                        <td>{{modulo.detalle}}</td>
+                                        <td>
+                                            <div class="body">
+                                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ModalListaModulosNoAgregados" (click)="agregarRolModulo(modulo.id)">Seleccionar</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" #cerrarModal>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-12 col-12">
+        <h4 class="page-title">Cargos y Accesos.</h4>
+    </div>
+</div>
+
+<div class="row">
+    <aside class="col-md-3">
+        <div class="profile-widget">
+            
+            <a href="javascript:void(0);" class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarCargo" (click)="clickAbrirCargo()"><i class="fa fa-plus"></i> Agregar Cargo</a>
+            <br><br>
+            <strong> <p class="doctor-name text-ellipsis" >LISTA DE CARGOS</p></strong>
+            <br>
+            <div class="post-left">
+                <ul *ngFor="let rol of listaRol;let i = index;">
+                    <li><a href="javascript:void(0);" (click)="clickCargarDatosByRol(rol.id, rol.nombre)" class="read-more" style="font-size: 100%;color: rgb(58, 54, 54);"><i class="fa fa-long-arrow-right"></i> {{rol.nombre}}</a></li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+
+    <div class="col-md-9">
+        <p class="doctor-name text-ellipsis" >CONFIGURACIÓN DE ACCESOS: <strong>{{nombre_cargo_seleccionado}}</strong></p>
+        
+        <div class="row">
+            <div class="col-lg-6 col-sx-12">
+                <div class="profile-widget body">        
+                    <div class="row">
+                        <div class="col-5">
+                            <strong> <p class="doctor-name" >ACCESO A SUCURSALES</p></strong>
+                        </div>
+                        
+                        <div class="col-7">
+                            <a href="javascript:void(0);" class="btn btn-primary float-right" data-toggle="modal" data-target="#ModalListaSucursalNoAgregado" (click)="clickAbrirModalListaSucursalNoAgregado()"><i class="fa fa-plus"></i> Agregar</a>
+                        </div>
+                    </div>
+                    <br>
+                    <table class="table table-striped custom-table">
+                        <tbody>
+                            <tr style="background-color: rgb(255, 255, 255);" *ngFor="let sucursal of listaSucursal">
+                                <td>{{ sucursal.nombre }}</td>
+                                <td>{{ sucursal.zona }}</td>
+                                <td class="text-right">
+                                    <a href="javascript:void(0);" class="btn btn-danger" (click)="eliminarSucursalRolById(sucursal.id)">Quitar</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-sx-12">
+                <div class="profile-widget body">        
+                    <div class="row">
+                        <div class="col-5">
+                            <strong> <p class="doctor-name">ACCESO A PARQUEOS</p></strong>
+                        </div>
+                        
+                        <div class="col-7">
+                            <a href="javascript:void(0);" class="btn btn-primary float-right" data-toggle="modal" data-target="#ModalListaAlmacenesNoAgregados" (click)="clickAbrirModalListaAlmacenNoAgregado()"><i class="fa fa-plus"></i> Agregar</a>
+                        </div>
+                    </div>
+                    <br>
+                    <table class="table table-striped custom-table">
+                        <tbody>
+                            <tr style="background-color: rgb(255, 255, 255);" *ngFor="let almacen of listaAlmacen">
+                                <td>Parqueo - {{ almacen.nombre }}</td>
+                                <td>{{ almacen.descripcion }}</td>
+                                <td class="text-right">
+                                    <a href="javascript:void(0);" class="btn btn-danger" (click)="eliminarRolParqueo(almacen.id)">Quitar</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-sx-12">
+                <div class="profile-widget body">        
+                    <div class="row">
+                        <div class="col-5">
+                            <strong> <p class="doctor-name" >ACCESO A MODULOS</p></strong>
+                        </div>
+                        
+                        <div class="col-7">
+                            <a href="javascript:void(0);" class="btn btn-primary" data-toggle="modal" data-target="#ModalListaModulosNoAgregados" (click)="clickAbrirModalListaModuloNoAgregado()"><i class="fa fa-plus"></i> Agregar</a>
+                        </div>
+                    </div>
+                    <br>
+                    <table class="table table-striped custom-table">
+                        <tbody >
+                            <tr style="background-color: rgb(255, 255, 255);" *ngFor="let modulo of listaModulo">
+                                <td>{{ modulo.nombre }}</td>
+                                <td>{{ modulo.detalle }}</td>
+                                <td class="text-right">
+                                    <a href="javascript:void(0);" class="btn btn-danger" (click)="eliminarRolModulo(modulo.id_modulo)">Quitar</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

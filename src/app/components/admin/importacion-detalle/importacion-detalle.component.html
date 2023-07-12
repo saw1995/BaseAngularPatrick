@@ -1,0 +1,1135 @@
+<div *ngIf="showAgregarTaller">
+    <div class="modal fade" id="modalAgregarTaller" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">ASIGNAR TALLER</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <strong>Nota: </strong> Tome en cuenta que <a class="alert-link">todos los campos con <span class="text-danger">*</span></a> son obligatorios.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Nombre del Taller </strong><span class="text-danger">*</span></label>
+                                <select [(ngModel)]="id_taller" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione un Taller</option>
+                                    <option *ngFor = "let taller of listaTaller;" [value]="taller.id">{{taller.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarTallerVehiculo()">ASIGNAR TALLER</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalAgregarTaller>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showAgregarProcesoImportacion">
+    <div class="modal fade" id="modalAgregarProceso" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR PROCESO DE IMPORTACIÓN</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <strong>Nota: </strong> Tome en cuenta que <a class="alert-link">todos los campos con <span class="text-danger">*</span></a> son obligatorios.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong>Nombre del Proceso </strong><span class="text-danger">*</span></label>
+                                <select [(ngModel)]="id_proceso_no_registrado" #ctrl="ngModel" class="form-control" (change)="change_montoProceso()">
+                                    <option value="" disabled selected>Seleccione un Proceso</option>
+                                    <option *ngFor = "let proceso of listaProcesoNoRegistrado;" [value]="proceso.id">{{proceso.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong>Monto subtotal</strong> <span class="text-danger">*</span></label>
+                                <input type="number" [(ngModel)]="monto_no_registrado" #ctrl="ngModel" class="form-control" placeholder="Ingrese la Descripcion o Direccion del parqueo">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarImportacionProceso()">AGREGAR PROCESO</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModal>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showListaPagos">
+    <div class="modal fade" id="modalListaPagos" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">LISTA DE PAGOS DE PROCESO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+
+                        <div class="table-responsive">
+                            <table class="table table-striped custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nro</th>
+                                        <th>Fecha - Hora</th>
+                                        <th>glosa</th>
+                                        <th>SubTotal</th>
+                                        <th>usuario</th>
+                                        <th>verificacion</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let pago of listaPagos; let indice = index;">
+                                        <td>{{ indice + 1 }}</td>
+                                        <td>{{ pago.fecha }} - {{ pago.hora }}</td>
+                                        <td>{{ pago.glosa }}</td>
+                                        <td>{{ pago.monto }} {{ pago.moneda}}</td>
+                                        <td>{{pago.usuario}}</td>
+                                        <td>{{pago.verificado}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModal>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--modal para agregar pago :v-->
+<div *ngIf="showModalAgregarPago">
+    <div class="modal fade" id="modalAgregarPago" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR PAGO DE PROCESO IMPORTACIÓN</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="dash-widget">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/billete10.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de Bs. 10 </strong></label>
+                                            <input type="number" [(ngModel)]="corte10" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>Bs. {{ subTotal10 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/billete20.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de Bs. 20 </strong></label>
+                                            <input type="number" [(ngModel)]="corte20" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>Bs. {{ subTotal20 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/billete50.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de Bs. 50 </strong></label>
+                                            <input type="number" [(ngModel)]="corte50" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>Bs. {{ subTotal50 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/billete100.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de Bs. 100 </strong></label>
+                                            <input type="number" [(ngModel)]="corte100" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>Bs. {{ subTotal100 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/billete200.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de Bs. 200 </strong></label>
+                                            <input type="number" [(ngModel)]="corte200" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>Bs. {{ subTotal200 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>Bs. {{ subTotalBolivianos }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="dash-widget">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/dolar1.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de $us. 1 </strong></label>
+                                            <input type="number" [(ngModel)]="corteDolar1" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>$us. {{ subTotalDolar1 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/dolar2.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de $us. 2 </strong></label>
+                                            <input type="number" [(ngModel)]="corteDolar2" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>$us. {{ subTotalDolar2 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/dolar5.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de $us. 5 </strong></label>
+                                            <input type="number" [(ngModel)]="corteDolar5" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>$us. {{ subTotalDolar5 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/dolar10.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de $us. 10 </strong></label>
+                                            <input type="number" [(ngModel)]="corteDolar10" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>$us. {{ subTotalDolar10 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/dolar20.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de $us. 20 </strong></label>
+                                            <input type="number" [(ngModel)]="corteDolar20" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>$us. {{ subTotalDolar20 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/dolar50.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de $us. 50 </strong></label>
+                                            <input type="number" [(ngModel)]="corteDolar50" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>$us. {{ subTotalDolar50 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <div class="doctor-img">
+                                                <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/dolar100.jpg"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                            <label><strong>Corte de $us. 100 </strong></label>
+                                            <input type="number" [(ngModel)]="corteDolar100" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>$us. {{ subTotalDolar100 }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group text-center">
+                                            <label>SubTotal</label>
+                                            <br>
+                                            <label><strong>$us. {{ subTotalDolares }} </strong></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="dash-widget">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label><strong>Glosa </strong><span class="text-danger">*</span></label>
+                                            <input type="text" [(ngModel)]="glosa" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label><strong>Monto </strong><span class="text-danger">*</span></label>
+                                            <input type="text" [(ngModel)]="monto" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label><strong>Moneda </strong><span class="text-danger">*</span></label>
+                                            <select [(ngModel)]="moneda" #ctrl="ngModel" id="cbMoneda" class="form-control">
+                                                <option value="" disabled selected>Seleccione un Moneda</option>
+                                                <option value="Bolivianos">Bolivianos</option>
+                                                <option value="Dolares">Dolares</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label><strong>Nombre de Origen </strong><span class="text-danger">*</span></label>
+                                            <input type="text" [(ngModel)]="nombre_origen" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label><strong>Cuenta de Origen </strong><span class="text-danger">*</span></label>
+                                            <input type="text" [(ngModel)]="cuenta_origen" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label><strong>Banco de Origen</strong><span class="text-danger">*</span></label>
+                                            <input type="text" [(ngModel)]="banco_origen" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label><strong>Cuenta de Destino </strong><span class="text-danger">*</span></label>
+                                            <input type="text" [(ngModel)]="cuenta_destino" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label><strong>Banco de Destino</strong><span class="text-danger">*</span></label>
+                                            <input type="text" [(ngModel)]="banco_destino" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarPagoImportacionPago()">AGREGAR PAGO</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModal>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalReciboNuevo">
+    <div class="modal fade" id="modalReciboNuevo" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">DEPOSITO DE GARANTIA</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Concepto: </strong> DEPOSITO DE GARANTIA</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label><strong>MONTO ($us.)</strong><span class="text-danger">*</span></label>
+                                <input type="number" [(ngModel)]="total_recibo" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Monto">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong><label>Tipo de Pago <span class="text-danger">*</span></label></strong>
+                                <select [(ngModel)]="tipo_pago" #ctrl="ngModel" id="cbDepartamento" class="form-control">
+                                    <option value="" disabled selected>Seleccione un Tipo de Pago</option>
+                                    <option value="Pago en Efectivo">Pago en Efectivo</option>
+                                    <option value="Transferencia">Transferencia</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Detalle de Concepto</strong></label>
+                                <input type="text" [(ngModel)]="detalle_recibo" #ctrl="ngModel" class="form-control" placeholder="Ingrese el detalle">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Observacion (Interno)</strong></label>
+                                <input type="text" [(ngModel)]="observacion_recibo" #ctrl="ngModel" class="form-control" placeholder="Ingrese una obsrervacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <a href="" data-toggle="modal" data-target="#modalImagen" (click)="click_agregarImagen()" class="btn btn btn-primary float-center"><i class="fa fa-picture-o"></i> Agregar Respaldo</a>
+                        </div>
+                        
+                        <label style="margin: 20px;"><strong>Imagen a Subir</strong></label>
+        
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-4" *ngFor="let imagen of listaPrevia;let i = index;">
+                                    <img [src]="imagen" height="150px">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarReciboPago()">REGISTRAR DEPOSITO</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalReciboNuevo>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalReciboDetalle">
+    <div class="modal fade" id="modalReciboDetalle" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">DETALLE DEL RECIBO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group text-center" style="margin: 0; padding: 0;">
+                                <label style="font-size: 150%;"><strong>RECIBO DE PAGO</strong> </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Nro. de Recibo de Pago: </strong> {{ nro_recibo}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Concepto: </strong> {{ tipo_recibo | uppercase}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Detalle de Concepto: </strong> {{ detalle_recibo | uppercase}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Observacion: </strong> {{ observacion_recibo | uppercase}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Tipo de Pago: </strong> {{ tipo_pago | uppercase}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Total de Recibo: </strong> $us {{ total_recibo | number:'1.2-2'}}</label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Fecha: </strong> {{ fecha_recibo}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Hora: </strong> {{ hora_recibo}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Usuario: </strong> {{ usuario_recibo }} </label>
+                            </div>
+                            
+                            <br>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Verificacion de Datos: </strong></label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Fecha: </strong> {{ fecha_verificado_recibo}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Hora: </strong> {{ hora_verificado_recibo}} </label>
+                            </div>
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Usuario: </strong> {{ usuario_verificado_recibo }} </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group" style="margin: 0; padding: 0;">
+                                <label><strong>Respaldo (Imagen): </strong></label>
+                                <img src="{{ url }}imagenes/recibos/{{respaldo}}" alt="" width="100%" height="auto">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModalReciboDetalle>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalImagen">
+    <div class="modal fade" id="modalImagen" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: rgb(50, 141, 194);">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR IMAGEN</h4>
+                </div>
+                <div class="card-box" style="background-color: rgb(226, 226, 226);">
+                    <div class="row">
+                        <div class="col-sm-12 text-center" style="margin-bottom: 20px;">
+                            <input type="file" (change)="fileChangeEvent($event)" />
+                        </div>
+                        
+                        <div class="col-sm-6">
+                            <div class="card-box">
+                                <h5 class="text-center">Imagen</h5>
+                                <image-cropper 
+                                [imageChangedEvent]="imageChangedEvent" 
+                                [maintainAspectRatio]="true" 
+                                [aspectRatio]="4 / 4"
+                                [resizeToWidth]="800" 
+                                format="jpeg" 
+                                (imageCropped)="imageCropped($event)" 
+                                (imageLoaded)="imageLoaded()"
+                                (cropperReady)="cropperReady()" 
+                                (loadImageFailed)="loadImageFailed()"></image-cropper>
+                            </div>
+                            
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card-box">
+                                <h5 class="text-center">Vista Previa</h5>
+                                <img [src]="croppedImage" width="250px"/>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" (click)="click_cortarImagen()">CORTAR IMAGEN</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" #cerrarModalImagen>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Desde aqui el componente principla-->
+<div class="row">
+    <div class="col-12 col-sm-6 col-md-6 col-lg-8 ">
+        <h4 class="page-title">Detalle de la Importacion: Nro. {{ nro_importacion_vehiculo }}</h4>
+    </div>
+
+    <div class="col-12 col-sm-6 col-md-6 col-lg-4 text-right m-b-20">
+        <a href="javascript:void(0);" (click)="reporteDetalleImportacionById()" class="btn btn btn-danger float-right"><i class="fa fa-file-pdf-o"></i> Generar Reporte </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h5 class="page-title" STYLE="COLOR: RGB(211, 50, 50);">Detalles de la Importacion</h5>
+            <div class="row">
+
+                <div class="col-sm-6 text-center" style="margin: 0; padding-right: 20px; border-right: 2px dashed #ccc;">
+                    <span style="font-size: 90%;">Usuario de Registro:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ usuario | uppercase }}</h5>
+                    </div>
+
+                    <span style="font-size: 90%;">Fecha - Hora:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ fecha }} - {{ hora }}</h5>
+                    </div>
+
+                    <span style="font-size: 90%;">Sucursal:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ sucursal | uppercase }}</h5>
+                    </div>
+
+                    <span style="font-size: 90%;">Observacion:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ observacion_importacion | uppercase }}</h5>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 text-center">
+                    <span style="font-size: 90%;">Cliente:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ cliente | uppercase }}</h5>
+                    </div>
+    
+                    <span style="font-size: 90%;">Cedula de Identidad:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ ci | uppercase }}</h5>
+                    </div>
+    
+                    <span style="font-size: 90%;">Direccion:</span> 
+                    <div class="invoice-info">
+                        <h5>{{  direccion | uppercase }}</h5>
+                    </div>
+    
+                    <span style="font-size: 90%;">Celular:</span> 
+                    <div class="invoice-info">
+                        <h5>{{ telefono }}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+<div class="row">
+    <div class="col-sm-6" style="margin: 0; padding: 10px;">
+        <div id="id{{id_importacion_vehiculo}}" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li *ngFor="let imagen of imagen_vehiculo; let i = index" data-target="#idid_importacion_vehiculo" data-slide-to="i" [ngClass]="{'active': i == 0}"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div *ngFor="let imagen of imagen_vehiculo; let i = index"  class="carousel-item" [ngClass]="{'active': i == 0}">
+                  <div class="mycontainer" style="background-image: url('{{url}}imagenes/vehiculos/{{imagen}}');">
+                      <div class="myblur">
+                          <img class="myimg" src="{{url}}imagenes/vehiculos/{{imagen}}" alt="First slide">
+                      </div>
+                  </div>	
+                </div>
+              </div>
+            <a class="carousel-control-prev" href="#id{{id_importacion_vehiculo}}" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#id{{id_importacion_vehiculo}}" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="card-box">
+            <h5 class="page-title" STYLE="COLOR: RGB(211, 50, 50);">Datos del Vehiculo</h5>
+            <div class="row">
+                <div class="col-sm-6" style="margin: 0; padding: 2px;">
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Vehiculo</strong></h5></li>
+                        <li><span>{{ vehiculo }}</span></li>
+                    </ul>
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Pais</strong></h5></li>
+                        <li><span>{{ pais }}</span></li>
+                    </ul>
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Traccion</strong></h5></li>
+                        <li><span>{{ traccion }}</span></li>
+                    </ul>
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Color</strong></h5></li>
+                        <li><span>{{ color }}</span></li>
+                    </ul>
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Caja</strong></h5></li>
+                        <li><span>{{ caja }}</span></li>
+                    </ul>
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Cilindrada</strong></h5></li>
+                        <li><span>{{ cilindrada }}</span></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6" style="margin: 0; padding: 2px;">
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Nro. Puertas</strong></h5></li>
+                        <li><span>{{ nro_puerta }}</span></li>
+                    </ul>
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Kilometraje (Recorrido)</strong></h5></li>
+                        <li><span>{{ kilometraje }} Km.</span></li>
+                    </ul>
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Placa</strong></h5></li>
+                        <li><span>{{ placa }}</span></li>
+                    </ul>
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Nro. Copia</strong></h5></li>
+                        <li><span>{{ nro_copia }}</span></li>
+                    </ul>
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Observacion</strong></h5></li>
+                        <li><span>{{ observacion_vehiculo }}</span></li>
+                    </ul>
+                    <ul class="list-unstyled text-center">
+                        <li><h5 class="mb-0" STYLE="COLOR: RGB(211, 50, 50);"><strong>Plataforma</strong></h5></li>
+                        <li><a href="{{link}}" target="_blank"><span>{{ plataforma }}</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-lg-12 col-xl-6">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-sm-12 col-12">
+                    <h5 class="page-title" STYLE="COLOR: RGB(211, 50, 50);">Cotización</h5>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table">
+                        <thead>
+                            <tr>
+                                <th>Nro.</th>
+                                <th>Proceso</th>
+                                <th>Monto Estimado</th>
+                                <th>Registro</th>
+                                <th>Fecha</th>
+                                <th class="text-right">Opc.</th>
+                            </tr> 
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let detalle of listaDetalle; let i = index;">
+                                <td class="text-center">{{i+1}}</td>
+                                <td class="text-center">{{ detalle.nombre_proceso }}</td>
+                                <td class="text-center">$us. {{ detalle.monto | number:'1.2-2' }}</td>
+                                <td class="text-center">
+                                    <h2 style="color: rgb(101, 103, 106); font-size: 80%;"><a>{{ detalle.usuario | uppercase }}</a></h2>
+                                </td>
+                                <td class="text-center">
+                                    <h2><a>{{ detalle.fecha }}<span style="color: rgb(81, 84, 87)">Hora: {{ detalle.hora }}</span></a></h2>
+                                </td>
+                                <td class="text-right">
+                                    
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-12">
+                    <h5 class="page-title" STYLE="COLOR: RGB(211, 50, 50);">Repuestos</h5>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table">
+                        <thead>
+                            <tr>
+                                <th>Nro.</th>
+                                <th>Repuesto</th>
+                                <th>Costo</th>
+                                <th>Registro</th>
+                                <th>Fecha</th>
+                                <th class="text-right">Opc.</th>
+                            </tr> 
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let repuesto of listaCotizacionRepuesto; let i = index;">
+                                <td class="text-center">{{i+1}}</td>
+                                <td class="text-center">{{ repuesto.nombre_repuesto }}</td>
+                                <td class="text-center">$us. {{ repuesto.costo | number:'1.2-2' }}</td>
+                                <td class="text-center">
+                                    <h2 style="color: rgb(101, 103, 106); font-size: 80%;"><a>{{ repuesto.usuario | uppercase }}</a></h2>
+                                </td>
+                                <td class="text-center">
+                                    <h2><a>{{ repuesto.fecha }}<span style="color: rgb(81, 84, 87)">Hora: {{ repuesto.hora }}</span></a></h2>
+                                </td>
+                                <td class="text-right">
+                                    
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="m-b-20">
+                        <h6 style="color: rgb(199, 22, 22);">Total de Resultados</h6>
+                        <div class="table-responsive no-border">
+                            <table class="table mb-0" style="color: rgb(85, 85, 85);">
+                                <tbody>
+                                    <tr>
+                                        <th>Total Detalle</th>
+                                        <td class="text-right text-info">$us. {{ totalDetalle | number:'1.2-2' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total Repuestos</th>
+                                        <td class="text-right text-info">$us. {{ totalRepuesto | number:'1.2-2' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total </th>
+                                        <td class="text-right text-success">$us. {{ totalCotizacion | number:'1.2-2' }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 col-xl-6">
+        <div class="card-box">
+            <div class="row">
+                <div class="col-sm-7 col-7">
+                    <h5 class="page-title" STYLE="COLOR: RGB(211, 50, 50);">Procesos de importacion</h5>
+                </div>
+                <div class="col-sm-5 text-right m-b-20">
+                    <a href="javascript:void(0);" id="btnActualizarProceso" style="display: none;" (click)="agregarImportacionProceso()" class="btn btn btn-info btn-rounded float-right"><i class="fa fa-plus"></i> ACTUALIZAR</a> 
+                    <a href="javascript:void(0);" id="btnAgregarProceso" style="display: none;"  (click)="click_abrirAgregarProceso()" class="btn btn btn-success btn-rounded float-right"><i class="fa fa-plus"></i> AGREGAR PROCESOS</a> 
+                </div>
+            </div>
+
+            <div class="row">
+                
+                <div class="table-responsive" id="tablaDetalle" style="display: none;">
+                    <table class="table table-striped custom-table">
+                        <thead>
+                            <tr>
+                                <th>Nro</th>
+                                <th>Fecha - Hora</th>
+                                <th>Proceso</th>
+                                <th>Subtotal</th>
+                                <th>Usuario</th>
+                                <th>Estado Pago</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let proceso of listaProceso;let i = index;">
+                                <td>{{ i + 1 }}</td>
+                                <td class="text-center">
+                                    <h2><a>{{ proceso.fecha }}<span style="color: rgb(81, 84, 87)">Hora: {{ proceso.hora }}</span></a></h2>
+                                </td>
+                                <td>{{ proceso.proceso }}</td>
+                                <td class="text-center">$us. {{ proceso.subtotal | number:'1.2-2' }}</td>
+                                <td class="text-center">
+                                    <h2 style="color: rgb(101, 103, 106); font-size: 80%;"><a>{{ proceso.usuario | uppercase }}</a></h2>
+                                </td>
+                                <td > <span class="custom-badge " [ngClass]="proceso.id_recibo_pago=='1' ? 'status-red': proceso.verificado=='1' ? 'status-green': 'status-yellow'">{{proceso.pago_verificacion}}</span></td>
+                                <td class="text-right">
+                                    <div class="dropdown dropdown-action">
+                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" [ngClass]="proceso.id_recibo_pago=='1' ? '': 'ocultar'" href="javascript:void(0);" data-toggle="modal" data-target="#modalReciboNuevo" (click)="click_generarRecibo(proceso.id, proceso.subtotal, proceso.proceso)"><i class="fa fa-plus m-r-5"></i> Generar Recibo de Pago</a>
+                                            <a class="dropdown-item" [ngClass]="proceso.id_recibo_pago=='1' ? 'ocultar': ''" href="javascript:void(0);" data-toggle="modal" data-target="#modalListaPagos" (click)="reporteReciboPagoById(proceso.id_recibo_pago)" ><i class="fa fa-eye m-r-5"></i> Imprimir Recibo de Pago</a>
+                                            <a class="dropdown-item" [ngClass]="proceso.id_recibo_pago=='1' ? 'ocultar': ''" href="javascript:void(0);" data-toggle="modal" data-target="#modalReciboDetalle" (click)="click_abrirReciboDetalle(proceso.id_recibo_pago)" ><i class="fa fa-check m-r-5"></i> Ver Detalles</a>
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-responsive" id="tablaModelo" style="display: none;">
+                    <table class="table table-striped custom-table">
+                        <thead>
+                            <tr>
+                                <th>Nro.</th>
+                                <th>Proceso</th>
+                                <th>Monto Estimado $us. </th>
+                                <th>Registro</th>
+                                <th>Fecha</th>
+                                <th class="text-right">Opc.</th>
+                            </tr> 
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let detalle of listaModelo; let i = index;">
+                                <td class="text-center">{{i+1}}</td>
+                                <td class="text-center">{{ detalle.nombre_proceso }}</td>
+                                <td class="text-center">
+                                    <div class="form-group">
+                                        <input type="number" [(ngModel)]="detalle.monto" #ctrl="ngModel" class="form-control" placeholder="Ingrese el monto">
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <h2 style="color: rgb(101, 103, 106); font-size: 80%;"><a>{{ detalle.usuario | uppercase }}</a></h2>
+                                </td>
+                                <td class="text-center">
+                                    <h2><a>{{ detalle.fecha }}<span style="color: rgb(81, 84, 87)">Hora: {{ detalle.hora }}</span></a></h2>
+                                </td>
+                                <td class="text-right">
+                                    
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <br><br><br>
+            <div class="col-sm-6 col-6">
+                <h5 class="page-title" STYLE="COLOR: RGB(211, 50, 50);">Reparacion en Taller</h5>
+            </div>
+            <div class="row">                        
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table">
+                        <thead>
+                            <tr>
+                                <th>Nro.</th>
+                                <th>Repuesto</th>
+                                <th>Costo</th>
+                                <th>Registro</th>
+                                <th>Fecha</th>
+                                <th class="text-right">Opc.</th>
+                            </tr> 
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let repuesto of listaGastos; let i = index;">
+                                <td class="text-center">{{i+1}}</td>
+                                <td class="text-center">{{ repuesto.nombre_repuesto }}</td>
+                                <td class="text-center">$us. {{ repuesto.costo | number:'1.2-2' }}</td>
+                                <td class="text-center">
+                                    <h2 style="color: rgb(101, 103, 106); font-size: 80%;"><a>{{ repuesto.usuario | uppercase }}</a></h2>
+                                </td>
+                                <td class="text-center">
+                                    <h2><a>{{ repuesto.fecha }}<span style="color: rgb(81, 84, 87)">Hora: {{ repuesto.hora }}</span></a></h2>
+                                </td>
+                                <td class="text-right">
+                                    
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <br>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="m-b-20">
+                        <h6 style="color: rgb(199, 22, 22);">Total de Resultados</h6>
+                        <div class="table-responsive no-border">
+                            <table class="table mb-0" style="color: rgb(85, 85, 85);">
+                                <tbody>
+                                    <tr>
+                                        <th>Total Importacion:</th>
+                                        <td class="text-right">$us. {{ totalImportacion }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total Reparacion en Taller: </th>
+                                        <td class="text-right">$us. {{ totalGasto }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total </th>
+                                        <td class="text-right text-success">$us. {{ total }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card-box">
+            <h5 class="page-title" STYLE="COLOR: RGB(211, 50, 50);">TALLER DE REPARACIÓN</h5>
+            <div class="col-sm-12" id="divAsignarTaller" style="display: none;">
+                <div class="text-center">
+                    <p>Aun no se asigno un taller de reparación</p>
+                    <button class="btn btn-danger" style="margin-right: 5px;" data-toggle="modal" data-target="#modalAgregarTaller" (click)="click_abrirAgregarTaller()">ASIGNAR TALLER</button>
+                </div>
+            </div>
+    
+            <div class="col-sm-12" id="divTaller" style="display: none;">
+                <div class="text-center">
+                    <p>Taller asignado: <b> {{ lblTallerAsignado }} </b></p>
+                    <button class="btn btn-success" style="margin-right: 5px;" (click)="click_irTallerDetalle()">VER DETALLES DEL TALLER</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

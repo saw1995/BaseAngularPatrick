@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-sm-6 col-6">
+        <h4 class="page-title">Lista de usuarios: {{lblTituloUsuario}}</h4>
+    </div>
+
+    <div class="col-sm-6 col-6 text-right m-b-20">
+
+        <div class="btn-group content" style="margin-right: 5px;">
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuarios {{lblTituloUsuario}}</button>
+            <div class="dropdown-menu" >
+                <a class="dropdown-item" href="javascript:void(0);" (click)="listaUsuarioByEstado('1')">Usuarios Habilitados</a>
+                <a class="dropdown-item" href="javascript:void(0);" (click)="listaUsuarioByEstado('0')">Usuarios Deshabilitados</a>
+            </div>
+        </div>
+ 
+        <a href="javascript:void(0);" class="btn btn-danger float-right" (click)="agregarUsuario()"><i class="fa fa-plus"></i> Agregar usuario</a>
+    </div>
+</div>
+
+<div class="row doctor-grid">
+    <div class="col-md-4 col-sm-4  col-lg-3" *ngFor="let datos of data">
+        <div class="profile-widget">
+            <div class="doctor-img">
+                <a class="avatar" href="javascript:void(0);"><img alt="" src="{{url}}imagenes/usuarios/{{datos.foto}}" (click)="ver_perfil_usuario(datos.id_usuario)"></a>
+            </div>
+            <div class="dropdown profile-action">
+                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="javascript:void(0);" (click)="navegar_editar_usuario(datos.id_usuario)"><i class="fa fa-pencil m-r-5"></i> Actualizar datos</a>
+                </div>
+            </div>
+            <h4 class="doctor-name text-ellipsis">
+                <a href="javascript:void(0);" (click)="ver_perfil_usuario(datos.id_usuario)">
+                {{datos.nombre}}, {{datos.appat}} {{datos.apmat}}</a></h4>
+            <div class="doc-prof">{{datos.nombre_rol}}</div>
+            <div class="user-country">
+                <i class="fa fa-map-marker"></i>  {{datos.departamento}}
+            </div>
+        </div>
+    </div>
+</div>

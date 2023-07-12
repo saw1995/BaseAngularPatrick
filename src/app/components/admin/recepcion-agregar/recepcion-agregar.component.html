@@ -1,0 +1,694 @@
+<div *ngIf="showModalAgregarMarca">
+    <div class="modal fade" id="modalAgregarMarca" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR NUEVA MARCA</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <strong>Nota: </strong> Tome en cuenta que <a class="alert-link">todos los campos con <span class="text-danger">*</span></a> son obligatorios.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Nombre de la Marca </strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="nombre_marca" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Nombre de la marca">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Descripción de la Marca</strong> <span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="descripcion_marca" #ctrl="ngModel" class="form-control" placeholder="Ingrese la descripcion de la marca">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Logo de la Marca</label></strong>
+                                <div class="custom-dropzone" ngx-dropzone [multiple]="false" [accept]="'image/*'" (change)="onSelectMarca($event)">
+                                    <ngx-dropzone-label>
+                                        <div>
+                                            <h2>AGREGAR LOGO</h2>
+                                        </div>
+                                    </ngx-dropzone-label>
+                                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of filesMarca" [file]="f" [removable]="true" (removed)="onRemoveMarca(f)">
+                                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                    </ngx-dropzone-image-preview>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarMarca()">REGISTRAR MARCA</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModal>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showModalAgregarClase">
+    <div class="modal fade" id="modalAgregarClase" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR NUEVA CLASE</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <strong>Nota: </strong> Tome en cuenta que <a class="alert-link">todos los campos con <span class="text-danger">*</span></a> son obligatorios.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Nombre de la Clase </strong><span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="nombre_clase" #ctrl="ngModel" class="form-control" placeholder="Ingrese el Nombre de la clase">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label><strong>Descripción de la Clase</strong> <span class="text-danger">*</span></label>
+                                <input type="text" [(ngModel)]="descripcion_clase" #ctrl="ngModel" class="form-control" placeholder="Ingrese la descripcion de la clase">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Logo de la Clase</label></strong>
+                                <div class="custom-dropzone" ngx-dropzone [multiple]="false" [accept]="'image/*'" (change)="onSelectClase($event)">
+                                    <ngx-dropzone-label>
+                                        <div>
+                                            <h2>AGREGAR LOGO</h2>
+                                        </div>
+                                    </ngx-dropzone-label>
+                                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of filesClase" [file]="f" [removable]="true" (removed)="onRemoveClase(f)">
+                                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                    </ngx-dropzone-image-preview>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarClaseVehiculo()">REGISTRAR CLASE</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModal>CANCELAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4 col-3">
+        <h4 class="page-title">Agregar Recepción</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            
+            <div id="wizard" class="form_wizard wizard_horizontal">
+                <ul class="wizard_steps">
+                  <li>
+                    <a href="#step-1">
+                      <span class="step_no">1</span>
+                      <span class="step_descr">Marca<br /><small>del Vehiculo</small></span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#step-2">
+                      <span class="step_no">2</span>
+                      <span class="step_descr">Vehiculo<br /><small>de recepcion</small></span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#step-3">
+                      <span class="step_no">3</span>
+                      <span class="step_descr">Accesorio<br/><small>de recepcion</small></span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#step-4">
+                      <span class="step_no">4</span>
+                      <span class="step_descr">Recepcion<br/><small>de Información</small></span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#step-5">
+                      <span class="step_no">5</span>
+                      <span class="step_descr">Parqueo<br/><small>de llegada</small></span>
+                    </a>
+                  </li>
+                </ul>
+                <div id="step-1">
+                    <h4 class="StepTitle">Seleccione una Marca</h4>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <strong><label>Seleccione una marca </label></strong>
+                                <select [(ngModel)]="id_marca" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione una Marca</option>
+                                    <option *ngFor = "let marca of listaMarca;" [value]="marca.id">{{marca.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="m-t-20 text-center">
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#modalAgregarMarca" (click)="click_agregarMarca()" style="margin-right: 5px;"><i class="fa fa-plus"></i> AGREGAR MARCA</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <strong><label>Seleccione una clase </label></strong>
+                                <select [(ngModel)]="id_clase" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione una clase</option>
+                                    <option *ngFor = "let clase of listaClase;" [value]="clase.id">{{clase.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="m-t-20 text-center">
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#modalAgregarClase" (click)="click_agregarClase()" style="margin-right: 5px;"><i class="fa fa-plus"></i> AGREGAR CLASE</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="step-2">
+                    <h4 class="StepTitle">Ingrese los datos del Vehiculo</h4>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <strong><label>Tipo </label></strong>
+                                <input type="text" [(ngModel)]="tipo_vehiculo" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <strong><label>Version </label></strong>
+                                <input type="text" [(ngModel)]="version_vehiculo" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <strong><label>Año </label></strong>
+                                <input type="number" [(ngModel)]="anho_vehiculo" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <strong><label>Pais </label></strong>
+                                <select [(ngModel)]="pais_vehiculo" #ctrl="ngModel" id="cbPais" class="form-control">
+                                    <option value="" disabled selected>Seleccione un Pais</option>
+                                    <option value="China">China</option>
+                                    <option value="Estados Unidos">Estados unidos</option>
+                                    <option value="India">India</option>
+                                    <option value="Japon">Japon</option>
+                                    <option value="Mexico">Mexico</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <strong><label>Traccion </label></strong>
+                                <input type="text" [(ngModel)]="traccion_vehiculo" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <strong><label>Color </label></strong>
+                                <input type="text" [(ngModel)]="color_vehiculo" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+
+                            <div class="form-group">
+                                <strong><label>Turbo </label></strong>
+                                <ul class="list-group notification-list">
+                                    <li class="list-group-item">
+                                        ¿Este vehículo tiene Turbo?
+                                        <div class="material-switch float-right">
+                                            NO  <input id="extinguidor_module" type="checkbox" [(ngModel)]="turbo_vehiculo" [checked]="turbo_vehiculo">
+                                            <label for="extinguidor_module" class="badge-primary"></label>  SI
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <strong><label>Caja </label></strong>
+                                <select [(ngModel)]="caja_vehiculo" #ctrl="ngModel" id="cbCaja" class="form-control">
+                                    <option value="" disabled selected>Seleccione una opcion</option>
+                                    <option value="Manual Mecanica">Manual Mecanica</option>
+                                    <option value="Automatica">Automatica</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <strong><label>Cilindrada </label></strong>
+                                <input type="number" [(ngModel)]="cilindrada_vehiculo" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <strong><label>Puertas </label></strong>
+                                <select [(ngModel)]="nro_puerta_vehiculo" #ctrl="ngModel" id="cbNroPuerta" class="form-control">
+                                    <option value="" disabled selected>Seleccione una opcion</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <strong><label>Kilometraje </label></strong>
+                                <input type="number" [(ngModel)]="kilometraje_vehiculo" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <strong><label>Placa </label></strong>
+                                <input type="text" [(ngModel)]="placa_vehiculo" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <strong><label>Nro. Copia </label></strong>
+                                <select [(ngModel)]="nro_copia_vehiculo" #ctrl="ngModel" id="cbNroCopia" class="form-control">
+                                    <option value="" disabled selected>Seleccione una opcion</option>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <strong><label>Precio Propietario </label></strong>
+                                <input type="number" step="0.1" [(ngModel)]="precio_propietario_vehiculo" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <strong><label>Precio Venta </label></strong>
+                                <input type="number" step="0.1"[(ngModel)]="precio_venta_vehiculo" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong><label>Observacion </label></strong>
+                                <input type="text" [(ngModel)]="observacion_vehiculo" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Fotografias del Vehiculo</label></strong>
+                                <div class="custom-dropzone" ngx-dropzone [multiple]="false" [accept]="'image/*'" (change)="onSelectVehiculo($event)">
+                                    <ngx-dropzone-label>
+                                        <div>
+                                            <h2>AGREGAR FOTOGRAFIA</h2>
+                                        </div>
+                                    </ngx-dropzone-label>
+                                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of filesVehiculo" [file]="f" [removable]="true" (removed)="onRemoveVehiculo(f)">
+                                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                    </ngx-dropzone-image-preview>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="step-3">
+                    
+                    <div class="row">
+                        <div class="col-6 col-sm-6 col-md-6">
+                            <h4 class="StepTitle">Ingrese los Accesorios del Vehiculo</h4>
+                        </div>
+                        <div class="col-6 col-sm-6 col-md-6">
+                            <div class="form-check text-right">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [checked]="seleccion_todo_accesorio" (click)="clickSeleccionTodo()">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                  Seleccionar Todos
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <br>
+                    <div class="row">
+
+                        <div class="col-sm-6">
+                            <ul class="list-group notification-list">
+                                <li class="list-group-item">
+                                    Extinguidor
+                                    <div class="material-switch float-right">
+                                        <input id="extinguidor_module" type="checkbox" [(ngModel)]="extinguidor_accesorio" [checked]="extinguidor_accesorio">
+                                        <label for="extinguidor_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Estuche de Herramientas
+                                    <div class="material-switch float-right">
+                                        <input id="estuche_herramienta_module" type="checkbox" [(ngModel)]="estuche_herramienta_accesorio" [checked]="estuche_herramienta_accesorio">
+                                        <label for="estuche_herramienta_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Fundas
+                                    <div class="material-switch float-right">
+                                        <input id="fundas_module" type="checkbox" [(ngModel)]="fundas_accesorio" [checked]="fundas_accesorio">
+                                        <label for="fundas_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                
+                                <li class="list-group-item">
+                                    Ceniceros
+                                    <div class="material-switch float-right">
+                                        <input id="ceniceros_module" type="checkbox" [(ngModel)]="ceniceros_accesorio" [checked]="ceniceros_accesorio">
+                                        <label for="ceniceros_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Encendedor
+                                    <div class="material-switch float-right">
+                                        <input id="encendedor_module" type="checkbox" [(ngModel)]="encendedor_accesorio" [checked]="encendedor_accesorio">
+                                        <label for="encendedor_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Manual
+                                    <div class="material-switch float-right">
+                                        <input id="manual_module" type="checkbox" [(ngModel)]="manual_accesorio" [checked]="manual_accesorio">
+                                        <label for="manual_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Radio ( TC / CD / DVD)
+                                    <div class="material-switch float-right">
+                                        <input id="radio_module" type="checkbox" [(ngModel)]="radio_accesorio" [checked]="radio_accesorio">
+                                        <label for="radio_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Mataburro
+                                    <div class="material-switch float-right">
+                                        <input id="mataburro_module" type="checkbox" [(ngModel)]="mataburro_accesorio" [checked]="mataburro_accesorio">
+                                        <label for="mataburro_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Halogenos
+                                    <div class="material-switch float-right">
+                                        <input id="halogenos_module" type="checkbox" [(ngModel)]="halogenos_accesorio" [checked]="halogenos_accesorio">
+                                        <label for="halogenos_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item">
+                                    Antena
+                                    <div class="material-switch float-right">
+                                        <input id="antena_module" type="checkbox" [(ngModel)]="antena_accesorio" [checked]="antena_accesorio">
+                                        <label for="antena_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item">
+                                    Cabezales
+                                    <div class="material-switch float-right">
+                                        <input id="cabezales_module" type="number" [(ngModel)]="cabezales_accesorio">
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Sobrepisos
+                                    <div class="material-switch float-right">
+                                        <input id="sobrepiso_module" type="number" [(ngModel)]="sobrepiso_accesorio">
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Quitasol
+                                    <div class="material-switch float-right">
+                                        <input id="quitasol_module" type="number" [(ngModel)]="quitasol_accesorio">
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item">
+                                    Limpia Parabrisas
+                                    <div class="material-switch float-right">
+                                        <input id="limpia_parabrisas_module" type="number" [(ngModel)]="limpia_parabrisas_accesorio" >
+                                    </div>
+                                </li>
+                                
+                                <li class="list-group-item">
+                                    Espejos
+                                    <div class="material-switch float-right">
+                                        <input id="espejos_module" type="number" [(ngModel)]="espejos_accesorio">
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Tapacubos
+                                    <div class="material-switch float-right">
+                                        <input id="tapacubos_module" type="number" [(ngModel)]="tapacubos_accesorio">
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Emblemas
+                                    <div class="material-switch float-right">
+                                        <input id="emblemas_module" type="number" [(ngModel)]="emblemas_accesorio" >
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <ul class="list-group notification-list">
+                                <li class="list-group-item">
+                                    Soat (Sticker)
+                                    <div class="material-switch float-right">
+                                        <input id="soat_module" type="checkbox" [(ngModel)]="soat_accesorio" [checked]="soat_accesorio">
+                                        <label for="soat_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Inspeccion (Sticker)
+                                    <div class="material-switch float-right">
+                                        <input id="inspeccion_module" type="checkbox" [(ngModel)]="inspeccion_accesorio" [checked]="inspeccion_accesorio">
+                                        <label for="inspeccion_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Alarma
+                                    <div class="material-switch float-right">
+                                        <input id="alarma_module" type="checkbox" [(ngModel)]="alarma_accesorio" [checked]="alarma_accesorio">
+                                        <label for="alarma_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Tapa de Tanque
+                                    <div class="material-switch float-right">
+                                        <input id="tapa_tanque_module" type="checkbox" [(ngModel)]="tapa_tanque_accesorio" [checked]="tapa_tanque_accesorio">
+                                        <label for="tapa_tanque_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Gata
+                                    <div class="material-switch float-right">
+                                        <input id="gata_module" type="checkbox" [(ngModel)]="gata_accesorio" [checked]="gata_accesorio">
+                                        <label for="gata_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Manivela
+                                    <div class="material-switch float-right">
+                                        <input id="manivela_module" type="checkbox" [(ngModel)]="manivela_accesorio" [checked]="manivela_accesorio">
+                                        <label for="manivela_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Llave de Ruedas
+                                    <div class="material-switch float-right">
+                                        <input id="llave_rueda_module" type="checkbox" [(ngModel)]="llave_rueda_accesorio" [checked]="llave_rueda_accesorio">
+                                        <label for="llave_rueda_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Dado de Seguridad
+                                    <div class="material-switch float-right">
+                                        <input id="dado_seguridad_module" type="checkbox" [(ngModel)]="dado_seguridad_accesorio" [checked]="dado_seguridad_accesorio">
+                                        <label for="dado_seguridad_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    triangulo
+                                    <div class="material-switch float-right">
+                                        <input id="triangulo_module" type="checkbox" [(ngModel)]="triangulo_accesorio" [checked]="triangulo_accesorio">
+                                        <label for="triangulo_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Botiquin
+                                    <div class="material-switch float-right">
+                                        <input id="botiquin_module" type="checkbox" [(ngModel)]="botiquin_accesorio" [checked]="botiquin_accesorio">
+                                        <label for="botiquin_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Llanta de Auxilio
+                                    <div class="material-switch float-right">
+                                        <input id="llanta_auxilio_module" type="checkbox" [(ngModel)]="llanta_auxilio_accesorio" [checked]="llanta_auxilio_accesorio">
+                                        <label for="llanta_auxilio_module" class="badge-primary"></label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <br>
+                            <div class="form-group">
+                                <strong><label>Detalle de Pintura </label></strong>
+                                <input type="text" [(ngModel)]="detalle_pintura_accesorio" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <strong><label>Estado de Llantas </label></strong>
+                                <input type="text" [(ngModel)]="estado_llanta_accesorio" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong><label>Nro. Bateria </label></strong>
+                                <input type="text" [(ngModel)]="nro_bateria_accesorio" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong><label>Gasolina </label></strong>
+                                <input type="text" [(ngModel)]="gasolina_accesorio" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Observacion </label></strong>
+                                <input type="text" [(ngModel)]="observacion_accesorio" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Fotografias</label></strong>
+                                <div class="custom-dropzone" ngx-dropzone [multiple]="false" [accept]="'image/*'" (change)="onSelectAccesorio($event)">
+                                    <ngx-dropzone-label>
+                                        <div>
+                                            <h2>AGREGAR FOTOGRAFIA</h2>
+                                        </div>
+                                    </ngx-dropzone-label>
+                                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of filesAccesorio" [file]="f" [removable]="true" (removed)="onRemoveAccesorio(f)">
+                                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                    </ngx-dropzone-image-preview>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="step-4">
+                    <h4 class="StepTitle">Datos del registro</h4>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Nombre y Apellido del Propietario: <span class="text-danger">*</span></label></strong>
+                                <input type="text" [(ngModel)]="nombre_recepcion" #ctrl="ngModel" class="form-control" placeholder="Ingrese el nombre completo">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong><label>CI: <span class="text-danger">*</span></label></strong>
+                                <input type="text" [(ngModel)]="ci_recepcion" #ctrl="ngModel" class="form-control" placeholder="Ingrese la C.I.">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong><label>Telefono del Propietario: <span class="text-danger">*</span></label></strong>
+                                <input type="number" [(ngModel)]="telefono_recepcion" #ctrl="ngModel" class="form-control" placeholder="Ingrese el telefono">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Direccion del Propietario: <span class="text-danger">*</span></label></strong>
+                                <input type="text" [(ngModel)]="direccion_recepcion" #ctrl="ngModel" class="form-control" placeholder="Ingrese la direccion">
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Observacion: <span class="text-danger">*</span></label></strong>
+                                <input type="text" [(ngModel)]="observacion_recepcion" #ctrl="ngModel" class="form-control" placeholder="Observacion">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="step-5">
+                    <h4 class="StepTitle">Seleccione el parqueo a estacionar</h4>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong><label>Sucursal</label></strong>
+                                <select [(ngModel)]="id_sucursal_parqueo" #ctrl="ngModel" class="form-control" (change)="listaParqueoByIdSucursalByRol()">
+                                    <option value="" disabled selected>Seleccione una Sucursal</option>
+                                    <option value="1">Sin Sucursal</option>
+                                    <option *ngFor = "let sucursal of listaSucursal;" [value]="sucursal.id">{{sucursal.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <strong><label>Parqueo</label></strong>
+                                <select [(ngModel)]="id_parqueo" #ctrl="ngModel" class="form-control">
+                                    <option value="" disabled selected>Seleccione una Parqueo</option>
+                                    <option *ngFor = "let parqueo of listaParqueo;" [value]="parqueo.id">{{parqueo.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <strong><label>Observacion: <span class="text-danger">*</span></label></strong>
+                                <input type="text" [(ngModel)]="observacion_parqueo" #ctrl="ngModel" class="form-control" placeholder="Observacion">
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="StepTitle">¿Esta seguros de los datos de registro?</h4>
+                    <div class="m-t-20 text-center">
+                        <button class="btn btn-danger" (click)="agregarVehiculo()" style="margin-right: 5px;"><i class="fa fa-plus"></i> REGISTRAR RECEPCION</button>
+                    </div>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>

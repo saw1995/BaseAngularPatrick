@@ -1,0 +1,490 @@
+<div *ngIf="showModalAgregarPagoComprobante">
+    <div class="modal fade" id="ModalAgregarPagoComprobante" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel" style="color: #fff;">AGREGAR COMPROBANTE PAGO</h4>
+                </div>
+                <div class="card-box" style="margin-bottom: 0px">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="row">
+                        
+
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="row">
+                                    <div class="material-switch float-right">
+                                        <strong>¿Calcular Cortes de billete?. . .</strong><input id="extinguidor_module" type="checkbox" [(ngModel)]="opcionCorteOcultar" [checked]="opcionCorteOcultar">
+                                        <label for="extinguidor_module" class="badge-primary"></label>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <br>
+
+                            <div class=" " [ngClass]="{'ocultar' : opcionCorteOcultar==0, 'row' : opcionCorteOcultar==1}">
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="doctor-img">
+                                                    <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/billete10.jpg"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label><strong>Corte de Bs. 10 </strong></label>
+                                                <input type="number" [(ngModel)]="corte10" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group text-center">
+                                                <label>SubTotal</label>
+                                                <br>
+                                                <label><strong>Bs. {{ subTotal10 }} </strong></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="doctor-img">
+                                                    <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/billete20.jpg"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label><strong>Corte de Bs. 20 </strong></label>
+                                                <input type="number" [(ngModel)]="corte20" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group text-center">
+                                                <label>SubTotal</label>
+                                                <br>
+                                                <label><strong>Bs. {{ subTotal20 }} </strong></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="doctor-img">
+                                                    <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/billete50.jpg"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label><strong>Corte de Bs. 50 </strong></label>
+                                                <input type="number" [(ngModel)]="corte50" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group text-center">
+                                                <label>SubTotal</label>
+                                                <br>
+                                                <label><strong>Bs. {{ subTotal50 }} </strong></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="doctor-img">
+                                                    <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/billete100.jpg"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label><strong>Corte de Bs. 100 </strong></label>
+                                                <input type="number" [(ngModel)]="corte100" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group text-center">
+                                                <label>SubTotal</label>
+                                                <br>
+                                                <label><strong>Bs. {{ subTotal100 }} </strong></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="doctor-img">
+                                                    <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/billete200.jpg"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label><strong>Corte de Bs. 200 </strong></label>
+                                                <input type="number" [(ngModel)]="corte200" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group text-center">
+                                                <label>SubTotal</label>
+                                                <br>
+                                                <label><strong>Bs. {{ subTotal200 }} </strong></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group text-center">
+                                                <label>SubTotal</label>
+                                                <br>
+                                                <label><strong>Bs. {{ subTotalBolivianos }} </strong></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="doctor-img">
+                                                    <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/dolar10.jpg"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label><strong>Corte de $us. 10 </strong></label>
+                                                <input type="number" [(ngModel)]="corteDolar10" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group text-center">
+                                                <label>SubTotal</label>
+                                                <br>
+                                                <label><strong>$us. {{ subTotalDolar10 }} </strong></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="doctor-img">
+                                                    <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/dolar20.jpg"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label><strong>Corte de $us. 20 </strong></label>
+                                                <input type="number" [(ngModel)]="corteDolar20" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group text-center">
+                                                <label>SubTotal</label>
+                                                <br>
+                                                <label><strong>$us. {{ subTotalDolar20 }} </strong></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="doctor-img">
+                                                    <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/dolar50.jpg"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label><strong>Corte de $us. 50 </strong></label>
+                                                <input type="number" [(ngModel)]="corteDolar50" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group text-center">
+                                                <label>SubTotal</label>
+                                                <br>
+                                                <label><strong>$us. {{ subTotalDolar50 }} </strong></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="doctor-img">
+                                                    <a class="avatar" href="javascript:void(0);"><img class="center_image " alt="" src="assets/plantilla/img/dolar100.jpg"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label><strong>Corte de $us. 100 </strong></label>
+                                                <input type="number" [(ngModel)]="corteDolar100" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion" (keyup)="calcularTotal()">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group text-center">
+                                                <label>SubTotal</label>
+                                                <br>
+                                                <label><strong>$us. {{ subTotalDolar100 }} </strong></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group text-center">
+                                                <label>SubTotal</label>
+                                                <br>
+                                                <label><strong>$us. {{ subTotalDolares }} </strong></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label><strong>Seleccione el Cliente </strong><span class="text-danger">*</span></label>
+                                            <select [(ngModel)]="id_clientePago" #ctrl="ngModel" id="cbMoneda" class="form-control">
+                                                <option value="0" disabled selected>Seleccione un cliente</option>
+                                                <option *ngFor = "let data of datosClientePago;" [value]="data.id">{{ data.nombre }} {{ data.appat }} {{ data.apmat }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label><strong>Seleccione el Vehículo </strong><span class="text-danger">*</span></label>
+                                            <select [(ngModel)]="id_vehiculoPago" #ctrl="ngModel" id="cbMoneda" class="form-control">
+                                                <option value="0" disabled selected>Seleccione un Moneda</option>
+                                                <option *ngFor = "let data of datosVehiculoPago;" [value]="data.id">{{ data.clase_vehiculo }} - {{ data.marca }} - {{ data.tipo }} {{ data.version }} {{ data.anho }} color:{{ data.color }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label><strong>Glosa </strong><span class="text-danger">*</span></label>
+                                            <input type="text" [(ngModel)]="glosa" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                                        <div class="form-group">
+                                            <label><strong>Monto </strong><span class="text-danger">*</span></label>
+                                            <input type="number" [(ngModel)]="monto" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                                        <div class="form-group">
+                                            <label><strong>Moneda </strong><span class="text-danger">*</span></label>
+                                            <select [(ngModel)]="moneda" #ctrl="ngModel" id="cbMoneda" class="form-control">
+                                                <option value="" disabled selected>Seleccione un Moneda</option>
+                                                <option value="Bolivianos">Bolivianos</option>
+                                                <option value="Dolares">Dolares</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                                        <div class="form-group">
+                                            <label><strong>Nombre de Origen </strong><span class="text-danger">*</span></label>
+                                            <input type="text" [(ngModel)]="nombre_origen" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                                        <div class="form-group">
+                                            <label><strong>Cuenta de Origen </strong><span class="text-danger">*</span></label>
+                                            <input type="text" [(ngModel)]="cuenta_origen" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                                        <div class="form-group">
+                                            <label><strong>Banco de Origen</strong><span class="text-danger">*</span></label>
+                                            <input type="text" [(ngModel)]="banco_origen" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                                        <div class="form-group">
+                                            <label><strong>Cuenta de Destino </strong><span class="text-danger">*</span></label>
+                                            <input type="text" [(ngModel)]="cuenta_destino" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                                        <div class="form-group">
+                                            <label><strong>Banco de Destino</strong><span class="text-danger">*</span></label>
+                                            <input type="text" [(ngModel)]="banco_destino" #ctrl="ngModel" class="form-control" placeholder="Ingrese la informacion">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+
+                    
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="agregarVehiculoPago()">REGISTRAR PAGO</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal" #cerrarModal>CERRAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4 col-3">
+        <h4 class="page-title">Lista de Comprobantes Pago</h4>
+    </div>
+    <div class="col-sm-8 col-9 text-right m-b-20">
+        <a href="javascript:void(0);" (click)="click_AbrirAgregarPago()"
+        data-toggle="modal" data-target="#ModalAgregarPagoComprobante" class="btn btn btn-danger float-right"><i class="fa fa-plus"></i> Agregar Comprobante Pago</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-box">
+            <strong><p class="doctor-name text-ellipsis" style="color:rgb(5, 7, 153); margin-bottom: 3px;">FILTRO DE BUSQUEDA</p></strong>
+            <div class="row">
+                <div class="col-sm-6 text-center">
+                    <strong><label>Buscar por: </label></strong>
+                    <div class="row" style="margin-left: 30px;">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="rbMes" (click)="clickRbMes()" checked>
+                            <label class="form-check-label" for="gender_male">
+                                Busqueda por Mes
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="rbFecha" (click)="clickRbFecha()">
+                            <label class="form-check-label" for="gender_female">
+                                Busqueda por Fecha
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 text-center">
+                    <strong><label>Generar en Documento: </label></strong>
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <img width="30px" src="assets/svg/ic_pdf.svg" alt="insertar SVG con la etiqueta image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-4 text-center">
+                    <strong><label>{{ rangoUno }}</label></strong>
+                    <select [(ngModel)]='mes' id="cbMes" class="form-control" (change)="changeMes()">
+                        <option value="1">Enero</option>
+                        <option value="2">Febrero</option>
+                        <option value="3">Marzo</option>
+                        <option value="4">Abril</option>
+                        <option value="5">Mayo</option>
+                        <option value="6">Junio</option>
+                        <option value="7">Julio</option>
+                        <option value="8">Agosto</option>
+                        <option value="9">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
+                    </select>
+                    <div class="form-group" id="divFechaInicio" style="display:none">
+                        <input type="date" [(ngModel)]="fecha_inicio" #ctrl="ngModel" class="form-control date" (change)="changeFechaFinal()">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-4 text-center">
+                    <strong><label>{{ rangoDos }}</label></strong>
+                    <select [(ngModel)]='gestionActual' id="cbGestion" class="form-control" (change)="changeGestion()">
+                        <option *ngFor = "let data of datosGestion;" [value]="data.gestion">{{ data.gestion }}</option>
+                    </select>
+                    <div class="form-group" id="divFechaFinal" style="display:none">
+                        <input type="date" [(ngModel)]="fecha_final" #ctrl="ngModel" class="form-control date" (change)="changeFechaInicio()">
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-4 col-lg-4 text-center">
+                    <strong><label>Usuario</label></strong>
+                    <select [(ngModel)]='id_usuario' id="cbUsuario" class="form-control" (change)="changeUsuario()">
+                        <option [value]="0" selected> Todos </option>
+                        <option *ngFor = "let data of datosUsuario;" [value]="data.id_usuario">{{ data.nombre_rol }} - {{ data.nombre }} {{ data.appat }} {{ data.apmat }}</option>
+                    </select>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-4 col-lg-4 text-center">
+                    <strong><label>Cliente</label></strong>
+                    <select [(ngModel)]="id_cliente" #ctrl="ngModel" id="cbMoneda" class="form-control" (change)="changeUsuario()">
+                        <option [value]="0" selected> Todos </option>
+                        <option *ngFor = "let data of datosCliente;" [value]="data.id">{{ data.nombre }} {{ data.appat }} {{ data.apmat }}</option>
+                    </select>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-4 col-lg-4 text-center">
+                    <strong><label>Vehiculo</label></strong>
+                    <select [(ngModel)]="id_vehiculo" #ctrl="ngModel" id="cbMoneda" class="form-control" (change)="changeUsuario()">
+                        <option [value]="0" selected> Todos </option>
+                        <option *ngFor = "let data of datosVehiculos;" [value]="data.id">{{ data.clase_vehiculo }} - {{ data.marca }} - {{ data.tipo }} {{ data.version }} {{ data.anho }} color:{{ data.color }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped custom-table">
+                <thead>
+                    <tr>
+                        <th>Fecha-Hora</th>
+                        <th>Cliente</th>
+                        <th>Vehiculo detalle</th>
+                        <th>Concepto</th>
+                        <th>Usuario</th>
+                        <th>Estado</th>
+                        <th>SUBTOTAL</th>
+                        <th></th>
+                    </tr> 
+                </thead>
+                <tbody>
+                    <tr *ngFor="let venta of listaVenta;let i =index;">
+                        <td><h2><a>{{ venta.fecha }} - {{ venta.hora }}</a></h2></td>
+                        <td><a>{{ venta.cliente }}</a></td>
+                        <td>
+                            <h2><a>{{ venta.clase_vehiculo }} {{ venta.marca_vehiculo }} <span>{{ venta.tipo_vehiculo }} {{ venta.version_vehiculo }} {{ venta.anho_vehiculo }} color: {{venta.color_vehiculo}}</span></a></h2>
+                        </td>
+                        <td>
+                            <h2><a>{{ venta.concepto }}<span>{{ venta.cuenta_destino }} {{ venta.banco_destino }}</span></a></h2>
+                        </td>
+                        <td>{{ venta.usuario }}</td>
+                        <td><span class="custom-badge " [ngClass]="venta.verificado==1 ? 'status-green': 'status-red'">{{venta.estado_verificacion}}</span></td>
+                        <td><h2><a><span>{{ venta.moneda }}</span> {{ venta.monto | number:'2.2-2'}}</a></h2></td>
+                        <td class="text-right">
+                            <div class="dropdown dropdown-action">
+                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="javascript:void(0);" ><i class="fa fa-eye m-r-5"></i> Ver Detalle</a>
+                                    <a class="dropdown-item" href="javascript:void(0);" ><i class="fa fa-file-image-o m-r-5"></i> Archivo Foto</a>
+                                    <a class="dropdown-item" href="javascript:void(0);" (click)="reporteDetallePagosDetalleByVehiculoPago(venta.id_vehiculo_pago)"><i class="fa fa-print m-r-5"></i> Imprimir detalle</a>
+                                    <a class="dropdown-item" href="javascript:void(0);" (click)="actualizarVentaVerificacionDatosById(venta.id_vehiculo_pago)"><i class="fa fa-check m-r-5"></i> Verificar Pago</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

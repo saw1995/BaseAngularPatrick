@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-sm-8 col-8">
+        <h4 class="page-title">Inventario de Importación</h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped custom-table">
+                <thead>
+                    <tr>
+                        <th>Nro.</th>
+                        <th>Fecha</th>
+                        <th>Vehiculo</th>
+                        <th>Cliente</th>
+                        <th>Personal</th>
+                        <th class="text-right">Opc.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let importacion of listaImportacion">
+                        <td class="text-center">#{{ importacion.nro }}</td>
+                        <td class="text-center">
+                            <h2><a>{{ importacion.fecha }}<span style="color: rgb(81, 84, 87)">Hora: {{ importacion.hora }}</span></a></h2>
+                        </td>
+                        <td class="text-center">
+                            <div style="display: flex;">
+                                <img width="50" height="50" src="{{ url }}imagenes/vehiculos/{{importacion.foto_uno}}" class="rounded-circle m-r-5" alt="">
+                                <h2 style="font-size: 95%;"><a>{{ importacion.clase_vehiculo }} {{ importacion.marca }} <span style="color: rgb(32, 121, 148);">{{ importacion.tipo }} {{ importacion.version }} {{ importacion.anho }}</span><span style="color: rgb(65, 70, 71);">{{ importacion.observacion }}</span></a></h2>
+                            </div>
+                        </td>
+                        <td class="text-center">{{ importacion.cliente }}</td>
+                        <td class="text-center">
+                            <h2 style="color: rgb(101, 103, 106); font-size: 85%;"> {{ importacion.usuario }} </h2></td>
+                        <td class="text-right">
+                            <a href="javascript:void(0);" class="btn btn btn-success btn-rounded float-right" (click)="click_nevagarImportacionDetalle(importacion.id_vehiculo)"><i class="fa fa-eye"></i> </a> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
